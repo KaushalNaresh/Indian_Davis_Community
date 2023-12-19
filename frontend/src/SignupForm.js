@@ -2,23 +2,48 @@
 import React, { useState } from 'react';
 import './SignupForm.css'; // Make sure you have the corresponding CSS file
 
-const SignupForm = () => {
+const SignupForm = ({showSignup}) => {
+  const BASE_URL = "http://localhost:3001/api";
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [ucDavisId, setUcDavisId] = useState('');
   const [error, setError] = useState('');
+  const validator = require("validator");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!/^[^\s@]+@ucdavis\.edu$/i.test(email)) {
-      setError('Please enter a valid UC Davis email address.');
+    if (!email || !password) {
+      setError('Please enter all the fields!');
       return;
     }
-    // Add more validation as necessary for password and UC Davis ID
+    if(!validator.isEmail(email)){
+      setError("Please eneter correct email Id!");
+      return;
+    }
+    if(!validator.isStrongPassword(password)){
+      setError("Password not strong enough!");
+      return;
+    }
 
     // If all validations pass, submit the form data
-    console.log('Form submitted', { email, password, ucDavisId });
-    // Here you would typically send the data to the server
+    try {
+        const response = await fetch(`${BASE_URL}/user/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, ucDavisId })
+        });
+        const errorResponse = await response.json();
+        if (!response.ok) {
+          setError(errorResponse.message)
+          throw new Error(errorResponse.message);
+        }; 
+        showSignup(false);
+     } 
+     catch (error) {
+      setError(error.message);
+    };
+    
   };
 
   return (

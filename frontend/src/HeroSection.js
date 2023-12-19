@@ -2,7 +2,7 @@ import React from 'react';
 import './HeroSection.css'; // Link to the CSS file
 import heroImage from "./images/HeroImage.jpg"
 
-function HeroSection({ onJoinClick }) {
+function HeroSection({ onJoinClick}) {
     return (
         <div className="hero-section">
             <div className="hero-content">

@@ -16,11 +16,11 @@ function App() {
   return (
     <div className="App">
       {showSignup ? (
-        <SignupForm />
+        <SignupForm showSignup={setShowSignup}/>
       ) : (
         <>
           <Header />
-          <HeroSection  onJoinClick={handleJoinClick} />
+          <HeroSection  onJoinClick={handleJoinClick}/>
           <Categories />
           <Footer />
         </>
