@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import React from 'react';
+import Header from './Header';
+import HeroSection from './HeroSection';
 import './App.css';
 
 function App() {
+  // The image is located in the public folder under images
+  const heroImageUrl = '/HeroImage.jpg';
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <HeroSection backgroundImage={heroImageUrl} />
+      <main>
+        {/* Other content of your app */}
+        <p>This is the main content of your app.</p>
+      </main>
     </div>
   );
 }
