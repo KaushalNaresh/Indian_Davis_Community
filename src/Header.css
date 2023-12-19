@@ -3,97 +3,88 @@
     justify-content: space-between;
     align-items: center;
     background: #FFFFFF;
-    /* White background for a clean look */
     padding: 1rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the header stays above other content */
 }
 
-.header__logo {
+.header-logo {
     font-size: 2rem;
     font-weight: bold;
     color: #DA251D;
-    /* Vibrant red for the logo */
     cursor: pointer;
+    flex: 1; /* Allows the logo to grow and take available space */
+    justify-content: flex-start;
+    display: flex;
 }
 
-.header__search {
-    flex-grow: 1;
-    /* Allows the search bar to grow to use available space */
-    margin: 0 1rem;
-    position: relative;
-}
-
-.header__search input {
-    width: 100%;
+.header-search input {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     border: 2px solid #DA251D;
-    /* A vibrant border color for the search */
     border-radius: 20px;
     outline: none;
+    width: 100%; /* Ensures the input doesn't grow beyond its parent */
 }
 
-.header__search button {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
+.header-search {
+    flex: 2; /* Allows the search bar to grow more than the logo */
+    position: relative;
+    display: flex; /* Ensures the input inside it can use width: 100% */
 }
 
-.header__actions {
+.header-actions {
+    flex: 1; /* Allows the button area to grow and take available space */
     display: flex;
-    justify-content: flex-end;
-    /* Aligns the buttons to the right */
+    /* justify-content: flex-end; */
+    align-items: center; /* Aligns buttons vertically center */
 }
 
-.header__actions .action__button {
-    background-color: #0056b3;
-    /* A professional blue color */
+.action-button {
+    padding: 0.5rem 1rem; /* Sets a uniform padding for buttons */
+    margin-left: 10px; /* Adds space between buttons */
+    white-space: nowrap; /* Ensures text doesn't wrap */
+    border-radius: 5px;
     border: none;
-    color: white;
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-    margin-left: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.header__actions .action__button:first-child {
+/* Additional styling */
+.action-button:first-child {
     background-color: #FFA000;
-    /* A vibrant but muted gold color */
 }
 
-.header__actions .action__button:hover {
-    background-color: #003670;
-    /* A darker blue on hover */
+.action-button:first-child:hover {
+    background-color: #ff7700;
     transform: translateY(-2px);
 }
 
-/* Ensures the header maintains its layout even on smaller screens */
+.action-button:nth-child(2):hover {
+    background-color: #23212134;
+    transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center; /* Center the items for mobile */
     }
 
-    .header__search {
-        width: 100%;
+    .header-search,
+    .header-actions {
+        width: 100%; /* Full width for mobile view */
+    }
+
+    .header-actions {
+        justify-content: center; /* Center buttons in mobile view */
         margin-top: 0.5rem;
     }
 
-    .header__actions {
-        width: 100%;
-        justify-content: space-between;
-        margin-top: 0.5rem;
-    }
-
-    .header__actions .action__button {
-        flex-grow: 1;
-        margin-left: 0;
-        margin-right: 0.5rem;
+    .header-actions .action-button {
+        margin-left: 5px; /* Smaller margin for mobile */
+        margin-right: 5px;
     }
 }
