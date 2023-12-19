@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+/* App.css */
+
+:root {
+  --background-color: #fff;
+  --text-color: #000;
+  --header-bg-color: #fff;
+  --header-text-color: #DA251D;
+  --button-bg-color: #FFA000;
+  --button-text-color: #fff;
+  /* Define other light mode variables as needed */
+}
+
+.dark-mode {
+  --background-color: #121212;
+  --text-color: #fff;
+  --header-bg-color: #333;
+  --header-text-color: #fff;
+  --button-bg-color: #555;
+  --button-text-color: #fff;
+  /* Define other dark mode variables as needed */
+}

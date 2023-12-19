@@ -1,6 +1,8 @@
 import React from 'react';
 import './Header.css'; // Make sure you link the CSS file for styling
 
+
+
 const Header = () => (
     <header className="header">
         <div className="header-logo">ICD</div>
@@ -15,3 +17,4 @@ const Header = () => (
 );
 
 export default Header;
+

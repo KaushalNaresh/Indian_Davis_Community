@@ -1,0 +1,61 @@
+/* Categories Section */
+.categories {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+    background: #FFF5E5; /* A soft background color that complements the beige */
+    /* ... other styles ... */
+  }
+  
+  .category {
+    cursor: pointer;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0.5rem;
+    border-radius: 20px;
+    transition: background-color 0.3s, transform 0.3s;
+    color: #FFFFFF; /* White text for better contrast */
+    background-color: #f17849; /* A warm terracotta color that goes with the theme */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    text-transform: uppercase;
+  }
+  
+  .category:hover {
+    background-color: #DA251D; /* A slightly darker shade for hover effect */
+    transform: scale(1.05);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .categories {
+      flex-direction: column;
+    }
+  
+    .category {
+      width: 80%; /* Adjust as needed for mobile devices */
+      margin: 10px auto;
+    }
+  }
+  
+  
+/* Specific styling for each category if needed */
+#events {
+    color: #f7f3f2;
+}
+
+#housing {
+    color: #f7f3f2;
+}
+
+#roommate-finder {
+    color: #f7f3f2;
+}
+
+#popular-places {
+    color: #f7f3f2;
+}
+
+#for-you {
+    color: #f7f3f2;
+}
