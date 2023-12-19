@@ -1,0 +1,53 @@
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: #FFF;
+    /* Fallback color */
+    background-size: cover;
+    background-position: right;
+    /* Ensures the right part of the image is visible */
+    min-height: 300px;
+    /* Or whatever height you prefer */
+}
+
+.hero-content {
+    max-width: 50%;
+    /* Adjust based on your content's needs */
+}
+
+.join-button {
+    background-color: #DA251D;
+    /* Vibrant button color */
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.join-button:hover {
+    background-color: #C21E17;
+    /* Darken button on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .hero-section {
+        background-position: center;
+        /* Adjust background for mobile */
+    }
+}

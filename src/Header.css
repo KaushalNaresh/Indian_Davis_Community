@@ -1,0 +1,99 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFFFFF;
+    /* White background for a clean look */
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header__logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #DA251D;
+    /* Vibrant red for the logo */
+    cursor: pointer;
+}
+
+.header__search {
+    flex-grow: 1;
+    /* Allows the search bar to grow to use available space */
+    margin: 0 1rem;
+    position: relative;
+}
+
+.header__search input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #DA251D;
+    /* A vibrant border color for the search */
+    border-radius: 20px;
+    outline: none;
+}
+
+.header__search button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.header__actions {
+    display: flex;
+    justify-content: flex-end;
+    /* Aligns the buttons to the right */
+}
+
+.header__actions .action__button {
+    background-color: #0056b3;
+    /* A professional blue color */
+    border: none;
+    color: white;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header__actions .action__button:first-child {
+    background-color: #FFA000;
+    /* A vibrant but muted gold color */
+}
+
+.header__actions .action__button:hover {
+    background-color: #003670;
+    /* A darker blue on hover */
+    transform: translateY(-2px);
+}
+
+/* Ensures the header maintains its layout even on smaller screens */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header__search {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    .header__actions {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+    }
+
+    .header__actions .action__button {
+        flex-grow: 1;
+        margin-left: 0;
+        margin-right: 0.5rem;
+    }
+}
