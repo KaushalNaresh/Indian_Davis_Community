@@ -36,7 +36,6 @@ const Footer = () => (
             </div>
         </div>
         <div className="footer-social">
-            {/* Icons would go here */}
         </div>
         <div className="footer-bottom">
             <p>© 2023 ICD</p>
