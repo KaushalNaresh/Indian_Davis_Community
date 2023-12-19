@@ -13,7 +13,6 @@ function App() {
       <HeroSection />
       <Categories />
       <Footer />
-
     </div>
   );
 }

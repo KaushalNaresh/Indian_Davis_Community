@@ -46,6 +46,10 @@
     /* Spacing around sections */
 }
 
+.footer-section h3{
+    text-align: center;
+}
+
 .footer-section h3,
 .footer-section ul li {
     cursor: pointer;
@@ -74,7 +78,7 @@
 }
 
 .footer-bottom {
-    /* text-align: center; */
+    text-align: center;
     padding-top: 1rem;
 }
 

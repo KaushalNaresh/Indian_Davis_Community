@@ -9,6 +9,7 @@ function HeroSection() {
                 <h1>Find your Desi family at UC Davis together</h1>
                 <p>One community infinite possibilities</p>
                 <button className="join-button">Join ICD</button>
+                <h1 className='acronym'><span>Indian</span> <span>Community</span> <span> @ Davis</span></h1>
             </div>
             <div className='hero-image'>
                 <img src={heroImage} />
