@@ -1,33 +1,23 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import HeroSection from './HeroSection';
-import Categories from './Categories';
-import Footer from './Footer';
+import Login from "./Login";
+import Home from "./Home";
 import SignupForm from './SignupForm'; // Import the SignupForm component
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 function App() {
-  const [showSignup, setShowSignup] = useState(false);
-
-  const handleJoinClick = () => {
-    setShowSignup(true);
-  };
 
   return (
     <div className="App">
-      {showSignup ? (
-        <SignupForm showSignup={setShowSignup}/>
-      ) : (
-        <>
-          <Header />
-          <HeroSection  onJoinClick={handleJoinClick}/>
-          <Categories />
-          <Footer />
-        </>
-      )}
+      <Router>
+        <Routes>
+          <Route path="/" element={<SignupForm />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route path="/home" element={<Home />}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
 
 export default App;
-
