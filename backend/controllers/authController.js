@@ -22,11 +22,11 @@ exports.login = async (req, res) => {
     try{
         const user = await User.findOne({ email });
         if (!user)
-            return res.status(401).json({ message: 'Authentication failed. Incorrect Email.' });
+            return res.status(401).json({ message: 'Authentication failed. Incorrect Email or Password.' });
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) 
-            return res.status(401).json({ message: 'Authentication failed. Wrong password.' });
+            return res.status(401).json({ message: 'Authentication failed. Incorrect Email or Password.' });
         
         res.status(201).json({ message: 'User Exists!'});
     }

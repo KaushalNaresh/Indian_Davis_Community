@@ -1,7 +1,8 @@
 // SignupForm.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './SignupForm.css'; 
 import {Link, useNavigate} from "react-router-dom";
+import { AuthContext } from './AuthContext';
 
 const SignupForm = () => {
   const BASE_URL = "http://localhost:3001/api";
@@ -11,9 +12,29 @@ const SignupForm = () => {
   const [ucDavisId, setUcDavisId] = useState('');
   const [error, setError] = useState('');
   const [name, setName] = useState('');
+  const { login, setUserDetails } = useContext(AuthContext);
   const validator = require("validator");
 
   const navigate = useNavigate();
+
+  const fetchDetails = async function(){
+    try {
+        const response = await fetch(`${BASE_URL}/user/details?email=${email}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      const userDetails = await response.json();
+      if (!response.ok) 
+        throw new Error(userDetails.message);
+
+      setUserDetails(userDetails);
+   } 
+   catch (error) {
+      console.log(error.message);
+   };
+
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,11 +45,8 @@ const SignupForm = () => {
           throw new Error('Please enter all the fields!');
         if(!validator.isStrongPassword(password))
           throw new Error("Password not strong enough!");
-        // if(!validator.isEmail(email))
-        //   throw new Error("Please eneter correct email Id!");
-        
 
-        const response = await fetch(`${BASE_URL}/user/signup`, {
+        const response = await fetch(`${BASE_URL}/auth/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, password, ucDavisId })
@@ -38,7 +56,9 @@ const SignupForm = () => {
           setError(errorResponse.message)
           throw new Error(errorResponse.message);
         }; 
-        navigate("/home")
+        login();
+        fetchDetails();
+        navigate("/");
      } 
      catch (error) {
       setError(error.message);
