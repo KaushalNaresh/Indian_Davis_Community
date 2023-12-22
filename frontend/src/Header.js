@@ -6,11 +6,13 @@ import { AuthContext } from './AuthContext';
 
 
 
-function Header(){
+function Header({setShowLogIn, setShowSignUp}){
 
     const navigate = useNavigate(); 
 
     const handleLogoClick = () => {
+        setShowSignUp(false);
+        setShowLogIn(false);
         navigate('/');
     };
 
@@ -30,7 +32,7 @@ function Header(){
                 <Link className="action-button" to="/">Get App</Link>
                 {isLoggedIn ?
                     <Link className="action-button" to="/" onClick={() => logout()}>Logout</Link>:
-                    <Link className="action-button" to="/login">Login</Link>
+                    <a className="action-button" onClick={() => setShowLogIn(true)}>Login</a>
                 }
             </div>
         </header>

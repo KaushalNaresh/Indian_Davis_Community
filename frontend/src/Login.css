@@ -82,6 +82,14 @@
   .login-form a:hover {
     background-color: #e6e6e6;
     transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .login-form-foot-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
   }
     
   

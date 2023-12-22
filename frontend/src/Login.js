@@ -4,7 +4,7 @@ import './Login.css';
 import {Link, useNavigate} from "react-router-dom";
 import { AuthContext } from './AuthContext';
 
-const LoginForm = () => {
+const LoginForm = ({setShowLogIn, setShowSignUp}) => {
   const BASE_URL = "http://localhost:3001/api";
 
   const [email, setEmail] = useState('');
@@ -61,6 +61,16 @@ const LoginForm = () => {
     
   };
 
+  const moveToSignUp = () => {
+    setShowLogIn(false);
+    setShowSignUp(true);
+  };
+
+  const moveToHome = () => {
+    setShowLogIn(false);
+    setShowSignUp(false);
+  };
+
   return (
     <div className='login'>
         <div className="login-form">
@@ -69,7 +79,7 @@ const LoginForm = () => {
 
             <label>
             UC Davis Email:
-            <input placeholder="Enter your Email ID" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input placeholder="Enter your UC Davis email ID" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
 
             <label>
@@ -80,7 +90,11 @@ const LoginForm = () => {
             {error && <div className="error">{error}</div>}
             <button type="submit">LogIn</button>
         </form>
-        <Link to="/signup">SignUp</Link>
+        {/* <Link to="/signup">SignUp</Link> */}
+        <div className='login-form-foot-buttons'>
+          <a onClick={() => moveToSignUp()}>Sign Up</a>
+          <a onClick={() => moveToHome()}>Home</a>
+        </div>
         </div>
     </div>
   );
