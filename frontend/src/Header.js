@@ -16,6 +16,11 @@ function Header({setShowLogIn, setShowSignUp}){
         navigate('/');
     };
 
+    const handleLoginClick = () => {
+        setShowSignUp(false);
+        setShowLogIn(true);
+    };
+
     const {isLoggedIn, logout} = useContext(AuthContext);
 
     return(
@@ -32,7 +37,7 @@ function Header({setShowLogIn, setShowSignUp}){
                 <Link className="action-button" to="/">Get App</Link>
                 {isLoggedIn ?
                     <Link className="action-button" to="/" onClick={() => logout()}>Logout</Link>:
-                    <a className="action-button" onClick={() => setShowLogIn(true)}>Login</a>
+                    <a className="action-button" onClick={() => handleLoginClick()}>Login</a>
                 }
             </div>
         </header>
