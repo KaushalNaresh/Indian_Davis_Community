@@ -5,6 +5,9 @@
     background-color: #fee0ac;
     /* Ensures the right part of the image is visible */
     min-height: 500px;
+    max-height: 500px;
+    overflow: hidden;
+    margin-top: 4.5rem;
     /* Or whatever height you prefer */
 }
 

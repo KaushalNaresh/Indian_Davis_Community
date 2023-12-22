@@ -2,20 +2,11 @@
 
 .signup{
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  height: 100vh; 
-  width: 100%;
-  /* background: url('./images/background_img.jpeg') no-repeat center center fixed;  */
-  background-color: #fee0ac;
-  background-size: cover; 
-}
-
-.signup {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
+  background-color: #fee0ac;
+  max-height: 400px;
+  margin: 20px 0;
 }
 
 .signup-form {
@@ -24,13 +15,25 @@
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   width: 100%;
-  max-width: 450px; 
+  max-width: 600px; 
   text-align: center;
+  max-height: 400px;
+  overflow-y: scroll;
+  margin: 40px auto;
+}
+
+
+
+.select-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .signup-form input {
   width: calc(100% - 20px);
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -41,7 +44,8 @@
   display: block;
   text-align: left;
   color: #fff;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .error {
@@ -78,18 +82,155 @@
   background-color: #dcdcdc;
   padding: 8px 16px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .signup-form a:hover {
   background-color: #e6e6e6;
   transition: all 0.3s ease;
 }
+
+.radio-group, .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Spacing between each radio/checkbox option */
+}
+
+.radio-group-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.radio-group-label {
+  flex-basis: 50%; /* Adjust as needed */
+  margin-right: 10px;
+}
+
+.radio-group-inputs {
+  flex-basis: 70%; /* Adjust as needed */
+  display: flex;
+}
+
+.radio-group-inputs label {
+  margin-right: 15px; /* Adjust spacing between labels */
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.col {
+  flex: 1;
+  margin-right: 10px;
+}
   
+.col:last-child {
+  margin-right: 0;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.social-media-row{
+  margin-bottom: 20px;;
+}
+
+.social-media-row input{
+  width: calc(100% - 20px);
+  margin-top: 10px;
+  margin-bottom: 2px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.social-media-description{
+  color: #ddd; /* Lighter color for the description */
+  font-size: 0.9em; /* Smaller font size for the description */
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+/* Style for half-width inputs */
+.half-width-input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.half-width-input:last-child {
+  margin-right: 0;
+}
+
+.about-you-group {
+  margin-bottom: 20px;
+}
+
+.about-you-label {
+  display: block;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.about-you-description {
+  color: #ddd; 
+  font-size: 0.9em; 
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.about-you-textarea {
+  width: calc(100% - 20px);
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 100px; /* Adjust height as needed */
+  resize: vertical; /* Allows vertical resizing */
+}
+
+.signup-form-foot-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
 @media (max-width: 768px) {
   .signup-form {
     padding: 1rem;
     margin: 1rem;
+  }
+  .row {
+    flex-direction: column;
+  }
+  .col {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+  .half-width-input {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  .half-width-input:last-child {
+    margin-bottom: 0;
   }
 }
   

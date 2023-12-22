@@ -5,13 +5,25 @@ import HeroSection from './HeroSection';
 import Categories from './Categories';
 import Footer from './Footer';
 import './Home.css';
+import SignupForm from './SignupForm';
 
 function Home() {
 
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [showLogIn, setShowLogIn] = useState(false);
+
   return (
     <div className="home">
-        <Header />
-        <HeroSection />
+        <Header 
+          setShowLogIn={setShowLogIn}
+          setShowSignUp={setShowSignUp}
+        />
+        <HeroSection 
+          showSignUp={showSignUp}
+          setShowSignUp={setShowSignUp}
+          showLogIn={showLogIn}
+          setShowLogIn={setShowLogIn}
+        />
         <Categories />
         <Footer />
     </div>
