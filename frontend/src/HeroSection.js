@@ -20,7 +20,7 @@ function HeroSection({showSignUp, setShowSignUp, showLogIn, setShowLogIn}) {
                     (showLogIn ? <LoginForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp}/> :
                         <>
                             {
-                                isLoggedIn ? <h2>Hi, {user.name}!</h2> : <></>
+                                isLoggedIn ? <h2>Hi, {user.firstName}!</h2> : <></>
                             }
                             <h1>Find your Desi family at UC Davis together</h1>
                             <p>One community infinite possibilities</p>
