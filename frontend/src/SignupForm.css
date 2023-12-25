@@ -33,7 +33,6 @@
 
 .signup-form input {
   width: calc(100% - 20px);
-  margin-top: 10px;
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -57,7 +56,7 @@
   border-radius: 5px;
 }
 
-.signup-form button {
+.signup-form-btn {
   background-color: #28a745; 
   color: white;
   border: none;
@@ -68,7 +67,7 @@
   box-sizing: border-box;
 }
 
-.signup-form button:hover{
+.signup-form-btn:hover{
   background-color: #0f902d;
   transition: all 0.3s;
 }
@@ -146,13 +145,12 @@
   margin-bottom: 20px;
 }
 
-.social-media-row{
+.social-media-rows{
   margin-bottom: 20px;;
 }
 
-.social-media-row input{
+.social-media-rows input{
   width: calc(100% - 20px);
-  margin-top: 10px;
   margin-bottom: 2px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -207,6 +205,43 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.social-media-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.social-media-row select, input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-social-media-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-social-media-btn{
+  flex: 0.2;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-social-media-btn:hover {
+  background-color: #0f902d;
 }
 
 @media (max-width: 768px) {

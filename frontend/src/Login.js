@@ -10,7 +10,7 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login, setUserDetails } = useContext(AuthContext);
+  const { login, user, setUserDetails } = useContext(AuthContext);
   const validator = require("validator");
 
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
 
       setUserDetails(userDetails);
    } 
+
    catch (error) {
       console.log(error.message);
    };
@@ -53,6 +54,7 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
 
         login();
         fetchDetails();
+        moveToHome();
         navigate("/");
      } 
      catch (error) {
