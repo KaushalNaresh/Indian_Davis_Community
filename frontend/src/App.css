@@ -1,6 +1,10 @@
+body{
+  margin: 0px;
+}
+
 .App {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  /* display: flex;
+  justify-content: center; 
+  align-items: center;  */
   min-height: 100vh; /* Full viewport height */
 }
