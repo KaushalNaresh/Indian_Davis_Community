@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Login from "./Login";
 import Home from "./Home";
-import SignupForm from './SignupForm'; // Import the SignupForm component
+import SignupForm from './SignupForm'; 
+import RoommateFinder from "./RoommateFinder";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import { AuthProvider } from './AuthProvider';
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/signup" element={<SignupForm />}/>
             <Route path="/login" element={<Login />}/>
+            <Route path="/roommate-finder" element={<RoommateFinder />}/>
             <Route path="/" element={<Home />}/>
           </Routes>
         </Router>

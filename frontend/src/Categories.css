@@ -8,22 +8,32 @@
   }
   
   .category {
-    cursor: pointer;
     padding: 1rem 2rem;
     font-size: 1.2rem;
     font-weight: bold;
     margin: 0.5rem;
     border-radius: 20px;
-    transition: background-color 0.3s, transform 0.3s;
-    color: #FFFFFF; /* White text for better contrast */
-    background-color: #f17849; /* A warm terracotta color that goes with the theme */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
     text-transform: uppercase;
   }
   
   .category:hover {
     background-color: #DA251D; /* A slightly darker shade for hover effect */
     transform: scale(1.05);
+  }
+
+  .deactivate{
+    color: #aaa; 
+    background-color: #ddd; 
+    cursor: not-allowed; 
+    pointer-events: none;
+  }
+
+  .activate{
+    color: #FFFFFF; 
+    background-color: #f17849; 
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   }
   
   /* Responsive adjustments */

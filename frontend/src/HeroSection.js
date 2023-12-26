@@ -1,17 +1,20 @@
 import React, { useContext, useState } from 'react';
 import './HeroSection.css'; // Link to the CSS file
-import heroImage from "./images/HeroImage.jpg"
+import defaultImage from "./images/HeroImage.jpg"
 import { Navigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import SignupForm from './SignupForm';
 import LoginForm from './Login';
+import RoommatesImage from "./images/roommates.png";
 
-function HeroSection({showSignUp, setShowSignUp, showLogIn, setShowLogIn}) {
+function HeroSection({showSignUp, setShowSignUp, showLogIn, setShowLogIn, screen}) {
 
     const {isLoggedIn, user} = useContext(AuthContext);
-    // const [showSignUp, setShowSignUp] = useState(false);
-    // const [showLogIn, setShowLogIn] = useState(false);
+
+    let heroImage = defaultImage;
+    if(screen == 'roommate')
+        heroImage = RoommatesImage;
 
     return (
         <div className="hero-section">

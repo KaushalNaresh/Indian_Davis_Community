@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Categories.css'; // Make sure you link the CSS file for styling
+import { Navigate, useNavigate } from 'react-router';
+import { AuthContext } from './AuthContext';
 
-const Categories = () => (
-    <div className="categories">
-        <div className="category" id="events">Events</div>
-        <div className="category" id="housing">Housing</div>
-        <div className="category" id="roommate-finder">Roommate Finder</div>
-        <div className="category" id="popular-places">Popular Places</div>
-        <div className="category" id="for-you">For You</div>
-    </div>
-);
+function Categories(){
+
+    const navigate = useNavigate();
+
+    const handleRoommateFinder = () => {
+        navigate("/roommate-finder");
+    }
+
+    const {isLoggedIn} = useContext(AuthContext);
+    
+    return (
+        <div className="categories">
+            <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="events">Events</div>
+            <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="housing">Housing</div>
+            <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="roommate-finder" onClick={() => handleRoommateFinder()}>Roommate Finder</div>
+            <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="popular-places">Popular Places</div>
+            <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="for-you">For You</div>
+        </div>
+)};
 
 export default Categories;

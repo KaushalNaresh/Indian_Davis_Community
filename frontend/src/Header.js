@@ -8,11 +8,14 @@ import { AuthContext } from './AuthContext';
 
 function Header({setShowLogIn, setShowSignUp}){
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const {isLoggedIn, logout} = useContext(AuthContext);
 
     const handleLogoClick = () => {
-        setShowSignUp(false);
-        setShowLogIn(false);
+        if(!isLoggedIn){
+            setShowSignUp(false);
+            setShowLogIn(false);
+        }
         navigate('/');
     };
 
@@ -20,8 +23,6 @@ function Header({setShowLogIn, setShowSignUp}){
         setShowSignUp(false);
         setShowLogIn(true);
     };
-
-    const {isLoggedIn, logout} = useContext(AuthContext);
 
     return(
         <header className="header">
