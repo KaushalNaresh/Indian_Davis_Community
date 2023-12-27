@@ -3,11 +3,12 @@ import React, { useState, useContext } from 'react';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import Select from 'react-select';
 import './SignupForm.css'; 
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { AuthContext } from './AuthContext';
+import Constants from "./constants.json"
 
 const SignupForm = ({setShowLogIn, setShowSignUp}) => {
-  const BASE_URL = "http://localhost:3001/api";
+  const BASE_URL = Constants.base_url;
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -21,6 +22,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
   const [region, setRegion] = useState('');
   const [major, setMajor] = useState('');
   const [degree, setDegree] = useState('');
+  const [gender, setGender] = useState('');
   const [smoker, setSmoker] = useState('');
   const [drinker, setDrinker] = useState('');
   const [lookingForRoommate, setLookingForRoommate] = useState('');
@@ -88,7 +90,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
       if (!response.ok) 
         throw new Error(userDetails.message);
 
-      setUserDetails(userDetails);
+      setUserDetails(userDetails[0]);
    } 
    catch (error) {
       console.log(error.message);
@@ -131,6 +133,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
             region,
             major,
             degree,
+            gender,
             smoker,
             drinker,
             lookingForRoommate,
@@ -272,6 +275,24 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
                   onChange={(val) => setRegion(val)}
                   required
                 />
+              </div>
+            </div>
+
+            <div className="radio-group-row">
+              <label className="radio-group-label">Gender</label>
+              <div className="radio-group-inputs">
+                <label>
+                  <input type="radio" name="gender" value="1" onChange={(e) => setGender(e.target.value)} required />
+                  Male
+                </label>
+                <label>
+                  <input type="radio" name="gender" value="0" onChange={(e) => setGender(e.target.value)} required />
+                  Female
+                </label>
+                <label>
+                  <input type="radio" name="gender" value="2" onChange={(e) => setGender(e.target.value)} required />
+                  Other
+                </label>
               </div>
             </div>
 

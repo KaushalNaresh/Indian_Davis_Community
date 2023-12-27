@@ -6,15 +6,27 @@
 .banner{
     display: flex;
     flex-direction: row;
+    margin-left: 20%;
 }
 
-.banner .categories{
+.roommate-finder-rows{
+    margin-left: 20%;
+}
+
+.roommate-finder .categories{
     flex-direction: column;
-    max-height: 500px;
-    margin-top: 4.5rem;
-    flex-basis: auto;
+    min-height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 20%;
 }
 
 .banner .hero-section{
     flex-grow: 1;
+}
+
+.roommate-finder .filterbar{
+    margin-left: 20%;
 }

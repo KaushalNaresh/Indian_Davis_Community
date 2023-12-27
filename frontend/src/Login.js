@@ -26,7 +26,7 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
       if (!response.ok) 
         throw new Error(userDetails.message);
 
-      setUserDetails(userDetails);
+      setUserDetails(userDetails[0]);
    } 
 
    catch (error) {
