@@ -3,13 +3,13 @@ const User = require('../models/user');
 
 exports.signup = async (req, res) => {
   const { firstName, lastName, email, password, ucDavisId,
-          fromDate, toDate, country, region, major, degree, smoker, drinker,
+          fromDate, toDate, country, region, major, degree, gender, smoker, drinker,
           lookingForRoommate, foodPreference, socialMediaAccounts, aboutYou } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = new User({ firstName: firstName, lastName: lastName, email: email, password: hashedPassword, 
                             ucDavisId: ucDavisId, fromDate: fromDate, toDate: toDate, country: country, 
-                            region: region, major: major, degree: degree, smoker: smoker, drinker: drinker,
+                            region: region, major: major, degree: degree, gender: gender, smoker: smoker, drinker: drinker,
                             lookingForRoommate: lookingForRoommate, foodPreference: foodPreference, 
                             socialMediaAccounts: socialMediaAccounts, aboutYou: aboutYou});
     const exists = await User.findOne({$or:[{email: email}, {ucDavisId: ucDavisId}]});

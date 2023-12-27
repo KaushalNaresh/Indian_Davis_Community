@@ -7,7 +7,17 @@ export const AuthProvider = ({ children }) => {
         firstName: "",
         lastName: "",
         email: "",
-        ucdavisId: ""
+        ucdavisId: "",
+        toDate: null,
+        fromDate: null,
+        major: "",
+        degree: "",
+        country: "",
+        region: "",
+        foodPreference: "",
+        smoker: "",
+        drinker: "",
+        gender: ""
     });
   
     const login = () => setIsLoggedIn(true);
