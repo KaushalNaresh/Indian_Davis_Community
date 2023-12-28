@@ -10,19 +10,19 @@ exports.details = async (req, res) => {
         //     return res.status(400).send('Email is required');
         // }
 
-        const query = {}
+        const query = {};
 
         if(email) query.email = email;
-        if(toDate) query.toDate = toDate;
-        if(fromDate) query.fromDate = fromDate;
-        if(major) query.major = major;
-        if(degree) query.degree = degree;
+        if(toDate) query.toDate = {$lte: new Date(toDate)};
+        if(fromDate) query.fromDate = {$gte: new Date(fromDate)};
+        if(major && major != "2") query.major = major;
+        if(degree && degree != "2") query.degree = degree;
         if(country) query.country = country;
         if(region) query.region = region;
-        if(foodPreference) query.foodPreference = foodPreference;
-        if(gender) query.gender = gender;
-        if(smoker) query.smoker = smoker;
-        if(drinker) query.drinker = drinker;
+        if(foodPreference && foodPreference != "2") query.foodPreference = foodPreference;
+        if(gender && gender != "2") query.gender = gender;
+        if(smoker && smoker != "2") query.smoker = smoker;
+        if(drinker && drinker != "2") query.drinker = drinker;
 
         const user = await User.find(query);
         console.log(user)
