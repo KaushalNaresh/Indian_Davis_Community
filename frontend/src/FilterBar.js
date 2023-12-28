@@ -37,9 +37,9 @@ function FilterBar({setRoommates}) {
             });
     
             const userDetails = await response.json();
-            console.log(userDetails);
             if (!response.ok) 
                 throw new Error(userDetails.message);
+            return userDetails;
         }
         catch(e){
             console.log(e.message);
@@ -47,7 +47,11 @@ function FilterBar({setRoommates}) {
       };
 
     useEffect(() => {
-        fetchDetails();
+        const fetchData = async () => {
+            const users = await fetchDetails();
+            setRoommates(users);
+        }
+        fetchData();
     }, [toDate, fromDate, major, degree, country, region, foodPreference, gender, smoker, drinker, gender]); 
 
 
@@ -66,43 +70,61 @@ function FilterBar({setRoommates}) {
     return (
         <div className='filterbar'>
             <div className='filter-select'>
-                <input 
-                    type="date" 
-                    value={fromDate} 
-                    onChange={(e) => setFromDate(e.target.value)} 
-                    required 
-                />
-                <input 
-                    type="date" 
-                    value={toDate} 
-                    onChange={(e) => setToDate(e.target.value)} 
-                    required 
-                />
-                <Select
-                    options={majorOptions}
-                    onChange={(selectedOption) => setMajor(selectedOption.value)}
-                    placeholder="Select Major"
-                    isSearchable
-                    required
-                />
-                <Select
-                    options={degreeOptions}
-                    onChange={(selectedOption) => setDegree(selectedOption.value)}
-                    placeholder="Select Degree"
-                    isSearchable
-                    required
-                />
-                <CountryDropdown
-                    value={country}
-                    onChange={(val) => setCountry(val)}
-                    required
-                />
-                <RegionDropdown
-                    country={country}
-                    value={region}
-                    onChange={(val) => setRegion(val)}
-                    required
-                />
+                <div className='select-from-date'>
+                    <span>From Date</span>
+                    <input 
+                        type="date" 
+                        value={fromDate} 
+                        onChange={(e) => setFromDate(e.target.value)} 
+                        required 
+                    />
+                </div>
+                <div className='select-to-date'>
+                    <span>To Date</span>
+                    <input 
+                        type="date" 
+                        value={toDate} 
+                        onChange={(e) => setToDate(e.target.value)} 
+                        required 
+                    />
+                </div>
+                <div className='select-major'>
+                    <span>Major</span>
+                    <Select
+                        options={majorOptions}
+                        onChange={(selectedOption) => setMajor(selectedOption.value)}
+                        placeholder="Select Major"
+                        isSearchable
+                        required
+                    />
+                </div>
+                <div className='select-degree'>
+                    <span>Degree</span>
+                    <Select
+                        options={degreeOptions}
+                        onChange={(selectedOption) => setDegree(selectedOption.value)}
+                        placeholder="Select Degree"
+                        isSearchable
+                        required
+                    />
+                </div>
+                <div className='select-country'>
+                    <span>Country</span>
+                    <CountryDropdown
+                        value={country}
+                        onChange={(val) => setCountry(val)}
+                        required
+                    />
+                </div>
+                <div className='select-region'>
+                    <span>Region</span>
+                    <RegionDropdown
+                        country={country}
+                        value={region}
+                        onChange={(val) => setRegion(val)}
+                        required
+                    />
+                </div>
 
             </div>
             <div className='filter-checkbox'>
@@ -111,15 +133,17 @@ function FilterBar({setRoommates}) {
                     <div className='filter-checkbox-title'>Food</div>
                     <label>
                         <GiChickenLeg />
+                        <span>Non-Vegetarian</span>
                         <input type="radio" name="food" value="1" onChange={(e) => setFoodPreference(e.target.value)}  />
                     </label>
                     <label>
                         <GiThreeLeaves />
+                        <span>Vegetarian</span>
                         <input type="radio" name="food" value="0" onChange={(e) => setFoodPreference(e.target.value)}  />
                     </label>
                     <label>
                         <span>Doesn't matter</span>
-                        <input type="radio" name="food" value="2" onChange={(e) => setFoodPreference(e.target.value)}  />
+                        <input type="radio" name="food" value="2" onChange={(e) => setFoodPreference(e.target.value)} />
                     </label>
                 </div>
 
@@ -127,15 +151,17 @@ function FilterBar({setRoommates}) {
                     <div className='filter-checkbox-title'>Smoking</div>
                     <label>
                         <SmokingRoomsIcon />
+                        <span>Yes</span>
                         <input type="radio" name="smoke" value="1" onChange={(e) => setSmoker(e.target.value)}  />
                     </label>
                     <label>
                         <SmokeFreeIcon />
+                        <span>No</span>
                         <input type="radio" name="smoke" value="0" onChange={(e) => setSmoker(e.target.value)}  />
                     </label>
                     <label>
                         <span>Doesn't matter</span>
-                        <input type="radio" name="smoke" value="2" onChange={(e) => setSmoker(e.target.value)}  />
+                        <input type="radio" name="smoke" value="2" onChange={(e) => setSmoker(e.target.value)} />
                     </label>
                 </div>
 
@@ -143,15 +169,17 @@ function FilterBar({setRoommates}) {
                     <div className='filter-checkbox-title'>Drinking</div>
                     <label>
                         <LocalBarIcon />
+                        <span>Yes</span>
                         <input type="radio" name="drinking" value="1" onChange={(e) => setDrinker(e.target.value)}  />
                     </label>
                     <label>
                         <NoDrinksIcon />
+                        <span>No</span>
                         <input type="radio" name="drinking" value="0" onChange={(e) => setDrinker(e.target.value)}  />
                     </label>
                     <label>
                         <span>Doesn't matter</span>
-                        <input type="radio" name="drinking" value="2" onChange={(e) => setDrinker(e.target.value)}  />
+                        <input type="radio" name="drinking" value="2" onChange={(e) => setDrinker(e.target.value)} />
                     </label>
                 </div>
 
@@ -159,15 +187,17 @@ function FilterBar({setRoommates}) {
                     <div className='filter-checkbox-title'>Gender</div>
                     <label>
                         <MaleIcon />
+                        <span>Male</span>
                         <input type="radio" name="gender" value="1" onChange={(e) => setGender(e.target.value)}  />
                     </label>
                     <label>
                         <FemaleIcon />
+                        <span>Female</span>
                         <input type="radio" name="gender" value="0" onChange={(e) => setGender(e.target.value)}  />
                     </label>
                     <label>
                         <span>Doesn't matter</span>
-                        <input type="radio" name="gender" value="2" onChange={(e) => setGender(e.target.value)}  />
+                        <input type="radio" name="gender" value="2" onChange={(e) => setGender(e.target.value)} />
                     </label>
                 </div>
 

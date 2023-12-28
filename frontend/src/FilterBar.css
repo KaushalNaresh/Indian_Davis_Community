@@ -1,6 +1,7 @@
 .filterbar{
     padding: 5px;
     position: sticky;
+    top: 4.5rem;;
     display: flex;
     flex-direction: column;
     background-color: #f0a486;
@@ -12,10 +13,21 @@
     width: 100%;
 }
 
-.filter-select > *{
+.filter-select > div {
     width: 15%;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-select > div span{
+    text-align: center;
+}
+
+.filter-select > div > :nth-child(2){
     border: 1px solid #f17849;
     border-radius: 5px;
+    width: 100%;
+    height: 100%;
 }
 
 .filter-checkbox{

@@ -1,3 +1,32 @@
 {
-    "base_url": "http://localhost:3001/api"
+
+    "base_url": "http://localhost:3001/api",
+    "gender": {
+        "0": "Female",
+        "1": "Male",
+        "2": "Others"
+    },
+    "foodPreference": {
+        "0": "Vegetarian",
+        "1": "Non-Vegetarian"
+    },
+    "smoker": {
+        "0": "No",
+        "1": "Yes",
+        "2": "Sometimes"
+    },
+    "drinker": {
+        "0": "No",
+        "1": "Yes",
+        "2": "Sometimes"
+    },
+    "major": {
+        "cs": "Computer Science",
+        "eec": "Electrical Engineering"
+    },
+    "degree": {
+        "bs": "Bachelors",
+        "ms": "Masters",
+        "phd": "PHD"
+    }
 }
