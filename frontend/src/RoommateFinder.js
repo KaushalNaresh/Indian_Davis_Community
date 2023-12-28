@@ -6,11 +6,12 @@ import { AuthContext } from './AuthContext'
 import { useNavigate } from 'react-router'
 import FilterBar from './FilterBar'
 import './RoommateFinder.css'
+import RoommateFinderRow from './RoommateFinderRow'
 
 function RoommateFinder() {
 
-  const {isLoggedIn} = useContext(AuthContext);
-//   const [roommates, setRoommates] = useState([]);
+  const {isLoggedIn, user} = useContext(AuthContext);
+  const [roommates, setRoommates] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,13 +32,13 @@ function RoommateFinder() {
             <div className="banner">
                 <HeroSection screen='roommate'/>
             </div>
-            <FilterBar />
+            <FilterBar setRoommates={setRoommates}/>
             <div className='roommate-finder-rows'>
-                {/* {roommates.map(
-                    rommate => {
-
-                    }
-                )} */}
+                {roommates.map(
+                    (roommate, i) => (roommate.email !== user.email ?
+                        <RoommateFinderRow key={i} roommate={roommate}/> :
+                        <></>        
+                ))}
             </div>
         </div>
   )

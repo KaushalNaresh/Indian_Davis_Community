@@ -9,6 +9,7 @@
     top: 0;
     width: 100%;
     z-index: 1000; /* Ensures the header stays above other content */
+    height: 2.5rem;
 }
 
 .header-logo {
@@ -41,6 +42,8 @@
     display: flex;
     /* justify-content: flex-end; */
     align-items: center; /* Aligns buttons vertically center */
+    gap: 10px;
+    margin-right: 10px;
 }
 
 .action-button {

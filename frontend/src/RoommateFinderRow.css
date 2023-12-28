@@ -1,0 +1,74 @@
+.roommate-card {
+    display: flex;
+    flex-direction: column;
+    background: #fee0ac;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border-left: 5px solid; /* Default color stripe */
+    color: #333;
+    /* position: relative; */
+}
+  
+.roommate-card .name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+  
+.roommate-card .major-degree, .roommate-card .country-region, .roommate-card .from-to {
+    font-size: 1.1em;
+    color: #666;
+    margin-top: 10px;
+}
+  
+.roommate-card .icons {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    gap: 20px;
+}
+  
+.roommate-card .bio {
+    padding-top: 10px;
+    margin-top: 10px;
+}
+  
+.roommate-card .contact-button {
+    background-color: #f76c6c;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    margin-top: 15px;
+    width: 10%;
+    margin: 20px 0px 0px auto;
+}
+  
+.roommate-card .contact-button:hover {
+    background-color: #fa8072;
+}
+  
+  
+.roommate-card.Vegetarian { border-left-color: green; }
+.roommate-card.Non-Vegetarian { border-left-color: orange; }
+.roommate-card.neutral { border-left-color: grey; }
+
+.roommate-card .social-media-icons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+    gap: 20px;
+}
+  
+.roommate-card .social-media-icons a {
+    color: #555;
+    font-size: 24px;
+}
+  
+.roommate-card .social-media-icons a:hover {
+    color: blue;
+}
