@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './Categories.css'; // Make sure you link the CSS file for styling
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { AuthContext } from './AuthContext';
 
 function Categories(){

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './Header.css'; // Make sure you link the CSS file for styling
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 

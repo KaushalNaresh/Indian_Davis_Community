@@ -4,7 +4,6 @@ import Home from "./Home";
 import SignupForm from './SignupForm'; 
 import RoommateFinder from "./RoommateFinder";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
 import { AuthProvider } from './AuthProvider';
 import './App.css';
 

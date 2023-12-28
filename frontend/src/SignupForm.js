@@ -5,7 +5,7 @@ import Select from 'react-select';
 import './SignupForm.css'; 
 import { useNavigate} from "react-router-dom";
 import { AuthContext } from './AuthContext';
-import Constants from "./constants.json"
+import Constants from "./StringConstants.json"
 
 const SignupForm = ({setShowLogIn, setShowSignUp}) => {
   const BASE_URL = Constants.base_url;

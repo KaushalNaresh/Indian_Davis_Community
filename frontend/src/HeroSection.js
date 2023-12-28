@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './HeroSection.css'; // Link to the CSS file
 import defaultImage from "./images/HeroImage.jpg"
-import { Navigate } from 'react-router';
-import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import SignupForm from './SignupForm';
 import LoginForm from './Login';
