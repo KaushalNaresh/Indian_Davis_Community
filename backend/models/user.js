@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
   region: {type: String, required: true},
   major: {type: String, required: true},
   degree: {type: String, required: true},
+  gender: {type: String, required: true},
   smoker: {type: String, required: true},
   drinker: {type: String, required: true},
   lookingForRoommate: {type: String, required: true},

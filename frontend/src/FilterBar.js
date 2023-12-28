@@ -4,7 +4,7 @@ import SmokingRoomsIcon from '@mui/icons-material/SmokingRooms';
 import SmokeFreeIcon from '@mui/icons-material/SmokeFree';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
-import { GiChickenOven } from "react-icons/gi";
+import { GiChickenLeg } from "react-icons/gi";
 import { GiThreeLeaves } from "react-icons/gi";
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import NoDrinksIcon from '@mui/icons-material/NoDrinks';
@@ -52,10 +52,12 @@ function FilterBar({setRoommates}) {
 
 
     const majorOptions = [
+        { value: '2', label: "Select your major"},
         { value: 'cs', label: 'Computer Science' },
         { value: 'eec', label: 'Electrical Engineering' },
     ];
     const degreeOptions = [
+        { value: '2', label: "Select your degree" },,
         { value: 'bs', label: "Bachelor's" },
         { value: 'ms', label: "Master's" },
         { value: 'phd', label: "PHD" },
@@ -108,7 +110,7 @@ function FilterBar({setRoommates}) {
                 <div className='filter-food'>
                     <div className='filter-checkbox-title'>Food</div>
                     <label>
-                        <GiChickenOven />
+                        <GiChickenLeg />
                         <input type="radio" name="food" value="1" onChange={(e) => setFoodPreference(e.target.value)}  />
                     </label>
                     <label>
@@ -117,7 +119,7 @@ function FilterBar({setRoommates}) {
                     </label>
                     <label>
                         <span>Doesn't matter</span>
-                        <input type="radio" name="food" value="-1" onChange={(e) => setFoodPreference(e.target.value)}  />
+                        <input type="radio" name="food" value="2" onChange={(e) => setFoodPreference(e.target.value)}  />
                     </label>
                 </div>
 
@@ -133,7 +135,7 @@ function FilterBar({setRoommates}) {
                     </label>
                     <label>
                         <span>Doesn't matter</span>
-                        <input type="radio" name="smoke" value="-1" onChange={(e) => setSmoker(e.target.value)}  />
+                        <input type="radio" name="smoke" value="2" onChange={(e) => setSmoker(e.target.value)}  />
                     </label>
                 </div>
 
@@ -149,7 +151,7 @@ function FilterBar({setRoommates}) {
                     </label>
                     <label>
                         <span>Doesn't matter</span>
-                        <input type="radio" name="drinking" value="-1" onChange={(e) => setDrinker(e.target.value)}  />
+                        <input type="radio" name="drinking" value="2" onChange={(e) => setDrinker(e.target.value)}  />
                     </label>
                 </div>
 
@@ -165,7 +167,7 @@ function FilterBar({setRoommates}) {
                     </label>
                     <label>
                         <span>Doesn't matter</span>
-                        <input type="radio" name="gender" value="-1" onChange={(e) => setGender(e.target.value)}  />
+                        <input type="radio" name="gender" value="2" onChange={(e) => setGender(e.target.value)}  />
                     </label>
                 </div>
 
