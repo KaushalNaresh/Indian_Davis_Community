@@ -1,22 +1,15 @@
 import React from 'react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaSnapchatGhost, FaXbox } from 'react-icons/fa';
-import './RoommateFinderRow.css'
-import SmokingRoomsIcon from '@mui/icons-material/SmokingRooms';
-import SmokeFreeIcon from '@mui/icons-material/SmokeFree';
-import MaleIcon from '@mui/icons-material/Male';
-import FemaleIcon from '@mui/icons-material/Female';
-import { GiChickenLeg } from "react-icons/gi";
-import { GiThreeLeaves } from "react-icons/gi";
-import LocalBarIcon from '@mui/icons-material/LocalBar';
-import NoDrinksIcon from '@mui/icons-material/NoDrinks';
-import Constants from './constants.json';
+import './RoommateFinderRow.css';
+import ICONS from './IconConstants';
+import Constants from './StringConstants.json';
 
 const getSocialIcon = (platform) => {
   const icons = {
-    facebook: <FaFacebook />,
-    instagram: <FaInstagram />,
-    linkedin: <FaLinkedin />,
-    snapchat: <FaSnapchatGhost />,
+    facebook: <ICONS.FaFacebook />,
+    instagram: <ICONS.FaInstagram />,
+    linkedin: <ICONS.FaLinkedin />,
+    snapchat: <ICONS.FaSnapchatGhost />,
     X: <FaXbox />, // Assuming 'X' represents Xbox here
   };
   return icons[platform] || null;
@@ -55,10 +48,10 @@ const RoommateFinderRow = ({ roommate }) => {
     aboutYou,
   } = roommate;
 
-  const smokerIcon = smoker === '1' ? <SmokingRoomsIcon /> : <SmokeFreeIcon />;
-  const drinkerIcon = drinker === '1' ? <LocalBarIcon /> : <NoDrinksIcon />;
-  const foodIcon = foodPreference === '1' ? <GiChickenLeg /> : <GiThreeLeaves />;
-  const genderIcon = gender === '1' ? <MaleIcon /> : gender === '0' ? <FemaleIcon /> : null; 
+  const smokerIcon = smoker === '1' ? <ICONS.SmokingRoomsIcon /> : <ICONS.SmokeFreeIcon />;
+  const drinkerIcon = drinker === '1' ? <ICONS.LocalBarIcon /> : <ICONS.NoDrinksIcon />;
+  const foodIcon = foodPreference === '1' ? <ICONS.GiChickenLeg /> : <ICONS.GiThreeLeaves />;
+  const genderIcon = gender === '1' ? <ICONS.MaleIcon /> : gender === '0' ? <ICONS.FemaleIcon /> : null; 
 
   const formatted_fromDate = getFormattedDate(new Date(fromDate));
   const formatted_toDate = getFormattedDate(new Date(toDate));
