@@ -1,7 +1,7 @@
 .roommate-card {
     display: flex;
     flex-direction: column;
-    background: #fee0ac;
+    background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -35,7 +35,7 @@
 }
   
 .roommate-card .contact-button {
-    background-color: #f76c6c;
+    background-color: red;
     color: white;
     padding: 10px 20px;
     text-align: center;
@@ -53,7 +53,7 @@
   
   
 .roommate-card.Vegetarian { border-left-color: green; }
-.roommate-card.Non-Vegetarian { border-left-color: orange; }
+.roommate-card.Non-Vegetarian { border-left-color: red; }
 .roommate-card.neutral { border-left-color: grey; }
 
 .roommate-card .social-media-icons {

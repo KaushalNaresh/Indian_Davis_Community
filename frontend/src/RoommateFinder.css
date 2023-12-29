@@ -30,3 +30,11 @@
 .roommate-finder .filterbar{
     margin-left: 20%;
 }
+
+.not-looking-for-roommate{
+    height: 300px;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 500;
+}

@@ -25,7 +25,6 @@ exports.details = async (req, res) => {
         if(drinker && drinker != "2") query.drinker = drinker;
 
         const user = await User.find(query);
-        console.log(user)
         if (!user) {
             return res.status(404).send('User not found');
         }
