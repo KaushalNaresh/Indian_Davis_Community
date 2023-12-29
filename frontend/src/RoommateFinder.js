@@ -34,11 +34,15 @@ function RoommateFinder() {
             </div>
             <FilterBar setRoommates={setRoommates}/>
             <div className='roommate-finder-rows'>
-                {roommates.map(
-                    (roommate, i) => (roommate.email !== user.email ?
-                        <RoommateFinderRow key={i} roommate={roommate}/> :
-                        <></>        
-                ))}
+                {user.lookingForRoommate === "1" ?
+                    roommates.map(
+                        (roommate, i) => ((roommate.email !== user.email && roommate.lookingForRoommate === "1") ?
+                            <RoommateFinderRow key={i} roommate={roommate}/> :
+                            <></>        
+                        )
+                    ) :
+                <div className='not-looking-for-roommate'>You have selected that you are not looking for roommates, update your choice to see avilable people.</div>
+            }
             </div>
         </div>
   )

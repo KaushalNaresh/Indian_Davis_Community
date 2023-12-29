@@ -64,7 +64,7 @@ function FilterBar({setRoommates}) {
         <div className='filterbar'>
             <div className='filter-select'>
                 <div className='select-from-date'>
-                    <span>From Date</span>
+                    <span>Start Date</span>
                     <input 
                         type="date" 
                         value={fromDate} 
@@ -73,7 +73,7 @@ function FilterBar({setRoommates}) {
                     />
                 </div>
                 <div className='select-to-date'>
-                    <span>To Date</span>
+                    <span>End Date (Expected)</span>
                     <input 
                         type="date" 
                         value={toDate} 

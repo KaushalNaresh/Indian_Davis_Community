@@ -212,7 +212,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
           {/* From Date */}
           <div className="form-row">
             <div className="half-width-input">
-              <label className="form-label">From</label>
+              <label className="form-label">Course Start Date</label>
               <input 
                 type="date" 
                 value={fromDate} 
@@ -221,7 +221,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
               />
             </div>
             <div className="half-width-input">
-              <label className="form-label">To (Expected)</label>
+              <label className="form-label">Course End Date (Expected)</label>
               <input 
                 type="date" 
                 value={toDate} 
