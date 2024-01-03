@@ -9,4 +9,9 @@ router.post('/signup', authController.signup);
 // login route
 router.post('/login', authController.login);
 
+// auth-check route
+router.get('/check-auth', authController.verifyToken);
+
+router.post('/logout', authController.logout);
+
 module.exports = router;

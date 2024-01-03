@@ -3,9 +3,10 @@ import React, { useState, useContext } from 'react';
 import './Login.css'; 
 import {useNavigate} from "react-router-dom";
 import { AuthContext } from './AuthContext';
+import Constants from "./StringConstants.json";
 
 const LoginForm = ({setShowLogIn, setShowSignUp}) => {
-  const BASE_URL = "http://localhost:3001/api";
+  const BASE_URL = Constants.base_url;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,6 +44,7 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
           throw new Error('Please enter all the fields!');
           const response = await fetch(`${BASE_URL}/auth/login`, {
           method: 'POST',
+          credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
         });

@@ -35,9 +35,12 @@ function Header({setShowLogIn, setShowSignUp}){
             }
             </div>
             <div className="header-actions">
-                <Link className="action-button" to="/">Get App</Link>
                 {isLoggedIn ?
-                    <Link className="action-button" to="/" onClick={() => logout()}>Logout</Link>:
+                    <>
+                        <Link className="action-button" to="/profile">Profile</Link>
+                        <Link className="action-button" to="/" onClick={() => logout()}>Logout</Link>
+                    </>
+                    :
                     <a className="action-button" onClick={() => handleLoginClick()}>Login</a>
                 }
             </div>
