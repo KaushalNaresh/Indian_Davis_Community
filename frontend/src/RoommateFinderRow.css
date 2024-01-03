@@ -7,6 +7,10 @@
     color: #333;
 }
 
+.roommate-card .roommate-name .name{
+    text-align: center;
+}
+
 .roommate-card .roommate-name{
     margin-right: 10px;
     display: flex;
