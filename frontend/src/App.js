@@ -6,10 +6,12 @@ import RoommateFinder from "./RoommateFinder";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './AuthProvider';
 import './App.css';
+import Profile from './Profile';
 
 function App() {
 
   const {isLoggedIn, setIsLoggedIn} = useState(false);
+  // require('dotenv').config();
 
   return (
     <AuthProvider >
@@ -19,6 +21,7 @@ function App() {
             <Route path="/signup" element={<SignupForm />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/roommate-finder" element={<RoommateFinder />}/>
+            <Route path="/profile" element={<Profile />}/>
             <Route path="/" element={<Home />}/>
           </Routes>
         </Router>

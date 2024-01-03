@@ -41,7 +41,7 @@ function RoommateFinder() {
                             <></>        
                         )
                     ) :
-                <div className='not-looking-for-roommate'>You have selected that you are not looking for roommates, update your choice to see avilable people.</div>
+                <div className='not-looking-for-roommate'>You have selected that you are not looking for roommates, update your choice in your profile page to see available students.</div>
             }
             </div>
         </div>
