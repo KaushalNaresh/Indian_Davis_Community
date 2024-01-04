@@ -1,76 +1,84 @@
-# Getting Started with Create React App
+# Indian Community @ Davis (ICD)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Indian Community @ Davis (ICD) project repository. This MERN stack-based application is designed to serve as a comprehensive platform for Indian students at the University of California, Davis. Our goal is to facilitate a seamless transition for students arriving from India and foster a close-knit community through a variety of supportive features.  
 
-## Available Scripts
+[ICD]()
 
-In the project directory, you can run:
+## Project Overview
 
-### `npm start`
+ICD serves as a bridge between Indian students and the UC Davis community, offering resources and tools to help new students integrate and settle into their new environment. Understanding the challenges of adjusting to a foreign land, ICD is tailored to make the transition as smooth as possible, promoting a sense of belonging and mutual support.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Key Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Events**: Stay updated with the latest community events and gatherings.
+- **Housing**: Find or offer accommodation, connect with potential roommates.
+- **Roommate Finder**: A dedicated tool to match with compatible roommates.
+- **Popular Places**: Discover local points of interest, recommended by fellow students.
+- **For You**: Personalized recommendations to help you navigate life at UC Davis.
+- **Senior Connect**: Reach out to experienced students for guidance and mentorship.
 
-### `npm test`
+### Project Status
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project is currently in development phase and will soon be deployed for usage. We are working diligently to add new features and refine the platform to ensure it meets the needs of the community.
 
-### `npm run build`
+### Founders
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The Indian Community @ Davis project was initiated by **`Naresh Kumar Kaushal`** and **`Rutuja Abhijit Kale`** pursuing their Masters in CS at University Of California Davis, driven by a passion to support their peers and unite the Indian student community at UC Davis.
 
 
-### MongoDB
+### Getting Started
 
-To start mongoDb use `brew services start mongodb-community@7.0`  
-To begin using MongoDB, connect mongosh to the running instance using `mongosh`
+To get started with ICD, follow these steps:
+
+1. Install react.js, node.js and mongodb
+
+2. Create a mongodb document named `Indian_Davis_Community` with `users` as collection
+
+3. Clone the repository:  
+`git clone https://github.com/KaushalNaresh/Indian_Davis_Community.git`
+
+4. Navigate to the project directory:  
+`cd Indian_Davis_Community`
+
+5. Install the required dependencies in both frontend and backend folders:  
+`npm install`
+
+6. Before starting change the necessary variables in `StringConstants.json` file according to your system
+
+7. Start both front-end and back-end on different ports using:  
+`npm start`
+
+8. Add JWT_TOKEN for login purposes by creating .env file in backend folder and decalring JWT token there  
+`JWT_TOKEN=<string with 256 random characters>`
+
+9. Open your browser and visit `http://localhost:<port number for front-end>` to view the application.
+
+## Contributing
+
+We welcome contributions from the community. If you wish to contribute to ICD, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch from QA for your feature (`git checkout -b feature/AmazingFeature`).
+3. Make your changes and commit them (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request to QA.
+
+## Support
+
+Should you need any assistance or encounter issues with the platform, please open an issue here on GitHub,  
+or reach out to us directly via  
+1. Email : [Naresh's email](mailto:nkkaushal@ucdavis.edu), [Rutuja's email](mailto:rakale@ucdavis.edu) or  
+2. DM us on linkedIn : [DM Naresh!](https://www.linkedin.com/in/nareshkumarkaushal/), [DM Rutuja!](https://www.linkedin.com/in/rutuja-abhijit-kale/)
+
+<!-- ## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details. -->
+
+## Acknowledgments
+
+- Heartfelt thanks to the UC Davis Indian student community for their insights and feedback.
+- Special mention to those who have dedicated their time to contribute to this project.
+
+## Final Notes
+
+ICD is more than just a platform; it's a home away from home. We strive to create an environment where every Indian student can find guidance, companionship, and a sense of community. Together, let's make the American dream a reality for every newcomer.
