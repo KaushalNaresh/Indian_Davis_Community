@@ -2,7 +2,7 @@
 
 Welcome to the Indian Community @ Davis (ICD) project repository. This MERN stack-based application is designed to serve as a comprehensive platform for Indian students at the University of California, Davis. Our goal is to facilitate a seamless transition for students arriving from India and foster a close-knit community through a variety of supportive features.  
 
-[ICD]()
+![ICD](https://github.com/KaushalNaresh/Indian_Davis_Community/blob/naresh/frontend/src/images/HomePage.png)
 
 ## Project Overview
 
