@@ -1,0 +1,109 @@
+/* Footer Section */
+.footer {
+    background-color: #282c34;
+    /* Dark background for a sleek look */
+    color: #bbb;
+    /* Light text color for contrast */
+    padding: 1rem 0;
+    /* Adjusted padding */
+    font-size: 0.85rem;
+    /* Adjusted font size */
+    line-height: 1.5;
+    /* Improve readability */
+}
+
+.footer-call-to-action {
+    /* text-align: center; */
+    margin-bottom: 1rem;
+}
+
+.cta-button {
+    background-color: #ff9000; /* Original button color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Smooth transition for color change */
+  }
+  
+  .cta-button:hover {
+    background-color: #e07a00; /* Darker orange on hover */
+  }
+
+.footer-links {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    /* Wrap to the next line on small screens */
+    padding-bottom: 1rem;
+}
+
+.footer-section {
+    margin: 0 1rem;
+    /* Spacing around sections */
+}
+
+.footer-section h3{
+    text-align: center;
+}
+
+.footer-section h3,
+.footer-section ul li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.footer-section h3:hover,
+.footer-section ul li:hover {
+    color: #ff9000;
+    /* Change the color on hover */
+}
+
+.footer-social {
+    /* text-align: center; */
+    padding: 1rem 0;
+}
+
+.footer-social a {
+    color: #bbb;
+    margin-right: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #ff9000;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1rem;
+}
+
+.footer-bottom p,
+.footer-bottom ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.footer-bottom ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+@media (max-width: 768px) {
+    .footer-links {
+        justify-content: center;
+    }
+
+    .footer-section {
+        margin-bottom: 1rem;
+    }
+
+    .footer-bottom ul li {
+        margin: 0 10px;
+    }
+}

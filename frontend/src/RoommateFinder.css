@@ -1,0 +1,40 @@
+.roommate-finder{
+    min-width: 100%;
+    min-height: 100vh;
+}
+
+.banner{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20%;
+}
+
+.roommate-finder-rows{
+    margin-left: 20%;
+}
+
+.roommate-finder .categories{
+    flex-direction: column;
+    min-height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 20%;
+}
+
+.banner .hero-section{
+    flex-grow: 1;
+}
+
+.roommate-finder .filterbar{
+    margin-left: 20%;
+}
+
+.not-looking-for-roommate{
+    height: 300px;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 500;
+}

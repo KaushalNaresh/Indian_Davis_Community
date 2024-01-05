@@ -1,0 +1,100 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFFFFF;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the header stays above other content */
+    height: 4.5rem;
+    box-sizing: border-box;
+}
+
+.header-logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #DA251D;
+    cursor: pointer;
+    flex: 1; /* Allows the logo to grow and take available space */
+    justify-content: flex-start;
+    display: flex;
+}
+
+.header-search input {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #DA251D;
+    border-radius: 20px;
+    outline: none;
+    width: 100%; /* Ensures the input doesn't grow beyond its parent */
+}
+
+.header-search {
+    flex: 2; /* Allows the search bar to grow more than the logo */
+    position: relative;
+    display: flex; /* Ensures the input inside it can use width: 100% */
+}
+
+.header-actions {
+    flex: 1; /* Allows the button area to grow and take available space */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; /* Aligns buttons vertically center */
+    gap: 10px;
+    /* margin-right: 10px; */
+}
+
+.action-button {
+    padding: 0.5rem 1rem; /* Sets a uniform padding for buttons */
+    margin-left: 10px; /* Adds space between buttons */
+    white-space: nowrap; /* Ensures text doesn't wrap */
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+/* Additional styling */
+.action-button:first-child {
+    background-color: #FFA000;
+}
+
+.action-button:nth-child(2) {
+    background-color: #6b676734;
+}
+
+.action-button:first-child:hover {
+    background-color: #ff7700;
+    transform: translateY(-2px);
+}
+
+.action-button:nth-child(2):hover {
+    background-color: #23212134;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center; /* Center the items for mobile */
+    }
+
+    .header-search,
+    .header-actions {
+        width: 100%; /* Full width for mobile view */
+    }
+
+    .header-actions {
+        justify-content: center; /* Center buttons in mobile view */
+        margin-top: 0.5rem;
+    }
+
+    .header-actions .action-button {
+        margin-left: 5px; /* Smaller margin for mobile */
+        margin-right: 5px;
+    }
+}
