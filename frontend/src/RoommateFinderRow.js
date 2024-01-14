@@ -10,7 +10,7 @@ const getSocialIcon = (platform) => {
     instagram: <ICONS.FaInstagram />,
     linkedin: <ICONS.FaLinkedin />,
     snapchat: <ICONS.FaSnapchatGhost />,
-    X: <FaXbox />, // Assuming 'X' represents Xbox here
+    X: <FaXbox />, 
   };
   return icons[platform] || null;
 };
@@ -20,9 +20,9 @@ const handleContactClick = (email) => {
 };
 
 const getFormattedDate = (date) => {
-    const year = date.getFullYear(); // 2022
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // "09" (Month is 0-indexed so +1 is necessary)
-    const day = date.getDate().toString().padStart(2, '0'); // "20"
+    const year = date.getUTCFullYear(); // 2022
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // "09" (Month is 0-indexed so +1 is necessary)
+    const day = date.getUTCDate().toString().padStart(2, '0'); // "20"
 
     const formattedDate = `${year}-${month}-${day}`; 
 

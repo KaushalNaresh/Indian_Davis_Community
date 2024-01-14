@@ -26,6 +26,7 @@ function FilterBar({setRoommates}) {
             const response = await fetch(`${BASE_URL}/user/details?toDate=${toDate}&fromDate=${fromDate}&major=${major}&degree=${degree}&country=${country}&region=${region}&foodPreference=${foodPreference}&smoker=${smoker}&drinker=${drinker}&gender=${gender}`,
             {
                 method: 'GET',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' }
             });
     

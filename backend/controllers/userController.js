@@ -37,3 +37,20 @@ exports.details = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
+
+exports.updateDetails = async (req, res) => {
+    try{
+        const updatedUserBody = req.body;
+        const email = updatedUserBody.email;
+
+        const user = await User.findOneAndUpdate({'email': email}, updatedUserBody, {new: true});
+        if(!user){
+            res.status(404).send({message: 'User not found'});
+        }
+
+        res.status(200).send({ message: 'User updated successfully', user });
+    }
+    catch(e){
+        res.status(500).send({ message: 'Error updating user' });
+    }
+};

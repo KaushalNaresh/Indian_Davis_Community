@@ -20,6 +20,7 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
     try {
         const response = await fetch(`${BASE_URL}/user/details?email=${email}`, {
         method: 'GET',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' }
       });
 

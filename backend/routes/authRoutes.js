@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const authController = require('../controllers/authController');
+const authenticateToken = require('../middleware/authenticateToken');
 
 // signup route
 router.post('/signup', authController.signup);
@@ -10,7 +11,7 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
 // auth-check route
-router.get('/check-auth', authController.verifyToken);
+router.get('/check-auth', authenticateToken, authController.verifyToken);
 
 router.post('/logout', authController.logout);
 

@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
         firstName: "",
         lastName: "",
         email: "",
-        ucdavisId: "",
+        ucDavisId: "",
         toDate: null,
         fromDate: null,
         major: "",
@@ -21,7 +21,8 @@ export const AuthProvider = ({ children }) => {
         drinker: "",
         gender: "",
         lookingForRoommate: "",
-        aboutYou: ""
+        aboutYou: "",
+        socialMediaAccounts: [{ platform: '', username: '' }]
     });
   
     const login = () => setIsLoggedIn(true);
@@ -45,6 +46,8 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        // const token = localStorage.getItem('token');
+        // authenticateToken(token)
         checkAuthStatus();
     }, []);
 
@@ -57,8 +60,8 @@ export const AuthProvider = ({ children }) => {
                                                 headers: { 'Content-Type': 'application/json' }
                                             }
                                         );
-            if (response.ok) {
 
+            if (response.ok) {
                 setIsLoggedIn(true);
 
                 // Fetch user details now
@@ -66,6 +69,7 @@ export const AuthProvider = ({ children }) => {
                 const email = authUser.email;
                 const userDetailsResponse = await fetch(`${BASE_URL}/user/details?email=${email}`, {
                     method: 'GET',
+                    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' }
                 });
 
