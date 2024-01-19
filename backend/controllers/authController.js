@@ -25,23 +25,10 @@ exports.signup = async (req, res) => {
 };
 
 exports.verifyToken = (req, res) => {
-  try {
-      // Assuming your token is stored in a cookie named 'token'
-      const token = req.cookies.token;
 
-      if (!token) {
-          return res.status(401).json({ message: 'No token provided' });
-      }
+      const userData = req.user;
+      res.json(userData);
 
-      // Verifying the token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      
-      res.json(decoded);
-
-      // next(); // Proceed to the next middleware/function
-  } catch (error) {
-      return res.status(401).json({ message: 'Invalid or expired token' });
-  }
 };
 
 exports.login = async (req, res) => {
@@ -57,7 +44,6 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: 'Authentication failed. Incorrect Email or Password.' });
         
         // Generate a JWT token
-        // console.log(process.env.JWT_SECRET);
         const token = jwt.sign(
             { userId: user._id, email: user.email },
             process.env.JWT_SECRET, // Replace with a secret key of your choice
@@ -66,7 +52,7 @@ exports.login = async (req, res) => {
         
         res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
 
-        res.status(201).json({ message: 'User Exists!'});
+        res.status(200).json({ message: 'User Exists!'});
     }
     catch(error){
         res.status(500).json({ message: 'Internal server error' });
