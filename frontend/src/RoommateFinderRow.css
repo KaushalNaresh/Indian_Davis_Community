@@ -105,4 +105,5 @@ hr{
     height: 1px; /* Sets the height of the line */
     background-color: #848383; /* Sets the color of the line */
     margin: 10px 0; /* Adds space above and below the line */
+    opacity: 1;
 }

@@ -25,8 +25,10 @@ export const AuthProvider = ({ children }) => {
         socialMediaAccounts: [{ platform: '', username: '' }]
     });
   
-    const login = () => setIsLoggedIn(true);
-    
+    const login = async () => {
+        await checkAuthStatus(); 
+    };
+
     const logout = async () => {
         try {
             const response = await fetch(`${BASE_URL}/auth/logout`, {
@@ -46,8 +48,6 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        // const token = localStorage.getItem('token');
-        // authenticateToken(token)
         checkAuthStatus();
     }, []);
 

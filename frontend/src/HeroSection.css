@@ -3,13 +3,11 @@
     align-items: center;
     padding: 2rem;
     background-color: #fee0ac;
-    /* Ensures the right part of the image is visible */
     min-height: 500px;
     max-height: 500px;
     overflow: hidden;
     margin-top: 4.5rem;
     gap: 10px;
-    /* Or whatever height you prefer */
 }
 
 .hero-image{
@@ -31,6 +29,15 @@
     text-align: center;
 }
 
+.hero-content h1{
+    font-weight: 600;
+}
+
+.hero-content h2{
+    font-weight: 500;
+    color: black;
+}
+
 .acronym > span:nth-child(1){
     color: orange;
 }
@@ -45,7 +52,6 @@
 
 .join-button {
     background-color: #DA251D;
-    /* Vibrant button color */
     color: white;
     border: none;
     padding: 1rem 2rem;
