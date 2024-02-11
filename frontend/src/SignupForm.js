@@ -8,6 +8,7 @@ import { AuthContext } from './AuthContext';
 import Constants from "./StringConstants.json"
 
 const SignupForm = ({setShowLogIn, setShowSignUp}) => {
+  
   const BASE_URL = Constants.base_url;
 
   const [firstName, setFirstName] = useState('');

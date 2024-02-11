@@ -34,7 +34,8 @@
 }
 
 .hero-content h2{
-    font-weight: 200;
+    font-weight: 500;
+    color: black;
 }
 
 .acronym > span:nth-child(1){

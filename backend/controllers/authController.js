@@ -26,6 +26,8 @@ exports.signup = async (req, res) => {
 
 exports.verifyToken = (req, res) => {
 
+      res.set('Cache-Control', 'no-store');
+
       const userData = req.user;
       res.json(userData);
 
