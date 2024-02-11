@@ -140,7 +140,8 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
             foodPreference,
             socialMediaAccounts,
             aboutYou
-          })
+          }),
+          credentials: 'include'
         });
         const errorResponse = await response.json();
         if (!response.ok) {
@@ -374,8 +375,6 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
                       <option value="LinkedIn">LinkedIn</option>
                       <option value="Instagram">Instagram</option>
                       <option value="Facebook">Facebook</option>
-                      <option value="Twitter">Twitter</option>
-                      <option value="Snapchat">Snapchat</option>
                     </select>
 
                     <input

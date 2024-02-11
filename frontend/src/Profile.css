@@ -14,7 +14,219 @@
 }
 
 .profile-section{
-    margin-left: 20%;
     color: black;
-    margin-top: 4.5rem;
+    padding: 10% 5% 10% 25%;
+    background-color: #fee0ac;
 }
+
+.profile-form{
+    display: flex;
+    flex-direction: column;  
+    align-items: center;
+    justify-content: center;  
+}
+  
+.profile-section  .error {
+  color: #ff6b6b;
+  background-color: #fff3f3;
+  border: 1px solid #ffcccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+  
+.save-profile-btn {
+  background-color: #28a745; 
+  color: black;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  display: flex;
+  margin: auto;
+}
+  
+.save-profile-btn:hover{
+  background-color: #0f902d;
+  transition: all 0.3s;
+}
+  
+  
+.profile-section .radio-group, .profile-section .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 30px; 
+}
+
+.profile-section .radio-group-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.profile-section .radio-group-label {
+  flex-basis: 50%; 
+  margin-right: 10px;
+}
+  
+.profile-section .radio-group-inputs {
+  flex-basis: 70%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.profile-section .radio-group-inputs label {
+  margin-right: 15px; 
+}
+  
+.profile-section .social-media-rows{
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.profile-section .social-media-rows input{
+  width: calc(100% - 20px);
+  margin-bottom: 2px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.profile-section .social-media-description{
+  color: #0b24b1; 
+  font-size: 0.9em; 
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+
+.profile-section .about-you-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.profile-section .about-you-label {
+  display: block;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.profile-section .about-you-description {
+  color: #0b24b1;; 
+  font-size: 0.9em; 
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.profile-section .about-you-textarea {
+  width: calc(100% - 20px);
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 100px; 
+  resize: vertical; 
+}
+  
+.profile-section .social-media-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.profile-section .social-media-row select, .profile-section .social-media-row input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.profile-section .add-social-media-btn {
+  background-color: #28a745;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  margin: auto;
+}
+
+.profile-section .remove-social-media-btn{
+  flex: 0.2;
+  background-color: red;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.profile-section .add-social-media-btn:hover {
+  background-color: #0f902d;
+}
+
+.profile-form-alert{
+  margin: 5px;
+}
+  
+/* @media (max-width: 768px) {
+  .signup-form {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  .row {
+    flex-direction: column;
+  }
+  .col {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+  .half-width-input {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  .half-width-input:last-child {
+    margin-bottom: 0;
+  }
+} */
+
+
+.feedback {
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+}
+
+.valid-date-feedback {
+    color: #198754;
+    font-size: .875em
+}
+
+.invalid-date-feedback {
+    color: #dc3545; 
+    display: block; 
+    font-size: .875em;
+}
+
+.date-picker{
+  padding-right: calc(var(--bs-gutter-x) * .5) !important;
+  padding-left: calc(var(--bs-gutter-x) * .5) !important;
+  margin-top: var(--bs-gutter-y) !important;
+}
+
+.date-picker-row{
+  display: flex;
+  flex-direction: column;
+}
+    

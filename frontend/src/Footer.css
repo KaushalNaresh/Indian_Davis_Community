@@ -46,11 +46,11 @@
     /* Spacing around sections */
 }
 
-.footer-section h3{
+.footer-section h5{
     text-align: center;
 }
 
-.footer-section h3,
+.footer-section h5,
 .footer-section ul li {
     cursor: pointer;
     transition: color 0.3s ease;
