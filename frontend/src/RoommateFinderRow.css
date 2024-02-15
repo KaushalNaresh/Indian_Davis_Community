@@ -3,28 +3,36 @@
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
     color: #333;
 }
 
-.roommate-card .roommate-name .name{
-    text-align: center;
-}
-
 .roommate-card .roommate-name{
-    margin-right: 10px;
+    margin-right: 5px;
     display: flex;
     flex-direction: column;
     flex: 3;
     justify-content: center;
     align-items: center;
+    padding: 5px;
+}
+
+.roommate-card .roommate-name .name{
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    hyphens: auto;
+}
+
+.roommate-card hr{
+    margin: 1px !important;
 }
 
 .roommate-card .roommate-info{
     display: flex;
     flex-direction: column;
     flex: 7;
-    padding: 20px;
+    padding: 10px 5px;
 }
   
 .roommate-card .name {
@@ -37,20 +45,19 @@
 }
   
 .roommate-card .major-degree, .roommate-card .country-region, .roommate-card .from-to {
-    font-size: 1.1em;
     color: #666;
-    margin-top: 10px;
+    text-align: justify;
 }
   
 .roommate-card .icons {
     display: flex;
     align-items: center;
-    margin: 30px 0px;
+    margin: 2px 0px;
     gap: 20px;
 }
   
 .roommate-card .bio {
-    margin-top: 10px;
+    margin-top: 2px;
 }
   
 .roommate-card .contact-button {
@@ -86,7 +93,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     gap: 20px;
 }
   
@@ -100,10 +107,14 @@
     font-weight:500
 }
 
+.roommate-info .headings{
+    font-weight: 700;
+}
+
 hr{
     border: none; /* Removes the default border */
     height: 1px; /* Sets the height of the line */
     background-color: #848383; /* Sets the color of the line */
     margin: 10px 0; /* Adds space above and below the line */
-    opacity: 1;
+    opacity: 1 !important;
 }

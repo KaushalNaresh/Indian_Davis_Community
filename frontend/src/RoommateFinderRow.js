@@ -59,12 +59,10 @@ const RoommateFinderRow = ({ roommate }) => {
   return (
     <div className={`roommate-card`}>
         <div className={`roommate-name gradient-custom ${Constants.foodPreference[foodPreference]}`}>
-            <div className="name">{`${firstName} ${lastName}`}</div>
+            <div className="name" lang="en">{`${firstName} ${lastName}`}</div>
             {/* <div className="contact-button" onClick={() => handleContactClick(email)}>Contact</div> */}
         </div>
         <div className="roommate-info">
-            <h3>Information</h3>
-            <hr/>
             <div className="major-degree"><span>Major and Degree : </span>{`${Constants.major[major]}, ${Constants.degree[degree]}`}</div>
             <div className="country-region"><span>Country and Region : </span>{`${country}, ${region}`}</div>
             <div className="from-to"><span>Dates attending : </span>{`${formatted_fromDate} : ${formatted_toDate}`}</div>
@@ -81,10 +79,9 @@ const RoommateFinderRow = ({ roommate }) => {
                     </a>
                 ))}
             </div>
-            <h3>About Me</h3>
+            <span className='headings'>About Me</span>
             <hr />
-            {/* <div className="email">{email}</div> */}
-            <div className="bio">{aboutYou}</div>
+            <div className="bio">{aboutYou.length <= 100 ? aboutYou : aboutYou.substring(0, 100)+'...'}</div>
         </div>
     </div>
   );

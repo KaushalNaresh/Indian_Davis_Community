@@ -124,7 +124,7 @@ function FilterBar({setRoommates}) {
             <div className='filter-checkbox'>
                 
                 <div className='filter-food'>
-                    <div className='filter-checkbox-title'>Food</div>
+                    <div className='filter-checkbox-title'>Food Preference</div>
                     <label>
                         <ICONS.GiChickenLeg />
                         <span>Non-Vegetarian</span>
