@@ -18,6 +18,14 @@ exports.signup = async (req, res) => {
     
     if(exists) throw new Error("User already Exists \n Login to your account");
     await user.save();
+    
+    const token = jwt.sign(
+        { userId: user._id, email: user.email },
+        process.env.JWT_SECRET, // Replace with a secret key of your choice
+        { expiresIn: '1h' } // Token expires in 1 hour
+    );
+  
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
     res.status(201).json({ message: 'User created!'});
   } catch (error) {
     res.status(500).json({message: error.message});

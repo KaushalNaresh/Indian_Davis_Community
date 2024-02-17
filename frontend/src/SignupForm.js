@@ -84,6 +84,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
     try {
         const response = await fetch(`${BASE_URL}/user/details?email=${email}`, {
         method: 'GET',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' }
       });
 
@@ -91,7 +92,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
       if (!response.ok) 
         throw new Error(userDetails.message);
 
-      setUserDetails(userDetails[0]);
+      setUserDetails(userDetails.users[0]);
    } 
    catch (error) {
       console.log(error.message);
@@ -122,6 +123,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
         const response = await fetch(`${BASE_URL}/auth/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify({ 
             firstName,
             lastName,

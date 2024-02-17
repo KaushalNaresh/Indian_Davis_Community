@@ -1,10 +1,11 @@
 .filterbar{
     padding: 5px;
     position: sticky;
-    top: 4.5rem;;
+    top: 4.5rem;
     display: flex;
     flex-direction: column;
     background-color: #f0a486;
+    margin-bottom: 20px;
 }
 
 .filter-select{

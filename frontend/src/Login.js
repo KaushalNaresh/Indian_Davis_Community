@@ -19,7 +19,7 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
   const fetchDetails = async function(){
     try {
         const response = await fetch(`${BASE_URL}/user/details?email=${email}`, {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' }
       });
@@ -28,7 +28,7 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
       if (!response.ok) 
         throw new Error(userDetails.message);
 
-      setUserDetails(userDetails[0]);
+      setUserDetails(userDetails.users[0]);
    } 
 
    catch (error) {

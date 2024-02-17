@@ -68,16 +68,17 @@ export const AuthProvider = ({ children }) => {
                 const authUser = await response.json();
                 const email = authUser.email;
                 const userDetailsResponse = await fetch(`${BASE_URL}/user/details?email=${email}`, {
-                    method: 'GET',
+                    method: 'POST',
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' }
                 });
 
                 const userDetails = await userDetailsResponse.json();
+                
                 if (!userDetailsResponse.ok) 
                     throw new Error(userDetails.message);
 
-                setUserDetails(userDetails[0]);
+                setUserDetails(userDetails.users[0]);
 
             } else {
                 setIsLoggedIn(false);

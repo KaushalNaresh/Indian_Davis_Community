@@ -6,7 +6,7 @@ import Constants from './StringConstants.json';
 
 import "./FilterBar.css"
 
-function FilterBar({setRoommates}) {
+function FilterBar({setRoommates, setTotalPages, setCurrPageId, currPageId, prevPageNumber=-1, currPageNumber=0}) {
 
     const [toDate, setToDate] = useState('');
     const [fromDate, setFromDate] = useState('');
@@ -23,11 +23,25 @@ function FilterBar({setRoommates}) {
 
     const fetchDetails = async function(){
         try {
-            const response = await fetch(`${BASE_URL}/user/details?toDate=${toDate}&fromDate=${fromDate}&major=${major}&degree=${degree}&country=${country}&region=${region}&foodPreference=${foodPreference}&smoker=${smoker}&drinker=${drinker}&gender=${gender}`,
+            // const response = await fetch(`${BASE_URL}/user/details?toDate=${toDate}&fromDate=${fromDate}&major=${major}&degree=${degree}&country=${country}&region=${region}&foodPreference=${foodPreference}&smoker=${smoker}&drinker=${drinker}&gender=${gender}`,
+            console.log(country, region)
+            const response = await fetch(`${BASE_URL}/user/details?currPageId=${currPageId}&currPageNumber=${currPageNumber}&prevPageNumber=${prevPageNumber}`,
             {
-                method: 'GET',
+                method: 'POST',
                 credentials: 'include',
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    toDate,
+                    fromDate,
+                    major, 
+                    degree,
+                    country,
+                    region,
+                    foodPreference,
+                    gender,
+                    smoker, 
+                    drinker
+                })
             });
     
             const userDetails = await response.json();
@@ -42,11 +56,13 @@ function FilterBar({setRoommates}) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const users = await fetchDetails();
-            setRoommates(users);
+            const user_details = await fetchDetails();
+            setRoommates(user_details.users);
+            setTotalPages(user_details.totalPages);
+            setCurrPageId(user_details.currPageId);
         }
         fetchData();
-    }, [toDate, fromDate, major, degree, country, region, foodPreference, gender, smoker, drinker, gender]); 
+    }, [currPageNumber, toDate, fromDate, major, degree, country, region, foodPreference, gender, smoker, drinker, gender]); 
 
 
     const majorOptions = [
@@ -124,7 +140,7 @@ function FilterBar({setRoommates}) {
             <div className='filter-checkbox'>
                 
                 <div className='filter-food'>
-                    <div className='filter-checkbox-title'>Food</div>
+                    <div className='filter-checkbox-title'>Food Preference</div>
                     <label>
                         <ICONS.GiChickenLeg />
                         <span>Non-Vegetarian</span>

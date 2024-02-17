@@ -14,7 +14,7 @@ const authenticateToken = (req, res, next) => {
         req.user = decoded;
         next();
     }
-    catch(e){
+    catch(e){       
         return res.status(401).json({ message: e.message});
     }
 }
