@@ -95,7 +95,6 @@ function Profile() {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Include other headers like authorization if needed
                 },
                 body: JSON.stringify(user)
             });

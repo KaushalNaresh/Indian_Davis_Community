@@ -92,7 +92,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
       if (!response.ok) 
         throw new Error(userDetails.message);
 
-      setUserDetails(userDetails[0]);
+      setUserDetails(userDetails.users[0]);
    } 
    catch (error) {
       console.log(error.message);

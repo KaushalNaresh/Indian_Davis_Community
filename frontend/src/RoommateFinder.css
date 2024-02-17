@@ -3,6 +3,12 @@
     min-height: 100vh;
 }
 
+.hide-last-page .MuiPagination-ul li:nth-last-child(2) button {
+    opacity: 0.5; 
+    pointer-events: none; 
+    cursor: not-allowed;
+}
+
 .banner{
     display: flex;
     flex-direction: row;
@@ -26,6 +32,13 @@
     top: 0;
     z-index: 1;
     width: 20%;
+}
+
+.roommate-finder .pagination{
+    margin-left: 20%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%;
 }
 
 .banner .hero-section{
