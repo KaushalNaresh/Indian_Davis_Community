@@ -23,8 +23,6 @@ function FilterBar({setRoommates, setTotalPages, setCurrPageId, currPageId, prev
 
     const fetchDetails = async function(){
         try {
-            // const response = await fetch(`${BASE_URL}/user/details?toDate=${toDate}&fromDate=${fromDate}&major=${major}&degree=${degree}&country=${country}&region=${region}&foodPreference=${foodPreference}&smoker=${smoker}&drinker=${drinker}&gender=${gender}`,
-            console.log(country, region)
             const response = await fetch(`${BASE_URL}/user/details?currPageId=${currPageId}&currPageNumber=${currPageNumber}&prevPageNumber=${prevPageNumber}`,
             {
                 method: 'POST',
@@ -57,9 +55,15 @@ function FilterBar({setRoommates, setTotalPages, setCurrPageId, currPageId, prev
     useEffect(() => {
         const fetchData = async () => {
             const user_details = await fetchDetails();
-            setRoommates(user_details.users);
-            setTotalPages(user_details.totalPages);
-            setCurrPageId(user_details.currPageId);
+            if(user_details){
+                setRoommates(user_details.users);
+                setTotalPages(user_details.totalPages);
+                setCurrPageId(user_details.currPageId);
+            }
+            else{
+                setRoommates([]);
+                setTotalPages(0);
+            }
         }
         fetchData();
     }, [currPageNumber, toDate, fromDate, major, degree, country, region, foodPreference, gender, smoker, drinker, gender]); 
