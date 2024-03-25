@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 import { AuthContext } from "./AuthContext";
 import Constants from "./StringConstants.json";
 
@@ -26,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     });
   
     const login = async () => {
-        await checkAuthStatus(); 
+        await fetchAuthUser(); 
     };
 
     const logout = async () => {
@@ -48,45 +49,44 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        checkAuthStatus();
+        fetchAuthUser();
     }, []);
 
-    const checkAuthStatus = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/auth/check-auth`, 
-                                            { 
-                                                method: 'GET',
-                                                credentials: 'include',
-                                                headers: { 'Content-Type': 'application/json' }
-                                            }
-                                        );
+    const fetchAuthUser = async () => {
+        
+        try{
+            const response = await fetch(`${BASE_URL}/auth/auth-user`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' }
+            });
 
-            if (response.ok) {
-                setIsLoggedIn(true);
-
-                // Fetch user details now
-                const authUser = await response.json();
-                const email = authUser.email;
-                const userDetailsResponse = await fetch(`${BASE_URL}/user/details?email=${email}`, {
-                    method: 'POST',
-                    credentials: 'include',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-
-                const userDetails = await userDetailsResponse.json();
-                
-                if (!userDetailsResponse.ok) 
-                    throw new Error(userDetails.message);
-
-                setUserDetails(userDetails.users[0]);
-
-            } else {
+            const userDetails = await response.json();
+            
+            if (userDetails.message != 'OK' || !response.ok){
                 setIsLoggedIn(false);
+                throw new Error(userDetails.message);
             }
-        } catch (error) {
+
+            setIsLoggedIn(true);
+            setUserDetails(userDetails.user[0]);
+
+            const decodedToken = jwtDecode(userDetails.token);
+            const currentTime = Date.now() / 1000; // Current time in seconds
+
+            if (decodedToken.exp < currentTime) {
+                logout(); 
+            } else {
+                // Set a timeout to automatically logout when the token expires
+                setTimeout(() => {
+                    logout();
+                }, (decodedToken.exp - currentTime) * 1000); // Convert to milliseconds
+            }
+        }
+        catch(error){
             console.error('Error checking authentication status', error);
         }
-    };
+    }
 
     const setUserDetails = (newDetails) => {
         setUser(newDetails);

@@ -12,6 +12,7 @@ router.post('/login', authController.login);
 
 // auth-check route
 router.get('/check-auth', authenticateToken, authController.verifyToken);
+router.post('/auth-user', authenticateToken, authController.authUserDetails);
 
 router.post('/logout', authController.logout);
 

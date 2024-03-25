@@ -21,7 +21,7 @@ function RoommateFinder() {
   const [hideLastPage, setHideLastPage] = useState(false);
   
 
-  const changePage = (e, value) => {
+  const changePage = (value) => {
     setPrevPageNumber(currPageNumber);
     setCurrPageNumber(value);
   }
@@ -52,9 +52,10 @@ function RoommateFinder() {
                         setRoommates={setRoommates}
                         setTotalPages={setTotalPages}
                         setCurrPageId={setCurrPageId}
-                        setPrevPage={setPrevPageNumber}
-                        prevPageNumber={prevPageNumber}
                         currPageId={currPageId}
+                        setPrevPageNumber={setPrevPageNumber}
+                        prevPageNumber={prevPageNumber}
+                        setCurrPageNumber={setCurrPageNumber}
                         currPageNumber={currPageNumber}
             />
             <div className='roommate-finder-rows'>
@@ -69,7 +70,7 @@ function RoommateFinder() {
             }
             </div>
             <div className={`pagination ${hideLastPage ? 'hide-last-page' : ''}`}>
-              <Pagination count={totalPages} variant="outlined" shape="rounded" onChange={(e, value) => changePage(e, value)}/>
+              <Pagination count={totalPages} variant="outlined" page={currPageNumber} shape="rounded" onChange={(e, value) => changePage(value)}/>
             </div>
         </div>
   )
