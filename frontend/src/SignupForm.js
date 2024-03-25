@@ -89,7 +89,7 @@ const SignupForm = ({setShowLogIn, setShowSignUp}) => {
       });
 
       const userDetails = await response.json();
-      if (!response.ok) 
+      if (userDetails.message != 'OK' || !response.ok) 
         throw new Error(userDetails.message);
 
       setUserDetails(userDetails.users[0]);

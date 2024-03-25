@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import ICONS from './IconConstants';
 import Select from 'react-select';
@@ -6,7 +6,10 @@ import Constants from './StringConstants.json';
 
 import "./FilterBar.css"
 
-function FilterBar({setRoommates, setTotalPages, setCurrPageId, currPageId, prevPageNumber=-1, currPageNumber=0}) {
+function FilterBar({setRoommates, setTotalPages, 
+                    setCurrPageId, currPageId, 
+                    setPrevPageNumber, prevPageNumber=-1, 
+                    setCurrPageNumber, currPageNumber=0}) {
 
     const [toDate, setToDate] = useState('');
     const [fromDate, setFromDate] = useState('');
@@ -43,31 +46,39 @@ function FilterBar({setRoommates, setTotalPages, setCurrPageId, currPageId, prev
             });
     
             const userDetails = await response.json();
-            if (!response.ok) 
-                throw new Error(userDetails.message);
+            if (userDetails.message != 'OK' || !response.ok) 
+                return []
             return userDetails;
         }
         catch(e){
             console.log(e.message);
         }
-      };
+    };
+
+    const fetchData = async () => {
+        const user_details = await fetchDetails();
+        if(user_details.length != 0){
+            setRoommates(user_details.users);
+            setTotalPages(user_details.totalPages);
+            setCurrPageId(user_details.currPageId);
+        }
+        else{
+            setRoommates([]);
+            setTotalPages(0);
+        }
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-            const user_details = await fetchDetails();
-            if(user_details){
-                setRoommates(user_details.users);
-                setTotalPages(user_details.totalPages);
-                setCurrPageId(user_details.currPageId);
-            }
-            else{
-                setRoommates([]);
-                setTotalPages(0);
-            }
-        }
-        fetchData();
-    }, [currPageNumber, toDate, fromDate, major, degree, country, region, foodPreference, gender, smoker, drinker, gender]); 
+        setCurrPageNumber(1);
+        setPrevPageNumber(-1);
+        if(prevPageNumber == -1 && currPageNumber == 1)
+            fetchData();
+    }, [toDate, fromDate, major, degree, country, region, foodPreference, smoker, drinker, gender]);
 
+
+    useEffect(() => {
+        fetchData();
+    }, [currPageNumber]); 
 
     const majorOptions = [
         { value: '2', label: "Select your major"},

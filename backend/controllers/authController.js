@@ -22,10 +22,11 @@ exports.signup = async (req, res) => {
     const token = jwt.sign(
         { userId: user._id, email: user.email },
         process.env.JWT_SECRET, // Replace with a secret key of your choice
-        { expiresIn: '1h' } // Token expires in 1 hour
+        { expiresIn: '1h' } // Token expires in 30s
     );
   
-    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
+    res.cookie('token', token, { httpOnly: true, secure: false, sameSite: 'Strict', maxAge: 3600 * 1000});
+    
     res.status(201).json({ message: 'User created!'});
   } catch (error) {
     res.status(500).json({message: error.message});
@@ -40,6 +41,35 @@ exports.verifyToken = (req, res) => {
       res.json(userData);
 
 };
+
+exports.authUserDetails = async (req, res) => {
+
+  try{
+
+    res.set('Cache-Control', 'no-store');
+
+    const logged_user_email = req.user.email;
+    const token = req.token;
+
+    const queryObj = {'email': logged_user_email};
+    const user = await User.find(queryObj);
+
+    if (user.length == 0) {
+      return res.json({message: "No user(s) found"});
+    }
+
+    res.json({
+      message: 'OK',
+      user: user,
+      token: token
+    });
+
+  }
+  catch(error){
+    res.status(404).send({message: error.message});
+  }
+
+}
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
@@ -60,7 +90,7 @@ exports.login = async (req, res) => {
             { expiresIn: '1h' } // Token expires in 1 hour
         );
         
-        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'Strict', maxAge: 3600 * 1000});
 
         res.status(200).json({ message: 'User Exists!'});
     }

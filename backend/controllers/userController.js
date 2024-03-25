@@ -4,6 +4,7 @@ const stringConstants = require("../StringConstants.json")
 
 exports.details = async (req, res) => {
     try {
+        // console.log(req.query)
         const {toDate, fromDate, major, degree, country, region, foodPreference, gender, smoker, drinker} = req.body;
         const {email, prevPageNumber, currPageId, currPageNumber} = req.query;
         const logged_user = req.user.email;
@@ -19,7 +20,7 @@ exports.details = async (req, res) => {
         if(degree && degree != "2") query.degree = degree;
         if(country) query.country = country;
         if(country && region) query.region = region;
-        if(foodPreference && foodPreference != "2") query.foodPreference = foodPreference;
+        if(foodPreference && foodPreference != "2") query.foodPreference = foodPreference; 
         if(gender && gender != "2") query.gender = gender;
         if(smoker && smoker != "2") query.smoker = smoker;
         if(drinker && drinker != "2") query.drinker = drinker;
@@ -59,18 +60,19 @@ exports.details = async (req, res) => {
                   .limit(stringConstants['roommates']);
         }
 
-        if (!users) {
-            return res.status(404).send('User not found');
+        if (users.length == 0) {
+            return res.json({message: "No user(s) found"});
         }
 
         res.json({
+                    message: 'OK',
                     users: users,
                     totalPages: totalPages,
                     currPageId: users[0]["_id"]
         })
 
         } catch (error) {
-            res.status(500).send({message: error.message});
+            res.status(404).send({message: error.message});
     }
 };
 
