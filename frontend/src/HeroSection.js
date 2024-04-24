@@ -1,43 +1,67 @@
-import React, { useContext, useState } from 'react';
+
+import React, { useContext, useEffect, useRef } from 'react';
+import Typed from 'typed.js';
 import './HeroSection.css'; // Link to the CSS file
-import defaultImage from "./images/HeroImage.jpg"
 import { AuthContext } from './AuthContext';
 import SignupForm from './SignupForm';
 import LoginForm from './Login';
-import RoommatesImage from "./images/roommates.png";
+import Carousel from './Carousel';
+import FriendsImg1 from './images/FriendsImg1.jpg';
+import FriendsImg2 from './images/FriendsImg2.jpg';
+import FriendsImg3 from './images/FriendsImg3.jpg';
+import FriendsImg4 from './images/FriendsImg4.jpg';
 
-function HeroSection({showSignUp, setShowSignUp, showLogIn, setShowLogIn, screen}) {
+const images = [FriendsImg1, FriendsImg2, FriendsImg3, FriendsImg4];
 
-    const {isLoggedIn, user} = useContext(AuthContext);
+function HeroSection({ showSignUp, setShowSignUp, showLogIn, setShowLogIn }) {
+  const { isLoggedIn, user } = useContext(AuthContext);
+  const typedRef = useRef(null);
 
-    let heroImage = defaultImage;
-    if(screen == 'roommate')
-        heroImage = RoommatesImage;
+  useEffect(() => {
+    const typedOptions = {
+      strings: [
+        'Infinite possibilities.',
+        'Infinite memories.',
+        'Infinite friendships.',
+        'Infinite opportunities.'
+      ],
+      typeSpeed: 50,
+      backSpeed: 50,
+      backDelay: 1500,
+      startDelay: 500,
+      loop: true,
+      showCursor: false,
+      cursorChar: '|',
+      contentType: 'html',
+    };
 
-    return (
-        <div className="hero-section">
-            <div className="hero-content">
-                { showSignUp ? <SignupForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp}/> :
-                    (showLogIn ? <LoginForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp}/> :
-                        <>
-                            {
-                                isLoggedIn ? <h2>Hi, {user.firstName}!</h2> : <></>
-                            }
-                            <h1>Find your Desi family at UC Davis together</h1>
-                            <p>One community infinite possibilities</p>
-                            {isLoggedIn ?
-                                <></>:
-                                <button className="join-button" onClick={() => setShowSignUp(true)}>Join ICD</button>
-                            }
-                            <h1 className='acronym'><span>Indian</span> <span>Community</span> <span> @ Davis</span></h1>
-                        </>
-                    )
-                }
-            </div>
-            <div className='hero-image'>
-                <img src={heroImage} />
-            </div>
-        </div>
-)};
+    const typed = new Typed(typedRef.current, typedOptions);
 
-export default HeroSection;
+    return () => typed.destroy();
+  }, []);
+
+  return (
+    <div className="hero-section">
+      <div className="hero-content">
+        {showSignUp ? (
+          <SignupForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp} />
+        ) : showLogIn ? (
+          <LoginForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp} />
+        ) : (
+          <>
+            {isLoggedIn && <h2>Hi, {user.firstName}!</h2>}
+            <h1>Connect. Inspire. <span className="highlight">Belong.</span></h1>
+            <p>One community. <span ref={typedRef} className="phighlight">Infinite possibilities.</span></p>
+            <p>Join the Davis Desi Family!</p>
+            {!isLoggedIn && (
+              <button className="join-button" onClick={() => setShowSignUp(true)}>Join ICD</button>
+            )}
+          </>
+        )}
+      </div>
+      <Carousel slides= {images} />
+    </div>
+  );
+}
+
+export default HeroSection;

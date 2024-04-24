@@ -10,13 +10,15 @@ function Categories(){
     const handleRoommateFinder = () => {
         navigate("/roommate-finder");
     }
-
+    const handleHousing = () => {
+        navigate("/housing");
+    }
     const {isLoggedIn} = useContext(AuthContext);
     
     return (
         <div className="categories">
             <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="events">Events</div>
-            <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="housing">Housing</div>
+            <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="housing"onClick={()=>handleHousing()}>Housing</div>
             <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="roommate-finder" onClick={() => handleRoommateFinder()}>Roommate Finder</div>
             <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="popular-places">Popular Places</div>
             <div className={`category ${isLoggedIn ? "activate": "deactivate"}`} id="for-you">For You</div>

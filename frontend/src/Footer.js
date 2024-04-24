@@ -8,8 +8,7 @@ const Footer = () => (
             <div className="footer-section">
                 <h5>Your Account</h5>
                 <ul>
-                    <li>Sign up</li>
-                    <li>Log in</li>
+                    
                     <li>Help</li>
                     <li>Become an Affiliate</li>
                 </ul>
@@ -18,8 +17,6 @@ const Footer = () => (
                 <h5>Discover</h5>
                 <ul>
                     <li>Groups</li>
-                    <li>Calendar</li>
-                    <li>Topics</li>
                     <li>Online Events</li>
                     <li>Local Guides</li>
                     <li>Make Friends</li>

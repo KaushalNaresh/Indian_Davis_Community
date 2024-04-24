@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Header from './Header';
 import HeroSection from './HeroSection';
 import Categories from './Categories';
+import Carousel from './Carousel';
 import Footer from './Footer';
 import './Home.css';
+
 
 function Home() {
 
@@ -22,8 +24,8 @@ function Home() {
           showLogIn={showLogIn}
           setShowLogIn={setShowLogIn}
         />
-        <Categories />
-        <Footer />
+        {/* <Categories />  */}
+        <Footer /> 
     </div>
   );
 }

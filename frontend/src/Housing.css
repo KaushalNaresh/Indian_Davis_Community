@@ -1,0 +1,61 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above everything else */
+  }
+
+.overlay-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 500px;
+    cursor: auto;
+  }
+.housing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children horizontally */
+    min-height: 100vh;
+}
+
+.housing-banner {
+    width: 100%; /* Ensures full width */
+}
+
+.housing-container .categories {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 20%; /* Sidebar width */
+}
+
+.housing-banner .hero-section {
+    width: 100%; /* Ensures full width */
+}
+
+/* Add this to center property items in the middle of the page */
+.property-list {
+    width: 60%; /* Adjust the width as necessary */
+    margin-top: 20px; /* Adds some space from the top of the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children horizontally */
+}
+
+.property-item {
+    margin-bottom: 20px; /* Adds some space between the property items */
+    /* Add additional styles for property items here */
+}
+
+
+
