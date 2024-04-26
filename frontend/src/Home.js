@@ -5,6 +5,7 @@ import Categories from './Categories';
 import Carousel from './Carousel';
 import Footer from './Footer';
 import './Home.css';
+import RoommateInfo from './RoommateInfo';
 
 
 function Home() {
@@ -24,7 +25,7 @@ function Home() {
           showLogIn={showLogIn}
           setShowLogIn={setShowLogIn}
         />
-        {/* <Categories />  */}
+        <RoommateInfo />  
         <Footer /> 
     </div>
   );

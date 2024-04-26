@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between; 
-    padding: 1.5rem;
+    padding: 2rem;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./images/HeroSection_Background.png');
     background-size: cover;
     background-position: center;
@@ -45,10 +45,11 @@
     padding: 0rem;
     text-align: left; 
     margin:auto;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     line-height: 2; 
     letter-spacing: -1px;
     font-weight: 600; 
@@ -65,7 +66,7 @@
     color: #D4AF37;
 }
 .hero-content p {
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1.8;
     font-weight: 600;  
     margin-bottom: 2rem;

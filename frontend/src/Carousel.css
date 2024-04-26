@@ -2,8 +2,8 @@
   position: relative;
   overflow: hidden;
   width: 100%; /* Adjust the width as needed */
-  height: 600px;
-  max-width: 750px; /* Adjust the max width as needed */
+  height: 500px;
+  max-width: 500px; /* Adjust the max width as needed */
   margin: auto; /* This centers the carousel if its width is less than the container */
   display: flex; /* Align images horizontally */
   justify-content: center; /* Center the images */
