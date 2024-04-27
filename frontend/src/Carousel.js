@@ -1,40 +1,47 @@
 
 import React, { useState, useEffect } from 'react';
 import './Carousel.css'; // Import the CSS file here
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-cube';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
+
+import { EffectCube, Pagination, Autoplay } from 'swiper/modules';
 
 const Carousel = ({ slides, autoSlideInterval = 3000 }) => {
 
-  console.log('Carousel component is rendered with slides:', slides);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-
-  useEffect(() => {
-    if (isHovering) return;
-    const slideTimer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, autoSlideInterval);
-
-    return () => clearInterval(slideTimer);
-  }, [isHovering, slides.length, autoSlideInterval]);
-
   return (
-    <div className='carousel-wrapper'>
-      {slides.map((image, index) => (
-        <img
-          key={index}
-          src={image}
-          alt={`Slide ${index}`}
-          className={index === currentSlide ? 'carousel-image active' : 'carousel-image'}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-          style={{
-            opacity: index === currentSlide ? 1 : 0,
-            transform: isHovering && index === currentSlide ? 'scale(1.1)' : 'scale(1)',
-            transition: 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out',
+    <>
+      <div className='carousel-wrapper'>
+        <Swiper
+          modules={[EffectCube, Pagination, Autoplay]}
+          effect={'cube'}
+          grabCursor={true}
+          cubeEffect={{
+            shadow: true,
+            slideShadows: true,
+            shadowOffset: 20,
+            shadowScale: 0.94,
           }}
-        />
-      ))}
-    </div>
+          pagination={true}
+          autoplay={{
+            delay: 2000, 
+            disableOnInteraction: false, 
+          }}
+          loop={true}
+          className="banner-swiper"
+        >
+          {slides.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img src={image} />
+            </SwiperSlide>))
+          }
+        </Swiper>
+      </div>
+    </>
   );
 };
 

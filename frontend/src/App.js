@@ -11,8 +11,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
+// import { register } from 'swiper/element/bundle';
 
 function App() {
+  // register();
 
   const {isLoggedIn} = useContext(AuthContext);
 
