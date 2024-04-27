@@ -1,6 +1,6 @@
 /* Footer Section */
 .footer {
-    background-color: #282c34;
+    background-color:#060722;
     /* Dark background for a sleek look */
     color: #bbb;
     /* Light text color for contrast */
@@ -58,7 +58,7 @@
 
 .footer-section h3:hover,
 .footer-section ul li:hover {
-    color: #ff9000;
+    color: #f4c322;
     /* Change the color on hover */
 }
 

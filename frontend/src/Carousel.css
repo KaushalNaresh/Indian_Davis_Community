@@ -1,0 +1,27 @@
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%; /* Adjust the width as needed */
+  height: 500px;
+  max-width: 500px; /* Adjust the max width as needed */
+  margin: auto; /* This centers the carousel if its width is less than the container */
+  display: flex; /* Align images horizontally */
+  justify-content: center; /* Center the images */
+  align-items: center; /* Align the images vertically */
+}
+
+.carousel-image {
+  position: absolute;
+  max-width: 100%; /* Maintain aspect ratio */
+  max-height: 100%; /* Maintain aspect ratio */
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.carousel-image.active {
+  z-index: 2; 
+} 
+
+.carousel-image:hover {
+  cursor: pointer; /* Change cursor on hover */
+  transform: scale(1.1); /* Scale up on hover */
+}

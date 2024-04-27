@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "axios": "^1.6.7",
+    "react-masonry-component": "^6.3.0",
+    "react-pretty-carousel": "^1.0.19",
+    "typed.js": "^2.1.0"
+  }
+}

@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fee0ac;
+  background-color: hsl(224, 71%, 70%);
   max-height: 400px;
   margin: 20px 0;
 }

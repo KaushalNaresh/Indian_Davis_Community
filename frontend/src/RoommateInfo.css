@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
+
+.roommate-info-section {
+    position: relative;
+    padding: 50px 0;
+    background-image: url('./images/RoomatesInfo.jpg'); /* Adjust path if needed */
+    background-size: contain; /* Adjust if you want the full image always visible */
+    background-color: #002955;
+    background-repeat: no-repeat;
+    background-position: right center;
+    color: white ;
+}
+.roommate-info-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('./images/RoommatesInfoBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.2; /* Adjust the opacity to your liking */
+    z-index: 1; /* Ensure this is below the text but above the background image */
+  }
+.roommate-info-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    font-family: 'Roboto Mono', monospace;
+    opacity: 0; /* Start invisible */
+    transform: translateY(50px);
+    transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+}
+
+.roommate-info-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.roommate-info-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.roommate-info-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}

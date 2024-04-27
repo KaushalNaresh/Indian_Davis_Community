@@ -3,6 +3,7 @@ import Login from "./Login";
 import Home from "./Home";
 import SignupForm from './SignupForm'; 
 import RoommateFinder from "./RoommateFinder";
+import Housing from "./Housing";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Profile from './Profile';
@@ -23,6 +24,7 @@ function App() {
             <Route path="/signup" element={<SignupForm />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/roommate-finder" element={isLoggedIn ? <RoommateFinder /> : <Navigate to="/"/>}/>
+            <Route path="/housing" element={isLoggedIn ? <Housing /> : <Navigate to="/"/>}/>
             <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/" />}/>
             <Route path="/" element={<Home />}/>
           </Routes>
