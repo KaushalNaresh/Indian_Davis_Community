@@ -5,11 +5,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/effect-cube';
+import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
-import { EffectCube, Pagination, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
 
 const Carousel = ({ slides, autoSlideInterval = 3000 }) => {
 
@@ -17,18 +17,13 @@ const Carousel = ({ slides, autoSlideInterval = 3000 }) => {
     <>
       <div className='carousel-wrapper'>
         <Swiper
-          modules={[EffectCube, Pagination, Autoplay]}
-          effect={'cube'}
+          modules={[EffectFade, Pagination, Autoplay]}
+          effect={'fade'}
           grabCursor={true}
-          cubeEffect={{
-            shadow: true,
-            slideShadows: true,
-            shadowOffset: 20,
-            shadowScale: 0.94,
-          }}
+          speed={3000}
           pagination={true}
           autoplay={{
-            delay: 2000, 
+            delay: 500, 
             disableOnInteraction: false, 
           }}
           loop={true}

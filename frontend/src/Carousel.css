@@ -2,11 +2,11 @@
   position: relative;
   overflow: hidden;
   width: 50%; /* Adjust the width as needed */
-  height: 500px;
+  height: 350px;
 }
 
 .banner-swiper{
-  width: 80%;
+  width: 70%;
   height: 100%;
 }
 

@@ -11,7 +11,7 @@ import FriendsImg2 from './images/FriendsImg2.jpg';
 import FriendsImg3 from './images/FriendsImg3.jpg';
 import FriendsImg4 from './images/FriendsImg4.jpg';
 
-const images = [FriendsImg1, FriendsImg2, FriendsImg3, FriendsImg4];
+const images = [FriendsImg1, FriendsImg3, FriendsImg4];
 
 function HeroSection({ showSignUp, setShowSignUp, showLogIn, setShowLogIn }) {
   const { isLoggedIn, user } = useContext(AuthContext);
