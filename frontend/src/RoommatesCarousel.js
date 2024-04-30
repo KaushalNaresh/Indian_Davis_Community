@@ -153,28 +153,17 @@ const roommates = [
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, Autoplay]}
       spaceBetween={30}
-      speed= {2000}
+      speed= {1000}
       slidesPerView={5}
       navigation
-    //   navigation={{
-    //     prevEl: navigationPrevRef.current,
-    //     nextEl: navigationNextRef.current,
-    //   }}
-    //   onBeforeInit={(swiper) => {
-    //     swiper.params.navigation.prevEl = navigationPrevRef.current;
-    //     swiper.params.navigation.nextEl = navigationNextRef.current;
-    //   }}
-    //   pagination={{el: ".swiper-pagination", clickable: true }}
-     pagination={{clickable: true}}
+      pagination={{clickable: true}}
       autoplay={{
-        delay: 2000, 
+        delay: 1000, 
         disableOnInteraction: false, 
       }}
       className="roommates-carousel"
       loop={true}
     >
-      {/* <div ref={navigationPrevRef} className="swiper-button-prev-outside"></div>
-      <div ref={navigationNextRef} className="swiper-button-next-outside"></div> */}
       {roommates.map((roommate, index) => (
         <SwiperSlide key={index}>
           <div className="roommates-carousel-card">
