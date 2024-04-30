@@ -4,6 +4,13 @@ Welcome to the Indian Community @ Davis (ICD) project repository. This MERN stac
 
 ![ICD](https://github.com/KaushalNaresh/Indian_Davis_Community/blob/main/frontend/src/images/HomePage.png)
 
+
+
+<div style="display: flex; justify-content: space-around;">
+  <img src="https://github.com/KaushalNaresh/Indian_Davis_Community/blob/main/frontend/src/images/BannerAfterLogin.png" alt="LoginBanner" style="width: 45%;"/>
+  <img src="https://github.com/KaushalNaresh/Indian_Davis_Community/blob/main/frontend/src/images/DashboardRoommates.png" alt="DashboardRoommates" style="width: 45%;"/>
+</div>
+
 ## Project Overview
 
 ICD serves as a bridge between Indian students and the UC Davis community, offering resources and tools to help new students integrate and settle into their new environment. Understanding the challenges of adjusting to a foreign land, ICD is tailored to make the transition as smooth as possible, promoting a sense of belonging and mutual support.
@@ -11,9 +18,7 @@ ICD serves as a bridge between Indian students and the UC Davis community, offer
 ### Key Features
 
 - **Events**: Stay updated with the latest community events and gatherings.
-- **Housing**: Find or offer accommodation, connect with potential roommates.
 - **Roommate Finder**: A dedicated tool to match with compatible roommates.
-- **Popular Places**: Discover local points of interest, recommended by fellow students.
 - **For You**: Personalized recommendations to help you navigate life at UC Davis.
 - **Senior Connect**: Reach out to experienced students for guidance and mentorship.
 
