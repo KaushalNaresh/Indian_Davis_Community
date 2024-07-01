@@ -11,20 +11,34 @@ import FriendsImg2 from './images/FriendsImg2.jpg';
 import FriendsImg3 from './images/FriendsImg3.jpg';
 import FriendsImg4 from './images/FriendsImg4.jpg';
 
-const images = [FriendsImg1, FriendsImg2, FriendsImg3, FriendsImg4];
+const images = [FriendsImg1, FriendsImg3, FriendsImg4];
 
 function HeroSection({ showSignUp, setShowSignUp, showLogIn, setShowLogIn }) {
   const { isLoggedIn, user } = useContext(AuthContext);
   const typedRef = useRef(null);
 
+  const getTimeOfDayGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning!";
+    if (hour < 18) return "Good afternoon!";
+    return "Good evening!";
+  };
+
   useEffect(() => {
-    const typedOptions = {
-      strings: [
+    const options = isLoggedIn ? [
+        'Hope you find great connections here!',
+        'Ready to explore?',
+        "Find events that spark your interests!",
+        "Join the fun at our community gatherings!"
+      ] : [
         'Infinite possibilities.',
         'Infinite memories.',
         'Infinite friendships.',
         'Infinite opportunities.'
-      ],
+      ]
+    
+    const typedOptions = {
+      strings: options,
       typeSpeed: 50,
       backSpeed: 50,
       backDelay: 1500,
@@ -38,7 +52,7 @@ function HeroSection({ showSignUp, setShowSignUp, showLogIn, setShowLogIn }) {
     const typed = new Typed(typedRef.current, typedOptions);
 
     return () => typed.destroy();
-  }, []);
+  }, [isLoggedIn, user]);
 
   return (
     <div className="hero-section">
@@ -49,13 +63,24 @@ function HeroSection({ showSignUp, setShowSignUp, showLogIn, setShowLogIn }) {
           <LoginForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp} />
         ) : (
           <>
-            {isLoggedIn && <h2>Hi, {user.firstName}!</h2>}
-            <h1>Connect. Inspire. <span className="highlight">Belong.</span></h1>
-            <p>One community. <span ref={typedRef} className="phighlight">Infinite possibilities.</span></p>
-            <p>Join the Davis Desi Family!</p>
-            {!isLoggedIn && (
-              <button className="join-button" onClick={() => setShowSignUp(true)}>Join ICD</button>
-            )}
+            {isLoggedIn ?
+                (
+                    <>
+                        <h2>Hi, {user.firstName} {user.lastName}!</h2>
+                        <p>{getTimeOfDayGreeting()} <span ref={typedRef} className="phighlight"></span></p>
+                    </>
+                )
+                :
+                (
+                    <>
+                        <h1>Connect. Inspire. <span className="highlight">Belong.</span></h1>
+                        <p>One community. <span ref={typedRef} className="phighlight">Infinite possibilities.</span></p>
+                        <p>Join the Davis Desi Family!</p>
+                        
+                        <button className="join-button" onClick={() => setShowSignUp(true)}>Join ICD</button>
+                    </>
+                )
+            }
           </>
         )}
       </div>

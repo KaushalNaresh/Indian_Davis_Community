@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './RoommateInfo.css';
 import backgroundImage from './images/RoomatesInfo.jpg'; // Adjust the import path if needed
+import { AuthContext } from './AuthContext';
+import RoommatesCarousel from './RoommatesCarousel';
+
 
 const RoommateInfo = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const { isLoggedIn, user } = useContext(AuthContext);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -11,8 +15,9 @@ const RoommateInfo = () => {
             if (content) {
                 const contentPosition = content.getBoundingClientRect().top;
                 const screenPosition = window.innerHeight;
+                const offset = 800;
 
-                setIsVisible(contentPosition < screenPosition && contentPosition > 0);
+                setIsVisible(contentPosition < offset && contentPosition > 0);
             }
         };
 
@@ -24,11 +29,25 @@ const RoommateInfo = () => {
     return (
       <section className="roommate-info-section" style={{ backgroundImage: `url(${backgroundImage})` }}>
         <div className="roommate-info-overlay"></div>
-        <div className={`roommate-info-content ${isVisible ? 'visible' : ''}`}>
-          <h2>Discover the Perfect Roommate</h2>
-          <p>
-            Whether you're looking for someone to join your flat or seeking a new place to call home, our platform connects you with compatible roommates. Our vibrant community ensures you find the right match for your lifestyle and preferences.
-          </p>
+        {isLoggedIn && <RoommatesCarousel/>}
+        <div className='content-info'>
+          <div className={`roommate-info-content ${isVisible ? 'visible' : ''}`}>
+            <h2>Find My Roomie</h2>
+            <p>
+            {isLoggedIn ? "We strive to match you with roommates who tick all your boxes. If our suggestions haven't captured your interest, click 'Explore More' to delve into a wider pool of potential roommates"
+                        : "Don't leave it to chance — your ideal roommate awaits! Connect with us to discover your perfect match and say goodbye to roommate roulette." 
+            }
+            </p>
+            {isLoggedIn && <button>Explore More</button>}
+          </div>
+          <div className={`roommate-info-content ${isVisible ? 'visible' : ''}`}>
+            <h2>Campus Happenings</h2>
+            <p>
+            {isLoggedIn ? "Not finding the event you're looking for? Step into a broader world of happenings around UC Davis or spark a new gathering by creating an event that brings people together."
+                        : "No more dull moments! Dive into the fun side of UC Davis and find your next great experience. Connect, enjoy, and make every event your own."}
+            </p>
+            {isLoggedIn && <button>Explore & Create Events </button>}
+          </div>
         </div>
       </section>
     );
