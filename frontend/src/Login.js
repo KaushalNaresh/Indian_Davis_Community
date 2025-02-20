@@ -18,7 +18,6 @@ function Login({ setShowLogIn, setShowSignUp }) {
   // Fetch user details after successful login
   const fetchDetails = async () => {
     try {
-      // NOTE: If your backend uses GET or a different endpoint, adjust here:
       const response = await fetch(`${BASE_URL}/user/details?email=${email}`, {
         method: 'POST',
         credentials: 'include',

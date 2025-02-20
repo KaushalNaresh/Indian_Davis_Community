@@ -1,611 +1,517 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import Header from './Header'
-import Categories from './Categories'
-import Select from 'react-select'
-import './Profile.css'
-import Constants from './StringConstants.json'
+import React, { useState, useContext, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext'
+import Constants from './StringConstants.json'
+import Header from './Header'
+// import Categories from './Categories'
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Alert } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import './Profile.css'; // Our new CSS
 
 function Profile() {
-
     const BASE_URL = Constants.base_url;
-
-    const [isEditable, setIsEditable] = useState(false);
-    const [showUpdateMessage, setShowUpdateMessage] = useState(false);
     const { user, setUserDetails } = useContext(AuthContext);
-
-    const majorOptions = [
-        { value: '2', label: "Select your major" },
-        { value: 'cs', label: 'Computer Science' },
-        { value: 'eec', label: 'Electrical Engineering' },
-    ];
-    const degreeOptions = [
-        { value: '2', label: "Select your degree" },
-        { value: 'bs', label: "Bachelor's" },
-        { value: 'ms', label: "Master's" },
-        { value: 'phd', label: "PHD" },
-    ];
-
+  
+    const [showUpdateMessage, setShowUpdateMessage] = useState(false);
+  
     const getFormattedDate = (date) => {
-        const year = date.getUTCFullYear(); // 2022
-        const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // "09" (Month is 0-indexed so +1 is necessary)
-        const day = date.getUTCDate().toString().padStart(2, '0'); // "20"
-        const formattedDate = `${year}-${month}-${day}`;
-
-        return formattedDate;
+      if (!date) return null;
+      const d = new Date(date);
+      // Convert to a new date with the same YYYY-MM-DD
+      return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
     };
-
-    const addSocialMediaAccount = () => {
-        user.socialMediaAccounts.push({ platform: '', username: '' })
-        setUserDetails({ ...user, 'socialMediaAccounts': user.socialMediaAccounts });
-    };
-
-    const removeSocialMediaAccount = (index) => {
-        user.socialMediaAccounts = user.socialMediaAccounts.filter((_, i) => i !== index);
-        setUserDetails({ ...user, 'socialMediaAccounts': user.socialMediaAccounts });
-    };
-
-    // Handlers for change in input fields and toggle edit mode
-    const handleInputChange = (e) => {
-        setUserDetails({ ...user, [e.target.name]: e.target.value });
-
-    };
-
-    const handleSelectInputChange = (selectedOption, actionMeta) => {
-        setUserDetails({ ...user, [actionMeta.name]: selectedOption.value });
-    };
-
-    const handleCountryRegionInputChange = (name, value) => {
-        setUserDetails({ ...user, [name]: value });
-    }
-
-    const toggleEditMode = () => {
-        setIsEditable(!isEditable);
-    };
-
-    const handleSocialMediaChange = (index, field, value) => {
-        user.socialMediaAccounts = user.socialMediaAccounts.map((account, i) => {
-            if (i === index) {
-                return { ...account, [field]: value };
-            }
-            return account;
-        });
-        setUserDetails({ ...user, 'socialMediaAccounts': user.socialMediaAccounts });
-    };
-
-    // Handler for save button
-    const saveProfile = async () => {
-        try {
-            // console.log('Profile saved:', user);
-            setIsEditable(false);
-
-            setShowUpdateMessage(true);
-            setTimeout(() => setShowUpdateMessage(false), 5000); // Hide the message after 3 seconds
-
-
-            const response = await fetch(`${BASE_URL}/user/update`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(user)
-            });
-
-            const res = await response.json();
-            if (!response.ok)
-                throw new Error(res.message);
-        }
-        catch (e) {
-            console.log(e.message);
-        }
-    };
-
-    const [validated, setValidated] = useState(false);
-    const [firstNameValid, setFirstNameValid] = useState(true);
-    const [lastNameValid, setLastNameValid] = useState(true);
-    const [datesValid, setDatesValid] = useState(true);
-    const [emailValid, setEmailValid] = useState(true);
-    const [ucDavisIdValid, setUcDavisIdValid] = useState(true);
-    const [majorValid, setMajorValid] = useState(true);
-    const [degreeValid, setDegreeValid] = useState(true);
-    const [countryValid, setCountryValid] = useState(true);
-    const [regionValid, setRegionValid] = useState(true);
-    const [aboutYouValid, setaboutYouValid] = useState(true);
-    const [aboutYouCharLimitReached, setAboutYouCharLimitReached] = useState(false);
-
-
-    const handleAboutYouChange = (e) => {
-
-        setUserDetails({ ...user, [e.target.name]: e.target.value });
-        const isAboutYouValid = e.target.value != ''
-        const isAboutYouCharLimitReached = e.target.value.length == 61
-        
-        setaboutYouValid(isAboutYouValid);
-        setAboutYouCharLimitReached(isAboutYouCharLimitReached);
-
-        if (validated && (!isAboutYouValid || !isAboutYouCharLimitReached)) {
-            setValidated(false);
-        }
-
-    };
-
-    const handleMajorChange = (e) => {
-        setUserDetails({ ...user, [e.target.name]: e.target.value });
-        const isMajorValid = e.target.value != '2';
-        setMajorValid(isMajorValid);
-
-        if (validated && !isMajorValid) {
-            setValidated(false);
-        }
-    };
-
-    const handleCountryChange = (name, value) => {
-        setUserDetails({ ...user, [name]: value });
-        const isCountryValid = value != '';
-        setCountryValid(isCountryValid);
-        setRegionValid(false);
-        setValidated(false);
-    };
-
-    const handleRegionChange = (name, value) => {
-        setUserDetails({ ...user, [name]: value });
-        const isRegionValid = value != '';
-        setRegionValid(isRegionValid);
-
-        if (validated && !isRegionValid) {
-            setValidated(false);
-        }
-    };
-
-    const handleDegreeChange = (e) => {
-        setUserDetails({ ...user, [e.target.name]: e.target.value });
-        const isDegreeValid = e.target.value != '2';
-        setDegreeValid(isDegreeValid);
-
-        if (validated && !isDegreeValid) {
-            setValidated(false);
-        }
-    };
-
-    const handleFirstNameChange = (e) => {
-        setUserDetails({ ...user, [e.target.name]: e.target.value });
-        const isFirstNameValid = e.target.value != "";
-        setFirstNameValid(isFirstNameValid);
-
-        if (validated && !isFirstNameValid) {
-            setValidated(false);
-        }
-    }
-
-    const handleLastNameChange = (e) => {
-        setUserDetails({ ...user, [e.target.name]: e.target.value });
-        const isLastNameValid = e.target.value != "";
-        setLastNameValid(isLastNameValid);
-
-        if (validated && !isLastNameValid) {
-            setValidated(false);
-        }
-    }
-
-    const handleEmailChange = (e) => {
-        setUserDetails({ ...user, [e.target.name]: e.target.value });
-        const isEmailValid = e.target.value != "" && e.target.value.endsWith('@ucdavis.edu')
-        setEmailValid(isEmailValid)
-
-        if (validated && !isEmailValid) {
-            setValidated(false);
-        }
-    }
-
-    const handleUcDavisIdChange = (e) => {
-        setUserDetails({ ...user, [e.target.name]: e.target.value });
-        const isUcDavisIdValid = e.target.value != ""
-        setUcDavisIdValid(isUcDavisIdValid)
-
-        if (validated && !isUcDavisIdValid) {
-            setValidated(false);
-        }
-    }
-
-    const handleFromDateChange = (date, name) => {
-        setUserDetails({ ...user, [name]: date });
-        const toDate = new Date(user.toDate)
-        const isFromDateValid = date < toDate
-        setDatesValid(isFromDateValid);
-        
-        if (validated && !isFromDateValid) {
-            setValidated(false);
-        }
-    };
-
-    const handleToDateChange = (date, name) => {
-        setUserDetails({ ...user, [name]: date });
-        const fromDate = new Date(user.fromDate);
-        const isToDateValid = fromDate < date;
-        setDatesValid(isToDateValid);
-
-        if (validated && !isToDateValid) {
-            setValidated(false);
-        }
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if(firstNameValid && lastNameValid && emailValid && ucDavisIdValid &&
-           datesValid && majorValid && degreeValid && countryValid && regionValid &&
-           aboutYouValid){
-           setValidated(true);
-
-           try {
-                // console.log('Profile saved:', user);
-                setIsEditable(false);
-
-                setShowUpdateMessage(true);
-                setTimeout(() => setShowUpdateMessage(false), 5000); // Hide the message after 3 seconds
-
-
-                const response = await fetch(`${BASE_URL}/user/update`, {
-                    method: 'POST',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // Include other headers like authorization if needed
-                    },
-                    body: JSON.stringify(user)
-                });
-
-                const res = await response.json();
-                if (!response.ok)
-                    throw new Error(res.message);
-            }
-            catch (e) {
-                console.log(e.message);
-            }
-
-
-        }
-      };
     
-
+    // Example date change logic: only validate if both are chosen
+    const handleFromDateChange = (date) => {
+      setUserDetails({ ...user, fromDate: date });
+    };
+  
+    const handleToDateChange = (date) => {
+      setUserDetails({ ...user, toDate: date });
+    };
+  
+    // Example: user can fill or skip major
+    const handleMajorChange = (e) => {
+      setUserDetails({ ...user, major: e.target.value });
+    };
+  
+    const handleDegreeChange = (e) => {
+      setUserDetails({ ...user, degree: e.target.value });
+    };
+  
+    const handleCountryChange = (val) => {
+      setUserDetails({ ...user, country: val, region: '' });
+    };
+  
+    const handleRegionChange = (val) => {
+      setUserDetails({ ...user, region: val });
+    };
+  
+    const handlePreferenceChange = (e) => {
+      setUserDetails({ ...user, [e.target.name]: e.target.value });
+    };
+  
+    // Social Media
+    const handleSocialMediaChange = (index, field, value) => {
+      const updatedAccounts = user.socialMediaAccounts.map((acc, i) => {
+        if (i === index) {
+          return { ...acc, [field]: value };
+        }
+        return acc;
+      });
+      setUserDetails({ ...user, socialMediaAccounts: updatedAccounts });
+    };
+  
+    const addSocialMediaAccount = () => {
+      const updated = [...user.socialMediaAccounts, { platform: '', username: '' }];
+      setUserDetails({ ...user, socialMediaAccounts: updated });
+    };
+  
+    const removeSocialMediaAccount = (index) => {
+      const updated = user.socialMediaAccounts.filter((_, i) => i !== index);
+      setUserDetails({ ...user, socialMediaAccounts: updated });
+    };
+  
+    // About You
+    const [charLimitReached, setCharLimitReached] = useState(false);
+    const handleAboutYouChange = (e) => {
+      const val = e.target.value;
+      setCharLimitReached(val.length >= 200);
+      setUserDetails({ ...user, aboutYou: val });
+    };
+  
+    // Submit: only do minimal checks
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+  
+      // If user provided both fromDate and toDate, ensure from < to
+      if (user.fromDate && user.toDate) {
+        const from = new Date(user.fromDate);
+        const to = new Date(user.toDate);
+        if (from >= to) {
+          alert('Start date must be before end date.');
+          return;
+        }
+      }
+  
+      try {
+        const response = await fetch(`${BASE_URL}/user/update`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(user),
+        });
+  
+        const res = await response.json();
+        if (!response.ok) throw new Error(res.message);
+  
+        setShowUpdateMessage(true);
+        setTimeout(() => setShowUpdateMessage(false), 4000);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+  
     return (
-        <div className='profile'>
-            <Header />
-            <Categories />
-
-            <div className='profile-section'>
-
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                    <Row className="mb-2">
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>First name</Form.Label>
-                            <Form.Control
-                                required
-                                type="text"
-                                placeholder="Enter your first name"
-                                name="firstName"
-                                value={user.firstName}
-                                onChange={(e) => handleFirstNameChange(e)}
-                                className={`form-control ${!firstNameValid && 'is-invalid'}`}
-                            />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">Please enter a valid first name</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>Last Name</Form.Label>
-                            <Form.Control
-                                required
-                                type="text"
-                                placeholder="Enter your last name"
-                                name="lastName"
-                                value={user.lastName}
-                                onChange={(e) => handleLastNameChange(e)}
-                                className={`form-control ${!lastNameValid && 'is-invalid'}`}
-                            />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">Please enter a valid last name</Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-2">
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                required
-                                type="text"
-                                name='email'
-                                placeholder="Enter your email ID"
-                                value={user.email}
-                                onChange={(e) => handleEmailChange(e)}
-                                className={`form-control ${!emailValid && 'is-invalid'}`}
-                            />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">Please enter a valid UC Davis email address</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>UC Davis ID</Form.Label>
-                            <Form.Control
-                                required
-                                type="text"
-                                placeholder="Enter your UC Davis ID"
-                                name='ucDavisId'
-                                value={user.ucDavisId}
-                                onChange={(e) => handleUcDavisIdChange(e)}
-                                className={`form-control ${!ucDavisIdValid && 'is-invalid'}`}
-                            />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">Please enter a valid UC Davis ID</Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-2">
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <div className='date-picker-row'>
-                                <Form.Label>Course Start Date</Form.Label>
-                                <DatePicker 
-                                    selected={getFormattedDate(new Date(user.fromDate))}
-                                    onChange={(date) => handleFromDateChange(date, 'fromDate')}
-                                    className={`date-picker form-control ${!datesValid && 'is-invalid'}`}
-                                />
-                                <div className={`feedback ${datesValid ? 'valid-date-feedback' : 'invalid-date-feedback'}`}>
-                                    {(validated && datesValid) && 'Looks good!' }
-                                    {!datesValid && 'Start Date must come before End Date.'}
-                                </div>
-                            </div>
-                        </Form.Group>
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <div className='date-picker-row'>
-                                <Form.Label>Course End Date (Expected)</Form.Label>
-                                <DatePicker 
-                                    selected={getFormattedDate(new Date(user.toDate))}
-                                    onChange={(date) => handleToDateChange(date, 'toDate')}
-                                    className={`date-picker form-control ${!datesValid && 'is-invalid'}`}
-                                />
-                                <div className={`feedback ${datesValid ? 'valid-date-feedback' : 'invalid-date-feedback'}`}>
-                                    {(validated && datesValid) && 'Looks good!' }
-                                    {!datesValid && 'End Date must come after Start Date.'}
-                                </div>
-                            </div>
-                        </Form.Group>
-                    </Row>
-
-
-                    <Row className="mb-2">
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>Major</Form.Label>
-                            <Form.Select 
-                                name="major" 
-                                aria-label="Default select example"
-                                value={user.major}
-                                onChange={(selectedOption, actionMeta) => handleMajorChange(selectedOption, actionMeta)}
-                                className={`form-control ${!majorValid && 'is-invalid'}`}
-                            >
-                                <option value="2">Select your major</option>
-                                <option value="cs">Computer Science</option>
-                                <option value="eec">Electrical Engineering</option>
-                            </Form.Select>
-                            {majorValid && <Form.Control.Feedback type='valid'>Looks good!</Form.Control.Feedback>}
-                            {!majorValid && <Form.Control.Feedback type="invalid">Please enter a valid major</Form.Control.Feedback>}
-                        </Form.Group>
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>Degree</Form.Label>
-                            <Form.Select 
-                                name="degree" 
-                                aria-label="Default select example"
-                                value={user.degree}
-                                onChange={(selectedOption, actionMeta) => handleDegreeChange(selectedOption, actionMeta)}
-                                className={`form-control ${!degreeValid && 'is-invalid'}`}
-                            >
-                                <option value="2">Select your degree</option>
-                                <option value="bs">Bachelors</option>
-                                <option value="ms">Masters</option>
-                                <option value="phd">PHD</option>
-                            </Form.Select>
-                            {degreeValid && <Form.Control.Feedback type='valid'>Looks good!</Form.Control.Feedback>}
-                            {!degreeValid && <Form.Control.Feedback type="invalid">Please enter a valid degree</Form.Control.Feedback>}
-                        </Form.Group>
-                    </Row>
-
-
-
-                    <Row className="mb-2">
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>Country</Form.Label>
-                            <CountryDropdown
-                                    value={user.country}
-                                    name='country'
-                                    onChange={(value) => handleCountryChange('country', value)}
-                                    className={`form-control ${!countryValid && 'is-invalid'}`}
-                                    required
-                                />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">Please enter a valid country</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>Region</Form.Label>
-                            <RegionDropdown
-                                    country={user.country}
-                                    value={user.region}
-                                    name='region'
-                                    onChange={(value) => handleRegionChange('region', value)}
-                                    className={`form-control ${!regionValid && 'is-invalid'}`}
-                                    required
-                            />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">Please enter a valid region</Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
-
-
-                    <Row className="my-3"> 
-                        <Col sm={6} className="d-flex align-items-center">
-                            <label className="radio-group-label">Gender</label>
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center"> 
-                            <input type="radio" name="gender" value="1" id="yes" checked={user.gender == '1'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="yes" className="d-block">Male</label> 
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center">
-                            <input type="radio" name="gender" value="0" id="no" checked={user.gender == '0'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="no" className="d-block">Female</label>
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center">
-                            <input type="radio" name="gender" value="2" id="sometimes" checked={user.gender == '2'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="sometimes" className="d-block">Other</label>
-                        </Col>
-                    </Row>
-
-
-                    <Row className="my-3"> 
-                        <Col sm={6} className="d-flex align-items-center">
-                            <label className="radio-group-label">Smoking</label>
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center"> 
-                            <input type="radio" name="smoker" value="1" id="yes" checked={user.smoker == '1'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="yes" className="d-block">Yes</label> 
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center">
-                            <input type="radio" name="smoker" value="0" id="no" checked={user.smoker == '0'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="no" className="d-block">No</label>
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center">
-                            <input type="radio" name="smoker" value="2" id="sometimes" checked={user.smoker == '2'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="sometimes" className="d-block">Sometimes</label>
-                        </Col>
-                    </Row>
-
-
-                    <Row className="my-3"> 
-                        <Col sm={6} className="d-flex align-items-center">
-                            <label className="radio-group-label">Alcohol</label>
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center"> 
-                            <input type="radio" name="drinker" value="1" id="yes" checked={user.drinker == '1'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="yes" className="d-block">Yes</label> 
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center">
-                            <input type="radio" name="drinker" value="0" id="no" checked={user.drinker == '0'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="no" className="d-block">No</label>
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center">
-                            <input type="radio" name="drinker" value="2" id="sometimes" checked={user.drinker == '2'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="sometimes" className="d-block">Sometimes</label>
-                        </Col>
-                    </Row>
-                        
-
-                    <Row className="my-3">
-                        <Col sm={6} className="d-flex align-items-center">
-                            <label className="radio-group-label">Food Preference</label>
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center"> {/* Use text-center to align the radio button with its label */}
-                            <input type="radio" name="foodPreference" value="0" id="veg" checked={user.foodPreference == '0'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="veg" className="d-block">Veg</label> {/* d-block to make the label a block element */}
-                        </Col>
-                        <Col sm={2} className="d-flex flex-column align-items-center justify-content-center">
-                            <input type="radio" name="foodPreference" value="1" id="non-veg" checked={user.foodPreference == '1'} onChange={(e) => handleInputChange(e)} required />
-                            <label htmlFor="non-veg" className="d-block">Non-Veg</label>
-                        </Col>
-                        <Col sm={2}> 
-                            {/* Empty Column */}
-                        </Col>
-                    </Row>
-
-
-
-                    <Row>
-                        <Col sm={6} className='my-3'>
-                            <Form.Group as={Row} controlId="formHorizontalCheck">
-                                <Col sm={6} className="d-flex ">
-                                    <Form.Label>
-                                    Looking for a Roommate
-                                    </Form.Label>
-                                </Col>
-                                <Col sm={6} className='d-flex justify-content-center'>
-                                    <Form.Check
-                                    type="switch"
-                                    id="lookingForRoommate-switch"
-                                    label={user.lookingForRoommate === '1' ? 'Yes' : 'No'}
-                                    checked={user.lookingForRoommate === '1'}
-                                    onChange={(e) => handleInputChange({
-                                        target: {
-                                        name: 'lookingForRoommate',
-                                        value: e.target.checked ? '1' : '0', // If the switch is checked, set value to '1' (Yes), otherwise '0' (No)
-                                        },
-                                    })}
-                                    />
-                                </Col>
-                            </Form.Group>
-                        </Col>
-                    </Row>
-
-                    {/* Social Media Inputs */}
-                    <div className="social-media-rows">
-                        <label className="social-media-label">Social Media</label>
-                        <div className='social-media-description'>To enhance your experience and connect more effectively, we highly encourage you to share your social media handle</div>
-                        {user.socialMediaAccounts.map((account, index) => (
-                            <div key={index} className="social-media-row">
-
-                                <select value={account.platform} onChange={(e) => handleSocialMediaChange(index, 'platform', e.target.value)}>
-                                    <option value="">Select Platform</option>
-                                    <option value="LinkedIn">LinkedIn</option>
-                                    <option value="Instagram">Instagram</option>
-                                    <option value="Facebook">Facebook</option>
-                                </select>
-
-                                <input
-                                    type="text"
-                                    value={account.username}
-                                    onChange={(e) => handleSocialMediaChange(index, 'username', e.target.value)}
-                                    placeholder="Username"
-                                />
-                                <button className="remove-social-media-btn" type="button" onClick={() => removeSocialMediaAccount(index)}>-</button>
-
-                            </div>
-                        ))}
-                    </div>
-                    <button className="add-social-media-btn" type="button" onClick={addSocialMediaAccount}>+</button>
-
-                    {/* About You */}
-                    <Form.Group as={Col} md="12" controlId="validationCustom01">
-                        <div className="about-you-group">
-                            <label className="about-you-label">About You</label>
-                            <div className="about-you-description">
-                                Share a bit about yourself, such as your interests, hobbies, or what makes you unique (max 200 characters)
-                            </div>
-                            <textarea
-                                className={`about-you-textarea form-control ${!aboutYouValid && 'is-invalid'}`}
-                                value={user.aboutYou}
-                                name='aboutYou'
-                                onChange={(e) => handleAboutYouChange(e)}
-                                placeholder="Tell us about yourself"
-                                maxLength={61}
-                                required
-                            ></textarea>
-                            <div className={`feedback ${aboutYouValid && (validated || !aboutYouCharLimitReached) ? 'valid-date-feedback' : 'invalid-date-feedback'}`}>
-                                {(validated && aboutYouValid) && 'You sound like an amazing person!' }
-                                {!aboutYouValid && 'Share something about you!'}
-                                {!validated && aboutYouCharLimitReached && 'character limit (200) reached!'}
-                            </div>
-                        </div>
-                    </Form.Group>
-
-                    <button className="save-profile-btn" type='submit'>Save</button>
-                    <div className='profile-form-alert'>
-                        {showUpdateMessage && <Alert key="success" variant="success">Profile Updated Successfully!</Alert>}
-                    </div>
-                </Form>
+      <div className="profile-page">
+        <Header />
+  
+        <div className="profile-container">
+          <h2 className="profile-title">Edit Your Profile</h2>
+  
+          <Form onSubmit={handleSubmit} className="profile-form-card">
+            
+            {/* SECTION 1: Basic Info (read-only) */}
+            <div className="profile-section">
+              <h3>Basic Information</h3>
+              <Row>
+                <Form.Group as={Col} md="6" controlId="firstNameGroup">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={user.firstName || ''}
+                    readOnly 
+                  />
+                </Form.Group>
+  
+                <Form.Group as={Col} md="6" controlId="lastNameGroup">
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={user.lastName || ''}
+                    readOnly 
+                  />
+                </Form.Group>
+              </Row>
+  
+              <Row>
+                <Form.Group as={Col} md="6" controlId="emailGroup">
+                  <Form.Label>UC Davis Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    value={user.email || ''}
+                    readOnly 
+                  />
+                </Form.Group>
+  
+                <Form.Group as={Col} md="6" controlId="ucDavisIdGroup">
+                  <Form.Label>UC Davis ID</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={user.ucDavisId || ''}
+                    readOnly 
+                  />
+                </Form.Group>
+              </Row>
             </div>
-        </div>
-    )
-}
+  
+            {/* SECTION 2: Academic Details (optional) */}
+            <div className="profile-section">
+              <h3>Academic Details</h3>
+              <Row>
+                <Form.Group as={Col} md="6" controlId="fromDateGroup" className="mb-3 d-flex flex-column">
+                    <Form.Label>Course Start Date</Form.Label>
+                    <DatePicker
+                    selected={getFormattedDate(user.fromDate)}
+                    onChange={handleFromDateChange}
+                    className="form-control"
+                    placeholderText="Select start date"
+                    />
+                </Form.Group>
 
-export default Profile
+                <Form.Group as={Col} md="6" controlId="toDateGroup" className="mb-3 d-flex flex-column">
+                    <Form.Label>Course End Date (Expected)</Form.Label>
+                    <DatePicker
+                    selected={getFormattedDate(user.toDate)}
+                    onChange={handleToDateChange}
+                    className="form-control"
+                    placeholderText="Select end date"
+                    />
+                </Form.Group>
+            </Row>
+  
+              <Row>
+                <Form.Group as={Col} md="6" controlId="majorGroup">
+                  <Form.Label>Major (Optional)</Form.Label>
+                  <Form.Select
+                    value={user.major || ''}
+                    onChange={handleMajorChange}
+                  >
+                    <option value="">No Selection</option>
+                    <option value="cs">Computer Science</option>
+                    <option value="eec">Electrical Engineering</option>
+                    {/* Add more as needed */}
+                  </Form.Select>
+                </Form.Group>
+  
+                <Form.Group as={Col} md="6" controlId="degreeGroup">
+                  <Form.Label>Degree (Optional)</Form.Label>
+                  <Form.Select
+                    value={user.degree || ''}
+                    onChange={handleDegreeChange}
+                  >
+                    <option value="">No Selection</option>
+                    <option value="bs">Bachelor's</option>
+                    <option value="ms">Master's</option>
+                    <option value="phd">PhD</option>
+                  </Form.Select>
+                </Form.Group>
+              </Row>
+            </div>
+  
+            {/* SECTION 3: Location (optional) */}
+            <div className="profile-section">
+              <h3>Location</h3>
+              <Row>
+                <Form.Group as={Col} md="6" controlId="countryGroup">
+                  <Form.Label>Country (Optional)</Form.Label>
+                  <CountryDropdown
+                    value={user.country || ''}
+                    onChange={(val) => handleCountryChange(val)}
+                    className="form-control"
+                    defaultOptionLabel="No Selection"
+                  />
+                </Form.Group>
+  
+                <Form.Group as={Col} md="6" controlId="regionGroup">
+                  <Form.Label>Region / State (Optional)</Form.Label>
+                  <RegionDropdown
+                    country={user.country || ''}
+                    value={user.region || ''}
+                    onChange={(val) => handleRegionChange(val)}
+                    className="form-control"
+                    blankOptionLabel="No Selection"
+                  />
+                </Form.Group>
+              </Row>
+            </div>
+  
+            {/* SECTION 4: Preferences (optional) */}
+            <div className="profile-section">
+              <h3>Preferences</h3>
+  
+              <Form.Group>
+                <Form.Label>Gender</Form.Label>
+                <div className="radio-group">
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Male"
+                    name="gender"
+                    value="1"
+                    checked={user.gender === '1'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Female"
+                    name="gender"
+                    value="0"
+                    checked={user.gender === '0'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Other"
+                    name="gender"
+                    value="2"
+                    checked={user.gender === '2'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="No Selection"
+                    name="gender"
+                    value=""
+                    checked={!user.gender}
+                    onChange={handlePreferenceChange}
+                  />
+                </div>
+              </Form.Group>
+  
+              <Form.Group>
+                <Form.Label>Smoking</Form.Label>
+                <div className="radio-group">
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Yes"
+                    name="smoker"
+                    value="1"
+                    checked={user.smoker === '1'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="No"
+                    name="smoker"
+                    value="0"
+                    checked={user.smoker === '0'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Sometimes"
+                    name="smoker"
+                    value="2"
+                    checked={user.smoker === '2'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="No Selection"
+                    name="smoker"
+                    value=""
+                    checked={!user.smoker}
+                    onChange={handlePreferenceChange}
+                  />
+                </div>
+              </Form.Group>
+  
+              <Form.Group>
+                <Form.Label>Alcohol</Form.Label>
+                <div className="radio-group">
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Yes"
+                    name="drinker"
+                    value="1"
+                    checked={user.drinker === '1'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="No"
+                    name="drinker"
+                    value="0"
+                    checked={user.drinker === '0'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Sometimes"
+                    name="drinker"
+                    value="2"
+                    checked={user.drinker === '2'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="No Selection"
+                    name="drinker"
+                    value=""
+                    checked={!user.drinker}
+                    onChange={handlePreferenceChange}
+                  />
+                </div>
+              </Form.Group>
+  
+              <Form.Group>
+                <Form.Label>Food Preference</Form.Label>
+                <div className="radio-group">
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Veg"
+                    name="foodPreference"
+                    value="0"
+                    checked={user.foodPreference === '0'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="Non-Veg"
+                    name="foodPreference"
+                    value="1"
+                    checked={user.foodPreference === '1'}
+                    onChange={handlePreferenceChange}
+                  />
+                  <Form.Check
+                    inline
+                    type="radio"
+                    label="No Selection"
+                    name="foodPreference"
+                    value=""
+                    checked={!user.foodPreference}
+                    onChange={handlePreferenceChange}
+                  />
+                </div>
+              </Form.Group>
+  
+              <Form.Group as={Row} className="mt-3">
+                <Form.Label column sm={6}>
+                  Looking for a Roommate? (Optional)
+                </Form.Label>
+                <Col sm={6}>
+                  <Form.Check
+                    type="switch"
+                    id="lookingForRoommate-switch"
+                    label={user.lookingForRoommate === '1' ? 'Yes' : 'No'}
+                    checked={user.lookingForRoommate === '1'}
+                    onChange={(e) =>
+                      handlePreferenceChange({
+                        target: {
+                          name: 'lookingForRoommate',
+                          value: e.target.checked ? '1' : '0',
+                        },
+                      })
+                    }
+                  />
+                </Col>
+              </Form.Group>
+            </div>
+  
+            {/* SECTION 5: Social Media (optional) */}
+            <div className="profile-section">
+              <h3>Social Media</h3>
+              <p className="section-description">
+                Enhance your experience by sharing your social media accounts.
+              </p>
+              {user.socialMediaAccounts?.map((account, index) => (
+                <div key={index} className="social-media-row">
+                  <Form.Select
+                    className="platform-select"
+                    value={account.platform || ''}
+                    onChange={(e) => handleSocialMediaChange(index, 'platform', e.target.value)}
+                  >
+                    <option value="">Select Platform</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                  </Form.Select>
+  
+                  <Form.Control
+                    className="username-input"
+                    type="text"
+                    placeholder="Username"
+                    value={account.username || ''}
+                    onChange={(e) => handleSocialMediaChange(index, 'username', e.target.value)}
+                  />
+  
+                  <button
+                    className="remove-social-media-btn"
+                    type="button"
+                    onClick={() => removeSocialMediaAccount(index)}
+                  >
+                    -
+                  </button>
+                </div>
+              ))}
+              <button className="add-social-media-btn" type="button" onClick={addSocialMediaAccount}>
+                +
+              </button>
+            </div>
+  
+            {/* SECTION 6: About You (optional) */}
+            <div className="profile-section">
+              <h3>About You</h3>
+              <p className="section-description">
+                Share a bit about yourself (max 200 characters). This field is optional.
+              </p>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                maxLength={200}
+                placeholder="Tell us about yourself (optional)"
+                value={user.aboutYou || ''}
+                onChange={handleAboutYouChange}
+              />
+              {charLimitReached && (
+                <div className="char-limit-msg">You’ve reached the 200‐character limit!</div>
+              )}
+            </div>
+  
+            <div className="save-btn-wrapper">
+              <button className="save-profile-btn" type="submit">
+                Save
+              </button>
+            </div>
+  
+            {showUpdateMessage && (
+              <Alert key="success" variant="success" className="mt-3">
+                Profile Updated Successfully!
+              </Alert>
+            )}
+          </Form>
+        </div>
+      </div>
+    );
+  }
+
+export default Profile;
