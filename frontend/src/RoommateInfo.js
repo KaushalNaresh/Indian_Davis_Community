@@ -3,11 +3,17 @@ import './RoommateInfo.css';
 import backgroundImage from './images/RoomatesInfo.jpg'; // Adjust the import path if needed
 import { AuthContext } from './AuthContext';
 import RoommatesCarousel from './RoommatesCarousel';
+import { useNavigate } from 'react-router-dom'; 
 
 
 const RoommateInfo = () => {
     const [isVisible, setIsVisible] = useState(false);
     const { isLoggedIn, user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleExploreMore = () => {
+      navigate('/roommate-finder');
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -38,7 +44,7 @@ const RoommateInfo = () => {
                         : "Don't leave it to chance — your ideal roommate awaits! Connect with us to discover your perfect match and say goodbye to roommate roulette." 
             }
             </p>
-            {isLoggedIn && <button>Explore More</button>}
+            {isLoggedIn && <button onClick={handleExploreMore}>Explore More</button>}
           </div>
           <div className={`roommate-info-content ${isVisible ? 'visible' : ''}`}>
             <h2>Campus Happenings</h2>

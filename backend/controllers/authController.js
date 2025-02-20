@@ -10,19 +10,6 @@ exports.signup = async (req, res) => {
     email,
     password,
     ucDavisId,
-    fromDate,
-    toDate,
-    country,
-    region,
-    major,
-    degree,
-    gender,
-    smoker,
-    drinker,
-    lookingForRoommate,
-    foodPreference,
-    socialMediaAccounts,
-    aboutYou
   } = req.body;
 
   try {
@@ -41,21 +28,7 @@ exports.signup = async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
-      ucDavisId,
-      // Optional fields (if present, great; if not, they'll remain undefined)
-      fromDate,
-      toDate,
-      country,
-      region,
-      major,
-      degree,
-      gender,
-      smoker,
-      drinker,
-      lookingForRoommate,
-      foodPreference,
-      socialMediaAccounts,
-      aboutYou
+      ucDavisId,      
     });
 
     await user.save();

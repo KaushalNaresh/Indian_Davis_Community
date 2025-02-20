@@ -23,7 +23,18 @@ export const AuthProvider = ({ children }) => {
         gender: "",
         lookingForRoommate: "",
         aboutYou: "",
-        socialMediaAccounts: [{ platform: '', username: '' }]
+        socialMediaAccounts: [{ platform: '', username: '' }],
+        noiseTolerance: null,
+        cleanlinessLevel: null,
+        socialComfortLevel: null,
+        noiseImportance: null,
+        cleanlinessImportance: null,
+        socialImportance: null,
+        monthlyBudgetMin: null,
+        monthlyBudgetMax: null,
+        housingType: "",
+        petFriendly: false,
+        hobbies: "" // Updated to a single string field
     });
   
     const login = async () => {

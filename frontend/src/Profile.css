@@ -15,8 +15,8 @@
 /* Center the form card */
 .profile-container {
   max-width: 1000px; /* bigger than sign-up to fit more fields */
-  margin: 40px auto;
-  padding: 0 20px;
+  margin: 0 auto;
+  padding: 100px 20px;
 }
 
 /* Title at the top */

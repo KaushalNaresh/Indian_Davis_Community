@@ -1,10 +1,8 @@
-// models/User.js
-
 const mongoose = require('mongoose');
 
 const socialMediaAccountSchema = new mongoose.Schema({
-  platform: { type: String },  
-  username: { type: String }   
+  platform: { type: String },
+  username: { type: String }
 });
 
 const userSchema = new mongoose.Schema({
@@ -13,19 +11,31 @@ const userSchema = new mongoose.Schema({
   email:        { type: String, required: true, unique: true },
   password:     { type: String, required: true },
   ucDavisId:    { type: String, required: true, unique: true },
-  fromDate:           { type: Date },
-  toDate:             { type: Date },
-  country:            { type: String },
-  region:             { type: String },
-  major:              { type: String },
-  degree:             { type: String },
-  gender:             { type: String },
-  smoker:             { type: String },
-  drinker:            { type: String },
+  fromDate:     { type: Date },
+  toDate:       { type: Date },
+  country:      { type: String },
+  region:       { type: String },
+  major:        { type: String },
+  degree:       { type: String },
+  gender:       { type: String },
+  smoker:       { type: String },
+  drinker:      { type: String },
   lookingForRoommate: { type: String },
   foodPreference:     { type: String },
   socialMediaAccounts: [socialMediaAccountSchema],
-  aboutYou:           { type: String }
+  aboutYou:     { type: String },
+  noiseTolerance: { type: Number },
+  cleanlinessLevel: { type: Number },
+  socialComfortLevel: { type: Number },
+  noiseImportance: { type: Number },
+  cleanlinessImportance: { type: Number },
+  socialImportance: { type: Number },
+  monthlyBudgetMin: { type: Number },
+  monthlyBudgetMax: { type: Number },
+  housingType: { type: String },
+  petFriendly: { type: Boolean, default: false },
+  hobbies: { type: String }, // Updated to a single string field
 });
 
 module.exports = mongoose.model('User', userSchema);
+

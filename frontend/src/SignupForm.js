@@ -20,22 +20,6 @@ function SignupForm({ setShowLogIn, setShowSignUp }) {
   const [password, setPassword]   = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // -- Optional Fields (currently not displayed in this minimal form, 
-  //    but kept here in case you use them later) --
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate]     = useState('');
-  const [country, setCountry]   = useState('');
-  const [region, setRegion]     = useState('');
-  const [major, setMajor]       = useState('');
-  const [degree, setDegree]     = useState('');
-  const [gender, setGender]     = useState('');
-  const [smoker, setSmoker]     = useState('');
-  const [drinker, setDrinker]   = useState('');
-  const [lookingForRoommate, setLookingForRoommate] = useState('');
-  const [foodPreference, setFoodPreference] = useState('');
-  const [socialMediaAccounts, setSocialMediaAccounts] = useState([{ platform: '', username: '' }]);
-  const [aboutYou, setAboutYou] = useState('');
-
   // Error / Status
   const [error, setError] = useState('');
 
@@ -89,20 +73,6 @@ function SignupForm({ setShowLogIn, setShowSignUp }) {
           email,
           password,
           ucDavisId,
-          // Optional fields
-          fromDate,
-          toDate,
-          country,
-          region,
-          major,
-          degree,
-          gender,
-          smoker,
-          drinker,
-          lookingForRoommate,
-          foodPreference,
-          socialMediaAccounts,
-          aboutYou
         }),
       });
 

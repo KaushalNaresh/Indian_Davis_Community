@@ -44,7 +44,6 @@ function RoommateFinder() {
   return (
         <div className="roommate-finder">
             <Header/>
-            <Categories/>
             <div className="banner">
                 <HeroSection screen='roommate'/>
             </div>
