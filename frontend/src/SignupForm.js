@@ -5,6 +5,7 @@ import { useNavigate} from "react-router-dom";
 import { AuthContext } from './AuthContext';
 import Constants from "./StringConstants.json"
 import validator from 'validator';
+import Alert from 'react-bootstrap/Alert';
 
 function SignupForm({ setShowLogIn, setShowSignUp }) {
   const BASE_URL = Constants.base_url;
@@ -89,6 +90,7 @@ function SignupForm({ setShowLogIn, setShowSignUp }) {
       navigate('/');
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(''), 1000);
     }
   };
 
@@ -106,8 +108,6 @@ function SignupForm({ setShowLogIn, setShowSignUp }) {
     <div className="signup-container">
       <div className="signup-form">
         <h2>Create Your Account</h2>
-
-        {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           {/* First Name */}
@@ -192,6 +192,15 @@ function SignupForm({ setShowLogIn, setShowSignUp }) {
             Join ICD
           </button>
         </form>
+
+        &nbsp;
+        {error && (
+          <Alert key="failure" variant="danger" className="mt-3">
+            {error}
+          </Alert>
+        )}
+
+        {/* {error && <div className="error-message">{error}</div>} */}
 
         {/* Footer: Login/Home buttons */}
         <div className="form-footer">

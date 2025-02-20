@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import Constants from './StringConstants.json';
-import validator from 'validator'; // only if needed
 import './Login.css'; // Import the matching CSS
+import Alert from 'react-bootstrap/Alert';
 
 function Login({ setShowLogIn, setShowSignUp }) {
   const BASE_URL = Constants.base_url;
@@ -60,6 +60,7 @@ function Login({ setShowLogIn, setShowSignUp }) {
       navigate('/');
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(''), 1000);
     }
   };
 
@@ -77,8 +78,6 @@ function Login({ setShowLogIn, setShowSignUp }) {
     <div className="login-container">
       <div className="login-form">
         <h2>Log In</h2>
-
-        {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -105,6 +104,13 @@ function Login({ setShowLogIn, setShowSignUp }) {
             Log In
           </button>
         </form>
+
+        &nbsp;
+        {error && (
+          <Alert key="failure" variant="danger" className="mt-3">
+            {error}
+          </Alert>
+        )}
 
         <div className="form-footer">
           <button onClick={moveToSignUp} className="footer-link">
