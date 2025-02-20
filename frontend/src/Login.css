@@ -1,102 +1,95 @@
 /* LoginForm.css */
 
-.login{
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-    width: 100%;
-    /* background: url('./images/background_img.jpeg') no-repeat center center fixed;  */
-    background-color: #fee0ac;
-    background-size: cover; 
-  }
-  
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  background-color: #fee0ac; /* Same as signup form for visual consistency */
+}
 
-  .login-form {
-    background: rgba(0, 0, 0, 0.7); 
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    max-width: 450px;
-    text-align: center;
-  }
-  
+.login-form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 480px;
+  padding: 30px;
+  box-sizing: border-box;
+}
 
-  .login-form input {
-    width: calc(100% - 20px);
-    margin-top: 5px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
+.login-form h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+}
 
-  .login-form label {
-    display: block;
-    text-align: left;
-    color: #fff;
-    margin-bottom: 5px;
-  }
-  
+.error-message {
+  background-color: #ffe6e6;
+  color: #cc0000;
+  border: 1px solid #ffcccc;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
 
-  .error {
-    color: #ff6b6b;
-    background-color: #fff3f3;
-    border: 1px solid #ffcccc;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-  }
-  
+/* Form Groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
 
-  .login-form button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .login-form button:hover{
-    background-color: #0f902d;
-    transition: all 0.3s;
-  }
-  
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
 
-  .login-form a {
-    color: #00a7ff;
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    background-color: #dcdcdc;
-    padding: 8px 16px;
-    border-radius: 5px;
-  }
-  
+.form-group input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-  .login-form a:hover {
-    background-color: #e6e6e6;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
+/* Submit Button */
+.btn-submit {
+  width: 100%;
+  background-color: #dabe1d;  /* Same gold tone as the signup "Join ICD" button */
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
 
-  .login-form-foot-buttons{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-    
-  
-    @media (max-width: 768px) {
-      .login-form {
-        padding: 1rem;
-        margin: 1rem;
-      }
-    }
-    
+.btn-submit:hover {
+  background-color: #947f07; /* Darker hover effect, same pattern as signup */
+}
+
+/* Footer Links */
+.form-footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.footer-link {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  background-color: #e0e0e0;
+}

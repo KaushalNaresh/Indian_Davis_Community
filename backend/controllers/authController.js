@@ -4,32 +4,80 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 exports.signup = async (req, res) => {
-  const { firstName, lastName, email, password, ucDavisId,
-          fromDate, toDate, country, region, major, degree, gender, smoker, drinker,
-          lookingForRoommate, foodPreference, socialMediaAccounts, aboutYou } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    ucDavisId,
+    fromDate,
+    toDate,
+    country,
+    region,
+    major,
+    degree,
+    gender,
+    smoker,
+    drinker,
+    lookingForRoommate,
+    foodPreference,
+    socialMediaAccounts,
+    aboutYou
+  } = req.body;
+
   try {
     const hashedPassword = await bcrypt.hash(password, 12);
-    const user = new User({ firstName: firstName, lastName: lastName, email: email, password: hashedPassword, 
-                            ucDavisId: ucDavisId, fromDate: fromDate, toDate: toDate, country: country, 
-                            region: region, major: major, degree: degree, gender: gender, smoker: smoker, drinker: drinker,
-                            lookingForRoommate: lookingForRoommate, foodPreference: foodPreference, 
-                            socialMediaAccounts: socialMediaAccounts, aboutYou: aboutYou});
-    const exists = await User.findOne({$or:[{email: email}, {ucDavisId: ucDavisId}]});
-    
-    if(exists) throw new Error("User already Exists \n Login to your account");
+
+    const exists = await User.findOne({
+      $or: [{ email: email }, { ucDavisId: ucDavisId }]
+    });
+    if (exists) {
+      throw new Error('User already exists. Please log in to your account.');
+    }
+
+    // Create a new user
+    const user = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      ucDavisId,
+      // Optional fields (if present, great; if not, they'll remain undefined)
+      fromDate,
+      toDate,
+      country,
+      region,
+      major,
+      degree,
+      gender,
+      smoker,
+      drinker,
+      lookingForRoommate,
+      foodPreference,
+      socialMediaAccounts,
+      aboutYou
+    });
+
     await user.save();
-    
+
+    // Generate JWT token
     const token = jwt.sign(
-        { userId: user._id, email: user.email },
-        process.env.JWT_SECRET, // Replace with a secret key of your choice
-        { expiresIn: '1h' } // Token expires in 30s
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET, // Replace with your secret key
+      { expiresIn: '1h' }
     );
-  
-    res.cookie('token', token, { httpOnly: true, secure: false, sameSite: 'Strict', maxAge: 3600 * 1000});
-    
-    res.status(201).json({ message: 'User created!'});
+
+    // Set token as an HTTP-only cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'Strict',
+      maxAge: 3600 * 1000
+    });
+
+    res.status(201).json({ message: 'User created!' });
   } catch (error) {
-    res.status(500).json({message: error.message});
+    res.status(500).json({ message: error.message });
   }
 };
 

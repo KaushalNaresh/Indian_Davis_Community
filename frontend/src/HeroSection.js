@@ -4,6 +4,7 @@ import Typed from 'typed.js';
 import './HeroSection.css'; // Link to the CSS file
 import { AuthContext } from './AuthContext';
 import SignupForm from './SignupForm';
+import Modal from './Modal';
 import LoginForm from './Login';
 import Carousel from './Carousel';
 import FriendsImg1 from './images/FriendsImg1.jpg';
@@ -57,34 +58,51 @@ function HeroSection({ showSignUp, setShowSignUp, showLogIn, setShowLogIn }) {
   return (
     <div className="hero-section">
       <div className="hero-content">
-        {showSignUp ? (
-          <SignupForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp} />
-        ) : showLogIn ? (
-          <LoginForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp} />
-        ) : (
+        
+        {!showSignUp && !showLogIn && !isLoggedIn && (
           <>
-            {isLoggedIn ?
-                (
-                    <>
-                        <h2>Hi, {user.firstName} {user.lastName}!</h2>
-                        <p>{getTimeOfDayGreeting()} <span ref={typedRef} className="phighlight"></span></p>
-                    </>
-                )
-                :
-                (
-                    <>
-                        <h1>Connect. Inspire. <span className="highlight">Belong.</span></h1>
-                        <p>One community. <span ref={typedRef} className="phighlight">Infinite possibilities.</span></p>
-                        <p>Join the Davis Desi Family!</p>
-                        
-                        <button className="join-button" onClick={() => setShowSignUp(true)}>Join ICD</button>
-                    </>
-                )
-            }
+            <h1>Connect. Inspire. <span className="highlight">Belong.</span></h1>
+            <p>
+              One community. <span ref={typedRef} className="phighlight">Infinite possibilities.</span>
+            </p>
+            <p>Join the Davis Desi Family!</p>
+
+            <button className="join-button" onClick={() => setShowSignUp(true)}>
+              Join ICD
+            </button>
           </>
         )}
+
+        {/* If the user is logged in, show a greeting */}
+        {isLoggedIn && (
+          <>
+            <h2>Hi, {user.firstName} {user.lastName}!</h2>
+            <p>
+              <span ref={typedRef} className="phighlight"></span>
+            </p>
+          </>
+        )}
+
+        {/* {showLogIn && (
+          <LoginForm
+            setShowLogIn={setShowLogIn}
+            setShowSignUp={setShowSignUp}
+          />
+        )} */}
       </div>
-      <Carousel slides= {images} />
+
+      <Carousel slides={images} />
+
+      <Modal isOpen={showLogIn} onClose={() => setShowLogIn(false)}>
+        <LoginForm setShowLogIn={setShowLogIn} setShowSignUp={setShowSignUp} />
+      </Modal>
+
+      <Modal isOpen={showSignUp} onClose={() => setShowSignUp(false)}>
+        <SignupForm
+          setShowSignUp={setShowSignUp}
+          setShowLogIn={setShowLogIn}
+        />
+      </Modal>
     </div>
   );
 }

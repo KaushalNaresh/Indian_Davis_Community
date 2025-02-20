@@ -1,69 +1,67 @@
-// LogInForm.js
 import React, { useState, useContext } from 'react';
-import './Login.css'; 
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
-import Constants from "./StringConstants.json";
+import Constants from './StringConstants.json';
+import validator from 'validator'; // only if needed
+import './Login.css'; // Import the matching CSS
 
-const LoginForm = ({setShowLogIn, setShowSignUp}) => {
+function Login({ setShowLogIn, setShowSignUp }) {
   const BASE_URL = Constants.base_url;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login, user, setUserDetails } = useContext(AuthContext);
-  const validator = require("validator");
 
+  const { login, setUserDetails } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const fetchDetails = async function(){
+  // Fetch user details after successful login
+  const fetchDetails = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/user/details?email=${email}`, {
+      // NOTE: If your backend uses GET or a different endpoint, adjust here:
+      const response = await fetch(`${BASE_URL}/user/details?email=${email}`, {
         method: 'POST',
         credentials: 'include',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       });
-
       const userDetails = await response.json();
-      if (userDetails.message != 'OK' || !response.ok) 
-        throw new Error(userDetails.message);
-
+      if (!response.ok || userDetails.message !== 'OK') {
+        throw new Error(userDetails.message || 'Failed to fetch user details.');
+      }
       setUserDetails(userDetails.users[0]);
-   } 
-
-   catch (error) {
-      console.log(error.message);
-   };
-
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-        if (!email || !password) 
-          throw new Error('Please enter all the fields!');
-          const response = await fetch(`${BASE_URL}/auth/login`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        const errorResponse = await response.json();
-        if (!response.ok) {
-          setError(errorResponse.message)
-          throw new Error(errorResponse.message);
-        }; 
+      if (!email || !password) {
+        throw new Error('Please enter all required fields!');
+      }
 
-        login();
-        fetchDetails();
-        moveToHome();
-        navigate("/");
-     } 
-     catch (error) {
-      setError(error.message);
-    };
-    
+      const response = await fetch(`${BASE_URL}/auth/login`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message);
+        throw new Error(data.message);
+      }
+
+      login();
+      await fetchDetails();
+
+      moveToHome();
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const moveToSignUp = () => {
@@ -77,32 +75,49 @@ const LoginForm = ({setShowLogIn, setShowSignUp}) => {
   };
 
   return (
-    <div className='login'>
-        <div className="login-form">
-        <h2>LogIn</h2>
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Log In</h2>
+
+        {error && <div className="error-message">{error}</div>}
+
         <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>UC Davis Email:</label>
+            <input
+              type="email"
+              placeholder="Enter your UC Davis email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-            <label>
-            UC Davis Email:
-            <input placeholder="Enter your UC Davis email ID" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-            <label>
-            Password:
-            <input placeholder="Enter your Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-
-            {error && <div className="error">{error}</div>}
-            <button type="submit">LogIn</button>
+          <button type="submit" className="btn-submit">
+            Log In
+          </button>
         </form>
-        {/* <Link to="/signup">SignUp</Link> */}
-        <div className='login-form-foot-buttons'>
-          <a onClick={() => moveToSignUp()}>Sign Up</a>
-          <a onClick={() => moveToHome()}>Home</a>
+
+        <div className="form-footer">
+          <button onClick={moveToSignUp} className="footer-link">
+            Sign Up
+          </button>
+          <button onClick={moveToHome} className="footer-link">
+            Home
+          </button>
         </div>
-        </div>
+      </div>
     </div>
   );
-};
+}
 
-export default LoginForm;
+export default Login;

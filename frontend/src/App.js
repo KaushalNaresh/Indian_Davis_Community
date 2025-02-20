@@ -7,7 +7,7 @@ import Housing from "./Housing";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Profile from './Profile';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
