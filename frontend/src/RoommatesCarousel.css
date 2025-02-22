@@ -1,3 +1,8 @@
+.roommates-carousel-container {
+  position: relative;
+  padding: 20px;
+}
+
 .roommates-carousel {
     margin: 0px 30px 50px 30px;
     padding: 0; 
@@ -36,9 +41,13 @@
     text-align: center;
   }
 
-  .roommates-carousel-name{
-    font-size: 20px;
-    font-weight: 300;
+  .roommates-carousel-name {
+    display: inline-block;     /* Ensures max-width behaves correctly */
+    max-width: 100%;          /* Adjust to whatever width works for your layout */
+    white-space: nowrap;       /* Prevents wrapping */
+    overflow: hidden;          /* Hides overflow text */
+    text-overflow: ellipsis;   /* Displays "..." if text overflows */
+    vertical-align: middle;
   }
 
   .roommates-carousel-major{
@@ -95,6 +104,49 @@
   .swiper-button-prev-outside::after, .swiper-button-next-outside::after {
     font-size: 20px; 
   }
+
+  .user-profile-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
   
+  .user-profile-basic {
+    display: flex;
+    gap: 1rem;
+  }
   
+  .user-modal-pic {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .user-profile-data p {
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  .user-profile-icons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .icon-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .user-profile-social .social-icons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .modal-body {
+    max-height: 60vh;         /* or a fixed px value, e.g. 400px */
+    overflow-y: auto;         /* enables vertical scroll if content exceeds max height */
+  }
   

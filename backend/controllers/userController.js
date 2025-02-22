@@ -92,3 +92,23 @@ exports.updateDetails = async (req, res) => {
         res.status(500).send({ message: 'Error updating user' });
     }
 };
+
+
+exports.getTopMatches = async (req, res) => {
+    try {
+      // For now, just find up to 6 users who are lookingForRoommate === '1'
+      // Sort or limit in any naive way you want
+
+      const {email} = req.query;
+
+      const topUsers = await User.find({ 'email': { $ne: email }, lookingForRoommate: '1' }).limit(6);
+      if (!topUsers || topUsers.length === 0) {
+        return res.json({ message: 'No users found', data: [] });
+      }
+  
+      return res.json({ message: 'OK', data: topUsers });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  };

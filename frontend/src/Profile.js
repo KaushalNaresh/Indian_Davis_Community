@@ -482,10 +482,10 @@ function Profile() {
                     </div>
 
                     {showUpdateMessage && (
-                    <Alert key="success" variant="success" className="mt-3">
-                        Profile Updated Successfully!
-                    </Alert>
-                )}
+                        <Alert key="success" variant="success" className="mt-3">
+                            Profile Updated Successfully!
+                        </Alert>
+                    )}
                 </Form>
             </div>
         </div>
