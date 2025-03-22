@@ -48,6 +48,10 @@ const RoommateProfileModal = ({ show, onHide, roommate, profilePics, roommates, 
                             alt={roommate.firstName} 
                             className="modal-profile-image"
                         />
+                        <div className="match-score">
+                            <span className="score-label">Match Score:</span>
+                            <span className="score-value">{Math.round(roommate.matchScore)}%</span>
+                        </div>
                     </div>
                     
                     <div className="profile-details">

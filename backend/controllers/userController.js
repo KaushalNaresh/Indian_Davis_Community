@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const stringConstants = require("../StringConstants.json")
+const { sortByMatchScore } = require('../services/scoringService');
 
 const details = async (req, res) => {
     try {
@@ -64,11 +65,17 @@ const details = async (req, res) => {
             return res.json({message: "No user(s) found"});
         }
 
+        // Get current user for scoring
+        const currentUser = await User.findOne({ email: logged_user });
+        
+        // Sort users by match score
+        const sortedUsers = sortByMatchScore(currentUser, users);
+
         res.json({
                     message: 'OK',
-                    users: users,
+                    users: sortedUsers,
                     totalPages: totalPages,
-                    currPageId: users[0]["_id"]
+                    currPageId: sortedUsers[0]["_id"]
         })
 
         } catch (error) {
@@ -95,32 +102,41 @@ const updateDetails = async (req, res) => {
 
 const getTopMatches = async (req, res) => {
     try {
-        const currentUserId = req.user._id;
+        const currentUserEmail = req.user.email;
+        const currentUser = await User.findOne({ email: currentUserEmail });
 
         // Find users who are looking for roommates, excluding the current user
         const potentialRoommates = await User.find({
-            _id: { $ne: currentUserId },
-            lookingForRoommate: "1"  // Changed to string "1" as per schema
+            email: { $ne: currentUserEmail },
+            lookingForRoommate: "1"
         })
         .select('firstName lastName email major degree country region smoker drinker foodPreference socialMediaAccounts aboutYou')
         .limit(6);
 
+        // Sort by match score
+        const sortedRoommates = sortByMatchScore(currentUser, potentialRoommates);
+
         // Transform the data to match frontend expectations
-        const transformedRoommates = potentialRoommates.map(user => ({
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            major: user.major,
-            degree: user.degree,
-            country: user.country,
-            state: user.region, // Using region as state
-            smoker: user.smoker,
-            food: user.foodPreference,
-            drinker: user.drinker,
-            aboutYou: user.aboutYou,
-            socialMediaAccounts: user.socialMediaAccounts || []
-        }));
+        const transformedRoommates = sortedRoommates.map(roommate => {
+            // Handle both Mongoose document and plain object cases
+            const roommateData = roommate._doc || roommate;
+            return {
+                _id: roommateData._id,
+                firstName: roommateData.firstName,
+                lastName: roommateData.lastName,
+                email: roommateData.email,
+                major: roommateData.major,
+                degree: roommateData.degree,
+                country: roommateData.country,
+                state: roommateData.region,
+                smoker: roommateData.smoker,
+                food: roommateData.foodPreference,
+                drinker: roommateData.drinker,
+                aboutYou: roommateData.aboutYou,
+                socialMediaAccounts: roommateData.socialMediaAccounts || [],
+                matchScore: roommate.matchScore
+            };
+        });
 
         res.json({
             success: true,

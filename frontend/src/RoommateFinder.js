@@ -123,6 +123,10 @@ const RoommateFinder = () => {
                                 </div>
                                 <div className="roommate-info">
                                     <h2>{roommate.firstName} {roommate.lastName}</h2>
+                                    <div className="match-score">
+                                        <span className="score-label">Match Score:</span>
+                                        <span className="score-value">{Math.round(roommate.matchScore)}%</span>
+                                    </div>
                                     <div className="roommate-details">
                                         <div className="detail-item">
                                             <span className="label">Major:</span>

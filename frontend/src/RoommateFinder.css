@@ -204,6 +204,7 @@
     color: #100651;
     font-size: 1.2rem;
     font-weight: 600;
+    text-align: center;
 }
 
 .roommate-details {
@@ -480,4 +481,29 @@
     .roommate-finder-content p {
         font-size: 1rem;
     }
+}
+
+.match-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  padding: 0.4rem 0.8rem;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.score-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.score-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #100651;
 }

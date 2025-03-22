@@ -15,6 +15,9 @@
     color: #100651;
     font-weight: 600;
     font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+    margin-right: 2rem; /* To account for the close button */
 }
 
 .modal-body {
@@ -150,6 +153,34 @@
 
 .profile-header {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.match-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    width: fit-content;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.score-label {
+    font-size: 1rem;
+    color: #666;
+}
+
+.score-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #100651;
 }
 
 .modal-profile-image {
