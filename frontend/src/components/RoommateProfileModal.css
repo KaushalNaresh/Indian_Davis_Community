@@ -1,0 +1,243 @@
+.roommate-profile-modal .modal-content {
+    background: #2d2d2d;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.roommate-profile-modal .modal-header {
+    border-bottom: 1px solid #404040;
+    padding: 1.5rem;
+}
+
+.roommate-profile-modal .modal-title {
+    color: #4CAF50;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.roommate-profile-modal .modal-body {
+    padding: 2rem;
+    background: #2d2d2d;
+}
+
+.profile-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.profile-header {
+    text-align: center;
+}
+
+.modal-profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4CAF50;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.detail-section {
+    background: #363636;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-section h3 {
+    color: #4CAF50;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.detail-item {
+    background: #404040;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.detail-item .label {
+    color: #4CAF50;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.detail-item .value {
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+.bio-text {
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.preference-item {
+    background: #404040;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.preference-item:hover {
+    transform: translateY(-2px);
+}
+
+.preference-icon {
+    font-size: 1.8rem;
+    color: #4CAF50;
+}
+
+.preference-item span {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.social-icon {
+    font-size: 1.8rem;
+    color: #4CAF50;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #45a049;
+}
+
+.modal-connect {
+    background: #4CAF50;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.modal-connect:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+.modal-connect .icon {
+    font-size: 1.2rem;
+}
+
+/* Close button styling */
+.roommate-profile-modal .btn-close {
+    background-color: #4CAF50;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.roommate-profile-modal .btn-close:hover {
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .roommate-profile-modal .modal-body {
+        padding: 1rem;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .preferences-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .modal-profile-image {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.about-me-section {
+    background: #363636;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+}
+
+.about-me-section h3 {
+    color: #4CAF50;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.bio-content {
+    position: relative;
+}
+
+.bio-content p {
+    margin: 0;
+    line-height: 1.6;
+    color: #e0e0e0;
+    white-space: pre-wrap;
+    font-size: 1rem;
+}
+
+.show-more-button {
+    background: none;
+    border: none;
+    color: #4CAF50;
+    padding: 5px 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    transition: color 0.2s ease;
+}
+
+.show-more-button:hover {
+    color: #45a049;
+    text-decoration: underline;
+} 

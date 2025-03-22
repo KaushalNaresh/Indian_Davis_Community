@@ -1,78 +1,199 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from './AuthContext';
+import './RoommateFinder.css';
+import backgroundImage from './images/RoomatesInfo.jpg';
+import axios from 'axios';
+import Constants from './StringConstants.json';
+import ICONS from './IconConstants';
+import StudentsImg1 from './images/student_1.jpg';
+import StudentsImg2 from './images/student_2.jpg';
+import StudentsImg3 from './images/student_3.jpg';
+import StudentsImg4 from './images/student_4.jpg';
+import StudentsImg5 from './images/student_5.jpg';
+import StudentsImg6 from './images/student_6.jpeg';
+import RoommateProfileModal from './components/RoommateProfileModal';
 import Header from './Header'
-import HeroSection from './HeroSection'
-import Categories from './Categories'
-import { AuthContext } from './AuthContext'
-import { useNavigate } from 'react-router'
-import FilterBar from './FilterBar'
-import './RoommateFinder.css'
-import RoommateFinderRow from './RoommateFinderRow'
-import Pagination from '@mui/material/Pagination';
 
-function RoommateFinder() {
+const RoommateFinder = () => {
+    const [roommates, setRoommates] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedRoommate, setSelectedRoommate] = useState(null);
+    const { isLoggedIn, user } = useContext(AuthContext);
+    const BASE_URL = Constants.base_url;
+    const profilePics = [StudentsImg4, StudentsImg2, StudentsImg1, StudentsImg3, StudentsImg5, StudentsImg6];
 
-  const {isLoggedIn, user} = useContext(AuthContext);
-  const [roommates, setRoommates] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
-  const navigate = useNavigate();
-  const [currPageId, setCurrPageId] = useState();
-  const [prevPageNumber, setPrevPageNumber] = useState();
-  const [currPageNumber, setCurrPageNumber] = useState(1);
-  const [hideLastPage, setHideLastPage] = useState(false);
-  
+    useEffect(() => {
+        const fetchRoommates = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/user/top6`, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                const data = await response.json();
+                console.log('Response data:', data); // For debugging
 
-  const changePage = (value) => {
-    setPrevPageNumber(currPageNumber);
-    setCurrPageNumber(value);
-  }
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/");
-    }
-    if(currPageNumber < totalPages - 3)
-      setHideLastPage(true);
-    else
-      setHideLastPage(false);
-
-  }, [currPageNumber, totalPages, isLoggedIn, navigate]); 
-
-  if (!isLoggedIn) {
-    return null; 
-  }
-
-  return (
-        <div className="roommate-finder">
-            <Header/>
-            <div className="banner">
-                <HeroSection screen='roommate'/>
-            </div>
-            <FilterBar 
-                        setRoommates={setRoommates}
-                        setTotalPages={setTotalPages}
-                        setCurrPageId={setCurrPageId}
-                        currPageId={currPageId}
-                        setPrevPageNumber={setPrevPageNumber}
-                        prevPageNumber={prevPageNumber}
-                        setCurrPageNumber={setCurrPageNumber}
-                        currPageNumber={currPageNumber}
-            />
-            <div className='roommate-finder-rows'>
-                {user.lookingForRoommate === "1" ?
-                    roommates.map(
-                        (roommate, i) => ((roommate.email !== user.email && roommate.lookingForRoommate === "1") ?
-                            <RoommateFinderRow key={i} roommate={roommate}/> :
-                            <></>        
-                        )
-                    ) :
-                <div className='not-looking-for-roommate'>You have selected that you are not looking for roommates, update your choice in your profile page to see available students.</div>
+                if (data.success) {
+                    setRoommates(data.data);
+                } else {
+                    setError('Failed to fetch roommates');
+                }
+            } catch (err) {
+                setError(err.message || 'Error fetching roommates');
+                console.error('Error fetching roommates:', err);
+            } finally {
+                setLoading(false);
             }
+        };
+
+        if (isLoggedIn) {
+            fetchRoommates();
+        }
+    }, [isLoggedIn, BASE_URL]);
+
+    const handleConnect = (email) => {
+        window.location.href = `mailto:${email}`;
+    };
+
+    const handleViewProfile = (roommate) => {
+        console.log('Selected roommate data:', roommate);
+        setSelectedRoommate(roommate);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedRoommate(null);
+    };
+
+    if (!isLoggedIn) {
+        return (
+            <div className="roommate-finder-container">
+                <div className="roommate-finder-overlay"></div>
+                <div className="roommate-finder-content">
+                    <h1>Find Your Perfect Roommate</h1>
+                    <p>Please log in to view and connect with potential roommates.</p>
+                </div>
             </div>
-            <div className={`pagination ${hideLastPage ? 'hide-last-page' : ''}`}>
-              <Pagination count={totalPages} variant="outlined" page={currPageNumber} shape="rounded" onChange={(e, value) => changePage(value)}/>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="roommate-finder-container">
+                <div className="roommate-finder-overlay"></div>
+                <div className="roommate-finder-content">
+                    <h1>Find Your Perfect Roommate</h1>
+                    <p className="error-message">{error}</p>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <>
+        <Header />
+        <div className="roommate-finder-container">
+            <div className="roommate-finder-overlay"></div>
+            <div className="roommate-finder-content">
+                <h1>Find Your Perfect Roommate</h1>
+                <p>Connect with UC Davis students who match your lifestyle and preferences.</p>
+                
+                {loading ? (
+                    <div className="loading-spinner">Loading...</div>
+                ) : roommates.length === 0 ? (
+                    <div className="no-roommates">
+                        <p>No roommates found at the moment. Check back later!</p>
+                    </div>
+                ) : (
+                    <div className="roommate-grid">
+                        {roommates.map((roommate, index) => (
+                            <div key={roommate._id} className="roommate-card">
+                                <div className="roommate-image">
+                                    <img 
+                                        src={profilePics[index % profilePics.length]} 
+                                        alt={`${roommate.firstName} ${roommate.lastName}`} 
+                                    />
+                                </div>
+                                <div className="roommate-info">
+                                    <h2>{roommate.firstName} {roommate.lastName}</h2>
+                                    <div className="roommate-details">
+                                        <div className="detail-item">
+                                            <span className="label">Major:</span>
+                                            <span className="value">{Constants.majorMapping[roommate.major?.toUpperCase()] || "Not specified"}</span>
+                                        </div>
+                                        <div className="detail-item">
+                                            <span className="label">Degree:</span>
+                                            <span className="value">{Constants.degreeMapping[roommate.degree?.toUpperCase()] || "Not specified"}</span>
+                                        </div>
+                                        <div className="detail-item">
+                                            <span className="label">Location:</span>
+                                            <span className="value location-text">
+                                                {roommate.country && roommate.state 
+                                                    ? `${roommate.country}, ${roommate.state}`
+                                                    : "Not specified"}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="preferences">
+                                        <div className="preference-icons">
+                                            {roommate.smoker && (
+                                                <div className="preference-item" title={`Smoking: ${roommate.smoker === "1" ? "Smoker" : "Non-smoker"}`}>
+                                                    {React.createElement(ICONS.getSmokingIcon(roommate.smoker), { className: "preference-icon" })}
+                                                </div>
+                                            )}
+                                            {roommate.food && (
+                                                <div className="preference-item" title={`Food: ${roommate.food === "1" ? "Non-vegetarian" : "Vegetarian"}`}>
+                                                    {React.createElement(ICONS.getFoodIcon(roommate.food), { className: "preference-icon" })}
+                                                </div>
+                                            )}
+                                            {roommate.drinker && (
+                                                <div className="preference-item" title={`Drinking: ${roommate.drinker === "1" ? "Drinker" : "Non-drinker"}`}>
+                                                    {React.createElement(ICONS.getDrinkingIcon(roommate.drinker), { className: "preference-icon" })}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="card-actions">
+                                        <button 
+                                            className="view-profile-button"
+                                            onClick={() => handleViewProfile(roommate)}
+                                        >
+                                            View Profile
+                                        </button>
+                                        <button 
+                                            className="connect-button"
+                                            onClick={() => handleConnect(roommate.email)}
+                                        >
+                                            <ICONS.FaEnvelope className="icon" /> Connect
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                <RoommateProfileModal
+                    show={showModal}
+                    onHide={handleCloseModal}
+                    roommate={selectedRoommate}
+                    profilePics={profilePics}
+                    roommates={roommates}
+                    onConnect={handleConnect}
+                />
             </div>
         </div>
-  )
+        </>
+    );
 };
 
-export default RoommateFinder
+export default RoommateFinder;

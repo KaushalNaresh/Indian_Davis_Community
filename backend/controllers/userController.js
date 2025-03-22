@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const stringConstants = require("../StringConstants.json")
 
-exports.details = async (req, res) => {
+const details = async (req, res) => {
     try {
         // console.log(req.query)
         const {toDate, fromDate, major, degree, country, region, foodPreference, gender, smoker, drinker} = req.body;
@@ -76,7 +76,7 @@ exports.details = async (req, res) => {
     }
 };
 
-exports.updateDetails = async (req, res) => {
+const updateDetails = async (req, res) => {
     try{
         const updatedUserBody = req.body;
         const email = updatedUserBody.email;
@@ -93,22 +93,50 @@ exports.updateDetails = async (req, res) => {
     }
 };
 
-
-exports.getTopMatches = async (req, res) => {
+const getTopMatches = async (req, res) => {
     try {
-      // For now, just find up to 6 users who are lookingForRoommate === '1'
-      // Sort or limit in any naive way you want
+        const currentUserId = req.user._id;
 
-      const {email} = req.query;
+        // Find users who are looking for roommates, excluding the current user
+        const potentialRoommates = await User.find({
+            _id: { $ne: currentUserId },
+            lookingForRoommate: "1"  // Changed to string "1" as per schema
+        })
+        .select('firstName lastName email major degree country region smoker drinker foodPreference socialMediaAccounts aboutYou')
+        .limit(6);
 
-      const topUsers = await User.find({ 'email': { $ne: email }, lookingForRoommate: '1' }).limit(6);
-      if (!topUsers || topUsers.length === 0) {
-        return res.json({ message: 'No users found', data: [] });
-      }
-  
-      return res.json({ message: 'OK', data: topUsers });
+        // Transform the data to match frontend expectations
+        const transformedRoommates = potentialRoommates.map(user => ({
+            _id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            major: user.major,
+            degree: user.degree,
+            country: user.country,
+            state: user.region, // Using region as state
+            smoker: user.smoker,
+            food: user.foodPreference,
+            drinker: user.drinker,
+            aboutYou: user.aboutYou,
+            socialMediaAccounts: user.socialMediaAccounts || []
+        }));
+
+        res.json({
+            success: true,
+            data: transformedRoommates
+        });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: 'Internal server error' });
+        console.error('Error in getTopMatches:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching potential roommates'
+        });
     }
-  };
+};
+
+module.exports = {
+    details,
+    updateDetails,
+    getTopMatches
+};

@@ -173,8 +173,9 @@ function Profile() {
                                 <Form.Label>Major (Optional)</Form.Label>
                                 <Form.Select value={user.major || ''} onChange={handleMajorChange}>
                                     <option value="">No Selection</option>
-                                    <option value="cs">Computer Science</option>
-                                    <option value="eec">Electrical Engineering</option>
+                                    {Object.entries(Constants.majorMapping).map(([key, value]) => (
+                                        <option key={key} value={key.toLowerCase()}>{value}</option>
+                                    ))}
                                 </Form.Select>
                             </Form.Group>
 
@@ -182,9 +183,9 @@ function Profile() {
                                 <Form.Label>Degree (Optional)</Form.Label>
                                 <Form.Select value={user.degree || ''} onChange={handleDegreeChange}>
                                     <option value="">No Selection</option>
-                                    <option value="bs">Bachelor's</option>
-                                    <option value="ms">Master's</option>
-                                    <option value="phd">PhD</option>
+                                    {Object.entries(Constants.degreeMapping).map(([key, value]) => (
+                                        <option key={key} value={key.toLowerCase()}>{value}</option>
+                                    ))}
                                 </Form.Select>
                             </Form.Group>
                         </Row>
@@ -470,7 +471,7 @@ function Profile() {
                                 placeholder="Tell us more about yourself"
                             />
                             {charLimitReached && (
-                                <div className="char-limit-msg">You’ve reached the 200‐character limit!</div>
+                                <div className="char-limit-msg">You've reached the 200-character limit!</div>
                             )}
                         </Form.Group>
                     </div>

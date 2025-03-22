@@ -1,26 +1,25 @@
-import SmokingRoomsIcon from '@mui/icons-material/SmokingRooms';
-import SmokeFreeIcon from '@mui/icons-material/SmokeFree';
-import MaleIcon from '@mui/icons-material/Male';
-import FemaleIcon from '@mui/icons-material/Female';
-import LocalBarIcon from '@mui/icons-material/LocalBar';
-import NoDrinksIcon from '@mui/icons-material/NoDrinks';
-import { GiChickenLeg, GiThreeLeaves } from "react-icons/gi";
-import { FaFacebook, FaInstagram, FaLinkedin, FaSnapchatGhost, FaXbox } from 'react-icons/fa';
+import { FaSmoking, FaSmokingBan, FaUtensils, FaGlassCheers, FaEnvelope, FaFacebook, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { GiChickenLeg, GiThreeLeaves } from 'react-icons/gi';
 
 const ICONS = {
-  SmokingRoomsIcon,
-  SmokeFreeIcon,
-  MaleIcon,
-  FemaleIcon,
-  LocalBarIcon,
-  NoDrinksIcon,
-  GiChickenLeg,
-  GiThreeLeaves,
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaSnapchatGhost,
-  FaXbox
+    // Social Media Icons
+    FaFacebook,
+    FaLinkedin,
+    FaInstagram,
+    FaEnvelope,
+
+    // Preference Icons
+    SmokingIcon: FaSmoking,
+    NoSmokingIcon: FaSmokingBan,
+    NonVegIcon: GiChickenLeg,
+    VegIcon: GiThreeLeaves,
+    DrinkingIcon: FaGlassCheers,
+    NoDrinkingIcon: FaGlassCheers, // We can add a different icon for non-drinking if needed
+
+    // Helper functions for preference icons
+    getSmokingIcon: (isSmoker) => isSmoker === "1" ? FaSmoking : FaSmokingBan,
+    getFoodIcon: (isNonVeg) => isNonVeg === "1" ? GiChickenLeg : GiThreeLeaves,
+    getDrinkingIcon: (isDrinker) => FaGlassCheers, // We can add a different icon for non-drinking if needed
 };
 
 export default ICONS;
