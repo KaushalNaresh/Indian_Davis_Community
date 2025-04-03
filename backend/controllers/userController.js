@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const Like = require('../models/like');
 const stringConstants = require("../StringConstants.json")
 const { sortByMatchScore } = require('../services/scoringService');
 
@@ -154,8 +155,116 @@ const getTopMatches = async (req, res) => {
     }
 };
 
+const likeUser = async (req, res) => {
+    try {
+        const currentUserId = req.user.userId;
+        const { likedUserId } = req.body;
+
+        // Check if like already exists
+        const existingLike = await Like.findOne({
+            userId: currentUserId,
+            likedUserId: likedUserId
+        });
+
+        if (existingLike) {
+            return res.status(400).json({
+                success: false,
+                message: 'Already liked this user'
+            });
+        }
+
+        // Create new like
+        const like = new Like({
+            userId: currentUserId,
+            likedUserId: likedUserId
+        });
+
+        await like.save();
+
+        res.json({
+            success: true,
+            message: 'User liked successfully'
+        });
+    } catch (error) {
+        console.error('Error in likeUser:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error liking user'
+        });
+    }
+};
+
+const unlikeUser = async (req, res) => {
+    try {
+        const currentUserId = req.user.userId;
+        const { likedUserId } = req.body;
+
+        const result = await Like.findOneAndDelete({
+            userId: currentUserId,
+            likedUserId: likedUserId
+        });
+
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: 'Like not found'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'User unliked successfully'
+        });
+    } catch (error) {
+        console.error('Error in unlikeUser:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error unliking user'
+        });
+    }
+};
+
+const getLikedUsers = async (req, res) => {
+    try {
+        const currentUserId = req.user.userId;
+
+        const likes = await Like.find({ userId: currentUserId })
+            .populate('likedUserId', 'firstName lastName email major degree country region smoker drinker foodPreference socialMediaAccounts aboutYou');
+
+        const likedUsers = likes.map(like => ({
+            _id: like.likedUserId._id,
+            firstName: like.likedUserId.firstName,
+            lastName: like.likedUserId.lastName,
+            email: like.likedUserId.email,
+            major: like.likedUserId.major,
+            degree: like.likedUserId.degree,
+            country: like.likedUserId.country,
+            state: like.likedUserId.region,
+            smoker: like.likedUserId.smoker,
+            food: like.likedUserId.foodPreference,
+            drinker: like.likedUserId.drinker,
+            aboutYou: like.likedUserId.aboutYou,
+            socialMediaAccounts: like.likedUserId.socialMediaAccounts || []
+        }));
+
+        res.json({
+            success: true,
+            data: likedUsers
+        });
+    } catch (error) {
+        console.error('Error in getLikedUsers:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching liked users'
+        });
+    }
+};
+
 module.exports = {
     details,
     updateDetails,
-    getTopMatches
+    getTopMatches,
+    likeUser,
+    unlikeUser,
+    getLikedUsers
 };
