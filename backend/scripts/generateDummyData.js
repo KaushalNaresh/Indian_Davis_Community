@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const Like = require('../models/like');
 const bcrypt = require('bcryptjs');
 
 // Connect to MongoDB
@@ -19,6 +20,7 @@ const generateDummyUsers = async () => {
     try {
         // Clear existing users except admin
         await User.deleteMany({ email: { $ne: 'admin@ucdavis.edu' } });
+        await Like.deleteMany({});
 
         const dummyUsers = [];
         const numUsers = 20;

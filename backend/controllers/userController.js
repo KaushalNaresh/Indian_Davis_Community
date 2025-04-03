@@ -158,104 +158,85 @@ const getTopMatches = async (req, res) => {
 const likeUser = async (req, res) => {
     try {
         const currentUserId = req.user.userId;
-        const { likedUserId } = req.body;
+        const { likedUserId, status } = req.body;
 
-        // Check if like already exists
-        const existingLike = await Like.findOne({
+        // Check if interaction already exists
+        const existingInteraction = await Like.findOne({
             userId: currentUserId,
             likedUserId: likedUserId
         });
 
-        if (existingLike) {
-            return res.status(400).json({
-                success: false,
-                message: 'Already liked this user'
+        if (existingInteraction) {
+            // If same status, remove the interaction
+            if (existingInteraction.status === status) {
+                await Like.findOneAndDelete({
+                    userId: currentUserId,
+                    likedUserId: likedUserId
+                });
+                return res.json({
+                    success: true,
+                    message: 'Interaction removed'
+                });
+            }
+            // If different status, update it
+            existingInteraction.status = status;
+            await existingInteraction.save();
+        } else {
+            // Create new interaction
+            const interaction = new Like({
+                userId: currentUserId,
+                likedUserId: likedUserId,
+                status: status
             });
+            await interaction.save();
         }
-
-        // Create new like
-        const like = new Like({
-            userId: currentUserId,
-            likedUserId: likedUserId
-        });
-
-        await like.save();
 
         res.json({
             success: true,
-            message: 'User liked successfully'
+            message: `User ${status}d successfully`
         });
     } catch (error) {
         console.error('Error in likeUser:', error);
         res.status(500).json({
             success: false,
-            message: 'Error liking user'
+            message: 'Error processing interaction'
         });
     }
 };
 
-const unlikeUser = async (req, res) => {
-    try {
-        const currentUserId = req.user.userId;
-        const { likedUserId } = req.body;
-
-        const result = await Like.findOneAndDelete({
-            userId: currentUserId,
-            likedUserId: likedUserId
-        });
-
-        if (!result) {
-            return res.status(404).json({
-                success: false,
-                message: 'Like not found'
-            });
-        }
-
-        res.json({
-            success: true,
-            message: 'User unliked successfully'
-        });
-    } catch (error) {
-        console.error('Error in unlikeUser:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error unliking user'
-        });
-    }
-};
-
-const getLikedUsers = async (req, res) => {
+const getUserInteractions = async (req, res) => {
     try {
         const currentUserId = req.user.userId;
 
-        const likes = await Like.find({ userId: currentUserId })
+        const interactions = await Like.find({ userId: currentUserId })
             .populate('likedUserId', 'firstName lastName email major degree country region smoker drinker foodPreference socialMediaAccounts aboutYou');
 
-        const likedUsers = likes.map(like => ({
-            _id: like.likedUserId._id,
-            firstName: like.likedUserId.firstName,
-            lastName: like.likedUserId.lastName,
-            email: like.likedUserId.email,
-            major: like.likedUserId.major,
-            degree: like.likedUserId.degree,
-            country: like.likedUserId.country,
-            state: like.likedUserId.region,
-            smoker: like.likedUserId.smoker,
-            food: like.likedUserId.foodPreference,
-            drinker: like.likedUserId.drinker,
-            aboutYou: like.likedUserId.aboutYou,
-            socialMediaAccounts: like.likedUserId.socialMediaAccounts || []
+        const userInteractions = interactions.map(interaction => ({
+            _id: interaction.likedUserId._id,
+            firstName: interaction.likedUserId.firstName,
+            lastName: interaction.likedUserId.lastName,
+            email: interaction.likedUserId.email,
+            major: interaction.likedUserId.major,
+            degree: interaction.likedUserId.degree,
+            country: interaction.likedUserId.country,
+            state: interaction.likedUserId.region,
+            smoker: interaction.likedUserId.smoker,
+            food: interaction.likedUserId.foodPreference,
+            drinker: interaction.likedUserId.drinker,
+            aboutYou: interaction.likedUserId.aboutYou,
+            socialMediaAccounts: interaction.likedUserId.socialMediaAccounts || [],
+            status: interaction.status
         }));
 
         res.json({
             success: true,
-            data: likedUsers
+            data: userInteractions
         });
     } catch (error) {
-        console.error('Error in getLikedUsers:', error);
+        console.error('Error in getUserInteractions:', error);
         res.status(500).json({
             success: false,
-            message: 'Error fetching liked users'
+            message: 'Error fetching user interactions'
         });
     }
 };
@@ -265,6 +246,5 @@ module.exports = {
     updateDetails,
     getTopMatches,
     likeUser,
-    unlikeUser,
-    getLikedUsers
+    getUserInteractions
 };

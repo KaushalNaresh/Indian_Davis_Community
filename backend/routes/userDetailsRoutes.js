@@ -9,8 +9,7 @@ const auth = require('../middleware/authenticateToken');
 router.get('/details', auth, userController.details);
 router.post('/details', auth, userController.updateDetails);
 router.get('/top6', auth, userController.getTopMatches);
-router.post('/like', auth, userController.likeUser);
-router.post('/unlike', auth, userController.unlikeUser);
-router.get('/liked-users', auth, userController.getLikedUsers);
+router.post('/interact', auth, userController.likeUser);
+router.get('/interactions', auth, userController.getUserInteractions);
 
 module.exports = router;
