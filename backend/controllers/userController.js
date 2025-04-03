@@ -115,10 +115,14 @@ const getTopMatches = async (req, res) => {
         // If limit is provided, use it in the query
         const potentialRoommates = await User.find(query)
             .select('firstName lastName email major degree country region smoker drinker foodPreference socialMediaAccounts aboutYou')
-            .limit(limit || 0); // If no limit, fetch all (0 means no limit in MongoDB)
+            // .limit(limit || 0); // If no limit, fetch all (0 means no limit in MongoDB)
 
         // Sort by match score
-        const sortedRoommates = sortByMatchScore(currentUser, potentialRoommates);
+        let sortedRoommates = sortByMatchScore(currentUser, potentialRoommates);
+
+        if (limit) {
+            sortedRoommates = sortedRoommates.slice(0, limit);
+        }
 
         // Transform the data to match frontend expectations
         const transformedRoommates = sortedRoommates.map(roommate => {
