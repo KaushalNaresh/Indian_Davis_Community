@@ -5,7 +5,6 @@ const { sortByMatchScore } = require('../services/scoringService');
 
 const details = async (req, res) => {
     try {
-        // console.log(req.query)
         const {toDate, fromDate, major, degree, country, region, foodPreference, gender, smoker, drinker} = req.body;
         const {email, prevPageNumber, currPageId, currPageNumber} = req.query;
         const logged_user = req.user.email;
@@ -13,6 +12,9 @@ const details = async (req, res) => {
         const query = {};
         let users = {};
         let totalPages = 0;
+
+        // Add lookingForRoommate filter
+        query.lookingForRoommate = "1";
 
         if(email) query.email = email;
         if(toDate) query.toDate = {$lte: new Date(toDate)};
@@ -39,14 +41,11 @@ const details = async (req, res) => {
 
         if (prevPageNumber != -1 && currPageNumber < prevPageNumber) {
             queryObj['_id'] = { $lt: currPageId };
-
             users = await User.find(queryObj)
                   .sort({'_id': -1})
                   .skip((prevPageNumber-currPageNumber-1)*stringConstants['roommates'])
                   .limit(stringConstants['roommates']);
-
             users = users.reverse();
-
         }
         else if (prevPageNumber != -1 && currPageNumber > prevPageNumber) {
             queryObj['_id'] = { $gte: currPageId };
@@ -55,7 +54,7 @@ const details = async (req, res) => {
                   .skip(((currPageNumber-prevPageNumber)*stringConstants['roommates']))
                   .limit(stringConstants['roommates']);
         }
-        else{
+        else {
             users = await User.find(queryObj)
                   .sort({'_id': 1})
                   .limit(stringConstants['roommates']);
@@ -72,14 +71,14 @@ const details = async (req, res) => {
         const sortedUsers = sortByMatchScore(currentUser, users);
 
         res.json({
-                    message: 'OK',
-                    users: sortedUsers,
-                    totalPages: totalPages,
-                    currPageId: sortedUsers[0]["_id"]
-        })
+            message: 'OK',
+            users: sortedUsers,
+            totalPages: totalPages,
+            currPageId: sortedUsers[0]["_id"]
+        });
 
-        } catch (error) {
-            res.status(404).send({message: error.message});
+    } catch (error) {
+        res.status(404).send({message: error.message});
     }
 };
 
@@ -102,16 +101,20 @@ const updateDetails = async (req, res) => {
 
 const getTopMatches = async (req, res) => {
     try {
-        const currentUserEmail = req.user.email;
-        const currentUser = await User.findOne({ email: currentUserEmail });
+        const currentUserId = req.user.userId;
+        const currentUser = await User.findById(currentUserId);
+        const limit = req.query.limit ? parseInt(req.query.limit) : null;
 
         // Find users who are looking for roommates, excluding the current user
-        const potentialRoommates = await User.find({
-            email: { $ne: currentUserEmail },
+        const query = {
+            _id: { $ne: currentUserId },
             lookingForRoommate: "1"
-        })
-        .select('firstName lastName email major degree country region smoker drinker foodPreference socialMediaAccounts aboutYou')
-        .limit(6);
+        };
+
+        // If limit is provided, use it in the query
+        const potentialRoommates = await User.find(query)
+            .select('firstName lastName email major degree country region smoker drinker foodPreference socialMediaAccounts aboutYou')
+            .limit(limit || 0); // If no limit, fetch all (0 means no limit in MongoDB)
 
         // Sort by match score
         const sortedRoommates = sortByMatchScore(currentUser, potentialRoommates);
